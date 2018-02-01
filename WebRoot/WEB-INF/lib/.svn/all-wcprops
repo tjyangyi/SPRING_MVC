@@ -1,0 +1,299 @@
+K 25
+svn:wc:ra_dav:version-url
+V 215
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib
+END
+spring-security-config-4.0.0.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 256
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-security-config-4.0.0.RELEASE.jar
+END
+jboss-logging-3.1.1.GA.jar
+K 25
+svn:wc:ra_dav:version-url
+V 242
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/jboss-logging-3.1.1.GA.jar
+END
+spring-orm-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 244
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-orm-4.1.6.RELEASE.jar
+END
+hibernate-core-4.3.6.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 246
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/hibernate-core-4.3.6.Final.jar
+END
+spring-context-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 248
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-context-4.1.6.RELEASE.jar
+END
+spring-context-support-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 256
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-context-support-4.1.6.RELEASE.jar
+END
+hibernate-commons-annotations-4.0.5.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 261
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/hibernate-commons-annotations-4.0.5.Final.jar
+END
+commons-digester-2.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 240
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/commons-digester-2.0.jar
+END
+javassist-3.18.1-GA.jar
+K 25
+svn:wc:ra_dav:version-url
+V 239
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/javassist-3.18.1-GA.jar
+END
+commons-collections-3.2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 245
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/commons-collections-3.2.1.jar
+END
+aopalliance-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 235
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/aopalliance-1.0.jar
+END
+fastjson-1.1.41.jar
+K 25
+svn:wc:ra_dav:version-url
+V 235
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/fastjson-1.1.41.jar
+END
+hibernate-ehcache-4.3.6.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 249
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/hibernate-ehcache-4.3.6.Final.jar
+END
+commons-lang-2.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 236
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/commons-lang-2.6.jar
+END
+spring-security-acl-4.0.0.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 253
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-security-acl-4.0.0.RELEASE.jar
+END
+commons-logging-1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 239
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/commons-logging-1.2.jar
+END
+c3p0-0.9.1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 232
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/c3p0-0.9.1.2.jar
+END
+ehcache-core-2.6.9.jar
+K 25
+svn:wc:ra_dav:version-url
+V 238
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/ehcache-core-2.6.9.jar
+END
+slf4j-api-1.7.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 235
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/slf4j-api-1.7.6.jar
+END
+hibernate-jpa-2.1-api-1.0.0.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 253
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar
+END
+slf4j-log4j12-1.7.6.jar
+K 25
+svn:wc:ra_dav:version-url
+V 239
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/slf4j-log4j12-1.7.6.jar
+END
+spring-jdbc-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 245
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-jdbc-4.1.6.RELEASE.jar
+END
+dom4j-1.6.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 231
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/dom4j-1.6.1.jar
+END
+com.springsource.org.apache.velocity-1.6.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 262
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/com.springsource.org.apache.velocity-1.6.1.jar
+END
+spring-security-web-4.0.0.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 253
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-security-web-4.0.0.RELEASE.jar
+END
+spring-aop-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 244
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-aop-4.1.6.RELEASE.jar
+END
+spring-beans-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 246
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-beans-4.1.6.RELEASE.jar
+END
+hibernate-validator-5.0.3.Final.jar
+K 25
+svn:wc:ra_dav:version-url
+V 251
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/hibernate-validator-5.0.3.Final.jar
+END
+spring-tx-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 243
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-tx-4.1.6.RELEASE.jar
+END
+spring-messaging-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 250
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-messaging-4.1.6.RELEASE.jar
+END
+spring-security-core-4.0.0.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 254
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-security-core-4.0.0.RELEASE.jar
+END
+spring-webmvc-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 247
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-webmvc-4.1.6.RELEASE.jar
+END
+log4j-1.2.16.jar
+K 25
+svn:wc:ra_dav:version-url
+V 232
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/log4j-1.2.16.jar
+END
+log4j-api-2.0.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 235
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/log4j-api-2.0.2.jar
+END
+com.springsource.org.apache.velocity-tools-1.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 266
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/com.springsource.org.apache.velocity-tools-1.4.jar
+END
+aspectjweaver-1.5.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 239
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/aspectjweaver-1.5.3.jar
+END
+spring-websocket-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 250
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-websocket-4.1.6.RELEASE.jar
+END
+spring-jms-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 244
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-jms-4.1.6.RELEASE.jar
+END
+com.oracle.jdbc.ojdbc5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 242
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/com.oracle.jdbc.ojdbc5.jar
+END
+log4j-core-2.0.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 236
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/log4j-core-2.0.2.jar
+END
+jta-1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 227
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/jta-1.1.jar
+END
+spring-security-taglibs-4.0.0.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 257
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-security-taglibs-4.0.0.RELEASE.jar
+END
+spring-web-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 244
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-web-4.1.6.RELEASE.jar
+END
+spring-expression-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 251
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-expression-4.1.6.RELEASE.jar
+END
+spring-aspects-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 248
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-aspects-4.1.6.RELEASE.jar
+END
+spring-core-4.1.6.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 245
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-core-4.1.6.RELEASE.jar
+END
+commons-beanutils-1.7.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 243
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/commons-beanutils-1.7.0.jar
+END
+aspectjrt-1.6.10.jar
+K 25
+svn:wc:ra_dav:version-url
+V 236
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/aspectjrt-1.6.10.jar
+END
+spring-security-crypto-4.0.0.RELEASE.jar
+K 25
+svn:wc:ra_dav:version-url
+V 256
+/svn/RD/!svn/ver/53596/01%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98/0101%E5%90%88%E6%88%90%E4%BD%9C%E6%88%98%E5%B9%B3%E5%8F%B0/SRC/WEB/%E5%B7%A5%E7%A8%8B/%E6%B2%B3%E5%8D%97%E7%9C%81%E5%8E%85/SPRING_MVC/WebRoot/WEB-INF/lib/spring-security-crypto-4.0.0.RELEASE.jar
+END

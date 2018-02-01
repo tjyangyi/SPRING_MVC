@@ -1,0 +1,6 @@
+oracle.ip=10.1.111.135
+oracle.port=1521
+connection.driver_class=oracle.jdbc.driver.OracleDriver
+connection.url=jdbc:oracle:thin:@${oracle.ip}:${oracle.port}:MEDB
+connection.username=psopuser
+connection.password=123456

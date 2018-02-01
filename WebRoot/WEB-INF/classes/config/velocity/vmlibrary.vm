@@ -1,0 +1,336 @@
+#macro(fhzSocket $flashName $serverPort)
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" 
+   codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" 
+   width="0" height="0" id="$!flashName" align="middle">
+    <param name="allowScriptAccess" value="sameDomain" />
+    <param name="movie" value="$!ctx/resource/flash/FhzSocket.swf?userId=$!sessionId&ip=$!request.localAddr&port=$serverPort" />
+    <param name="quality" value="high" />
+    <param name="bgcolor" value="#ffffff" />
+    <embed src="$!ctx/resource/flash/FhzSocket.swf?userId=$!sessionId&ip=$!request.localAddr&port=$serverPort" quality="high" bgcolor="#ffffff" width="0" 
+       height="0" name="$!flashName" align="middle" allowScriptAccess="sameDomain" 
+       type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+   </object>
+#end
+   
+#macro(pageComponent $whichPage)
+  	<div class="page_switching" id="pageDiv">
+	<div class="frame_line"></div>
+	    <div class="page_swc_box">
+	        <table id="pageTable" width="100%" border="0" cellspacing="0" cellpadding="0">
+	          <tr>
+	            <td width="5"></td>
+	            <td width="50">
+	              <select name="select" id="pageSize" class="pagination-page-list" style="width:50px;" onchange="pageSizeChanged('$!whichPage')">
+	                <option value="10"
+	                  	#if($!request.getParameter('pageSize') eq "10")
+						    selected
+						#end
+	                  >10</option>
+	                  <option value="30"
+	                  	#if($!request.getParameter('pageSize') eq "30")
+						    selected
+						#end
+	                  >30</option>
+	                  <option value="50"
+	                  	#if($!request.getParameter('pageSize') eq "50")
+						    selected
+						#end
+	                  >50</option>
+					  <option value="100"
+	                  	#if($!request.getParameter('pageSize') eq "100")
+						    selected
+						#end
+	                  >100</option>
+	              </select>
+	            </td>
+	            <td width="10"><span class="pagination-btn-separator"></span></td>
+	            <td width="50"><a id="prevpage" href="javascript:void(-1);" onclick="javascript:clickPrevPage('$!whichPage');">上一页</a></td>
+	            <td width="10"><span class="pagination-btn-separator"></span></td>
+	            <td width="50"><a id="nextpage" href="javascript:void(-1);" onclick="javascript:clickNextPage('$!whichPage');">下一页</a></td>
+	            <td width="10"><span class="pagination-btn-separator"></span></td>
+	            <td width="50" align="right" valign="middle">&nbsp;当前页&nbsp;</td>
+	            
+				<td width="30"><input type="text" title="" id="pageIndexText" class="pagination-num" style="width:30px;" value="1" 
+	            	onkeyup="javascript:this.value=this.value.replace(/[^\d]/g,'');
+	            		if($('#pageIndexText').val().charAt(0) == 0)
+	            			$('#pageIndexText').val($('#pageIndexText').val().substr(1,$('#pageIndexText').val().length));
+	            		$('#pageIndexText').attr('title',$('#pageIndexText').val());" 
+	            	onfocus="javascript:$('#pageIndexText').val('');$('#pageIndexText').attr('title','');" 
+	            	onblur="javascript:if(!$('#pageIndexText').val()){$('#pageIndexText').val($('#pageIndex').val())};$('#pageIndexText').attr('title',$('#pageIndexText').val());" 
+	            	onkeypress="javascript:if(event.keyCode == 13){gotoPage('$!whichPage')}"/>
+	            </td>
+
+	            <td width="50" align="left" valign="middle"> &nbsp;<a id="gotopage" href="javascript:void(-1);" onclick="javascript:gotoPage('$!whichPage');">跳转</a></td>
+	            <td id="td_blank"><a href="javascript:void(-1);"></a></td>
+	            <td width="350" align="right" valign="middle"><p id="p_total" style="display:none;">总记录数 : <span id="totalPage" width="200">0</span> 条 总页数 : <span id="totalCount" width="200">0</span> 页</p></td>
+            	<td width="80" align="right" valign="middle"><a id="count" href="javascript:void(-1);" style="font-weight:bold;" onclick="javascript:countDatas('$!whichPage');">点击统计&nbsp;</a>&nbsp;</td>
+	          </tr>
+	        </table>
+	    </div>
+	</div>
+	
+	<script>
+		window.onload=function(){
+			$("#td_blank").css("width",$("#pageTable").width()-615);
+		}
+		
+		window.onresize=function(){
+			$("#td_blank").css("width",$("#pageTable").width()-615);
+		}
+	
+		//每页显示的条数发生变化
+		function pageSizeChanged(whichPage) {
+			if(!$("#p_total").find('img')[0]){
+				$("#p_total").css("display","none");
+			}
+			// 画面的起始页初始化到第一页(从0开始算)
+			var pageIndex = 0;
+			// 画面每页显示的条数
+			var pageSize = $("#pageSize").val();
+			
+			// 检索部的参数字符串
+			var pageParam = "&pageIndex=" + pageIndex + "&pageSize=" + pageSize;
+			if(whichPage === 'passCarQuery'){
+				queryPassCar('',pageParam);
+			}else if(whichPage === 'whitelistPassCarQuery'){
+				querywhitePassCar('',pageParam);
+			}else if(whichPage === 'noLicenseCarQuery'){
+				queryNoLicenseCar('',pageParam);
+			}else if(whichPage === 'exceptionLicenceCarQuery'){
+				queryNoLicenseCar('exception',pageParam);
+			}else if(whichPage === 'carTrackQuery'){
+				queryCarTrack('',pageParam);
+			}else if(whichPage === 'firstAppear'){
+				queryFirstJudge('',pageParam);
+			}else if(whichPage === 'busyAppear'){
+				queryBusyJudge('',pageParam);
+			}else if(whichPage === 'detailBusyAppear'){
+				queryDetailBusyJudge('',$("#hphm_detail").val(),pageParam);
+			}else if(whichPage === 'dangKkAppear'){
+				queryDangKkJudge('',pageParam);
+			}else if(whichPage === 'wzxwKkAppear'){
+				queryWzxwKkJudge('',pageParam);
+			}else if(whichPage === 'F11'){
+				queryPassCar(whichPage,pageParam);
+			}else if(whichPage == 'otherPlacePassCarQuery'){
+			   queryOtherPassCar('',pageParam);
+			}
+		}
+		
+		//上一页按钮按下
+		function clickPrevPage(whichPage) {
+			if(!$("#p_total").find('img')[0]){
+				$("#p_total").css("display","none");
+			}
+			// 画面的起始页(当前页减一页:(从0开始算))
+			var pageIndex = $("#pageIndex").val();
+			// 画面每页显示的条数
+			var pageSize = $("#pageSize").val();
+			
+			// 输入的起始页是否合法
+			if(pageIndex < 1) {
+				return;
+			} else {
+				//	当前输入的已经为第一页了，直接检索第一页
+				if(pageIndex == 1) {
+					return;
+				} else {
+					// 起始页为下标减1
+					pageIndex = parseInt(pageIndex) - 2;
+				}
+			}
+			// 检索部的参数字符串
+			var pageParam = "&pageIndex=" + pageIndex + "&pageSize=" + pageSize;
+			if(whichPage === 'passCarQuery'){
+				queryPassCar('',pageParam);
+			}else if(whichPage === 'whitelistPassCarQuery'){
+				querywhitePassCar('',pageParam);
+			}else if(whichPage === 'noLicenseCarQuery'){
+				queryNoLicenseCar('',pageParam);
+			}else if(whichPage === 'exceptionLicenceCarQuery'){
+				queryNoLicenseCar('exception',pageParam);
+			}else if(whichPage === 'carTrackQuery'){
+				queryCarTrack('',pageParam);
+			}else if(whichPage === 'firstAppear'){
+				queryFirstJudge('',pageParam);
+			}else if(whichPage === 'busyAppear'){
+				queryBusyJudge('',pageParam);
+			}else if(whichPage === 'detailBusyAppear'){
+				queryDetailBusyJudge('',$("#hphm_detail").val(),pageParam);
+			}else if(whichPage === 'dangKkAppear'){
+				queryDangKkJudge('',pageParam);
+			}else if(whichPage === 'wzxwKkAppear'){
+				queryWzxwKkJudge('',pageParam);
+			}else if(whichPage === 'F11'){
+				queryPassCar(whichPage,pageParam);
+			}else if(whichPage == 'otherPlacePassCarQuery'){
+			    queryOtherPassCar('',pageParam);
+			}
+		}
+		
+		//下一页按钮按下
+		function clickNextPage(whichPage) {
+		
+			if(total==0){
+				return;
+			}
+		
+			if(!$("#p_total").find('img')[0]){
+				$("#p_total").css("display","none");
+			}
+			// 画面的起始页(当前页加一页:(从0开始算))
+			var pageIndex = $("#pageIndex").val();
+			// 画面每页显示的条数
+			var pageSize = $("#pageSize").val();
+			
+			// 检索部的参数字符串
+			var pageParam = "&pageIndex=" + pageIndex + "&pageSize=" + pageSize;
+			if(whichPage === 'passCarQuery'){
+				queryPassCar('',pageParam);
+			}else if(whichPage === 'whitelistPassCarQuery'){
+				querywhitePassCar('',pageParam);
+			}else if(whichPage === 'noLicenseCarQuery'){
+				queryNoLicenseCar('',pageParam);
+			}else if(whichPage === 'exceptionLicenceCarQuery'){
+				queryNoLicenseCar('exception',pageParam);
+			}else if(whichPage === 'carTrackQuery'){
+				queryCarTrack('',pageParam);
+			}else if(whichPage === 'firstAppear'){
+				queryFirstJudge('',pageParam);
+			}else if(whichPage === 'busyAppear'){
+				queryBusyJudge('',pageParam);
+			}else if(whichPage === 'detailBusyAppear'){
+				queryDetailBusyJudge('',$("#hphm_detail").val(),pageParam);
+			}else if(whichPage === 'dangKkAppear'){
+				queryDangKkJudge('',pageParam);
+			}else if(whichPage === 'wzxwKkAppear'){
+				queryWzxwKkJudge('',pageParam);
+			}else if(whichPage === 'F11'){
+				queryPassCar(whichPage,pageParam);
+			}else if(whichPage === 'otherPlacePassCarQuery'){
+			    queryOtherPassCar('',pageParam);
+			}
+		}
+		
+		//验证当前页文本框输入信息
+		function gotoPage(whichPage){
+		
+			if(!jQuery('#pageIndexText').val() || jQuery('#pageIndexText').val()=='undefined'){
+				jQuery.dialog.alert('页码不能为空');
+				return;
+			}
+		
+			if(jQuery('#pageIndexText').val()>999999999){
+				jQuery.dialog.alert('页码输入不合理，请重新输入');
+				return;
+			}
+		
+			if(!$("#p_total").find('img')[0]){
+				$("#p_total").css("display","none");
+			}
+			// 画面的起始页(当前页加一页:(从0开始算))
+			var pageIndex = $('#pageIndexText').val();
+			// 画面每页显示的条数
+			var pageSize = $("#pageSize").val();
+			
+			pageIndex = parseInt(pageIndex) - 1;
+			
+			// 检索部的参数字符串
+			var pageParam = "&pageIndex=" + pageIndex + "&pageSize=" + pageSize;
+			
+			if(whichPage === 'passCarQuery'){
+				queryPassCar('',pageParam);
+			}else if(whichPage === 'whitelistPassCarQuery'){
+				querywhitePassCar('',pageParam);
+			}else if(whichPage === 'noLicenseCarQuery'){
+				queryNoLicenseCar('',pageParam);
+			}else if(whichPage === 'exceptionLicenceCarQuery'){
+				queryNoLicenseCar('exception',pageParam);
+			}else if(whichPage === 'carTrackQuery'){
+				queryCarTrack('',pageParam);
+			}else if(whichPage === 'firstAppear'){
+				queryFirstJudge('',pageParam);
+			}else if(whichPage === 'busyAppear'){
+				queryBusyJudge('',pageParam);
+			}else if(whichPage === 'detailBusyAppear'){
+				queryDetailBusyJudge('',$("#hphm_detail").val(),pageParam);
+			}else if(whichPage === 'dangKkAppear'){
+				queryDangKkJudge('',pageParam);
+			}else if(whichPage === 'wzxwKkAppear'){
+				queryWzxwKkJudge('',pageParam);
+			}else if(whichPage === 'F11'){
+				queryPassCar(whichPage,pageParam);
+			}else if(whichPage === 'otherPlacePassCarQuery'){
+			    queryOtherPassCar('',pageParam);
+			}
+		}
+		
+		//统计总记录数和总页数
+		var flag = 0;
+		function countDatas(whichPage){
+			$("#p_total").html("<img src='resource/images/exportExcel.gif' style='position:relative;top:3px'></img>");
+			$("#p_total").css("display","block");
+			$("#count").attr("onclick","javascript:void(-1);");
+			
+			var url = '';
+			var params = '';
+			if(whichPage === 'passCarQuery'){
+				params = queryPassCar('count','');
+				url = "passCarJson.do";
+			}else if(whichPage === 'whitelistPassCarQuery'){
+				params = querywhitePassCar('count','');
+				url = "whitelistPassCarDataJson.do";
+			}else if(whichPage === 'noLicenseCarQuery'){
+				params = queryNoLicenseCar('count','');
+				url = "noLicenseCarJson.do";
+			}else if(whichPage === 'exceptionLicenceCarQuery'){
+				params = queryNoLicenseCar('exceptionCount','');
+				url = "noLicenseCarJson.do";
+			}else if(whichPage === 'carTrackQuery'){
+				params = queryCarTrack('count','');
+				url = "carTrackJson.do";
+			}else if(whichPage === 'firstAppear'){
+				params = queryFirstJudge('count','');
+				url = "firstJudgeQuery.do";
+			}else if(whichPage === 'busyAppear'){
+				params = queryBusyJudge('count','');
+				url = "busyAppearQuery.do";
+			}else if(whichPage === 'detailBusyAppear'){
+				params = queryDetailBusyJudge('count',$("#hphm_detail").val(),'');
+				url = "detailBusyAppearQuery.do";
+			}else if(whichPage === 'dangKkAppear'){
+				params = queryDangKkJudge('count','');
+				url = "dangKkQuery.do";
+			}else if(whichPage === 'wzxwKkAppear'){
+				params = queryWzxwKkJudge('count','');
+				url = "wzxwKkQuery.do";
+			}else if(whichPage === 'F11'){
+				params = queryPassCar('count',whichPage);
+				url = "passCarJson.do";
+			}else if(whichPage === 'otherPlacePassCarQuery'){
+				params = queryOtherPassCar('count','');
+				url = "passCarJson.do";
+			}
+			jQuery.ajax( {
+				type : "POST",
+				url : url + params,
+				success : function(resobj) {
+					$("#count").attr("onclick","javascript:countDatas('"+whichPage+"');");
+					var obj = jQuery.parseJSON(resobj);
+					if($("#pageSize").val()>0){
+						var totalPage = parseInt(parseInt(obj.total)/parseInt($("#pageSize").val()));
+						if (parseInt(obj.total) % parseInt($("#pageSize").val()) > 0) {
+							totalPage = parseInt(totalPage) + 1;
+						}
+						$("#p_total").html("总记录数 : <span width='100'>"+parseInt(obj.total)+"</span> 条 总页数 : <span width='100'>"+totalPage+"</span> 页");
+					}else{
+						$("#p_total").html("总记录数 : <span width='100'>0</span> 条 总页数 : <span width='100'>0</span> 页");
+					}
+				},
+				error : function(resobj) {
+					jQuery.dialog.alert('统计过程中出现异常');
+				}
+			});
+		}
+	</script>
+#end
