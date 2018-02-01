@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+
+import com.fhzz.business.entity.UserInfo;
 
 /**
  * 
@@ -68,30 +71,30 @@ public class BaseAction {
 		out.close();
 	}
 
-//	/**
-//	 * 
-//	 * 从session里获取当前登录的用户
-//	 * 
-//	 * @param request
-//	 * @return
-//	 */
-//	public UserInfo getCurrentUser(HttpServletRequest request) {
-//		UserInfo user = new UserInfo();
-//		if ("127.0.0.1".equals(request.getRemoteAddr())) {
-//			user.setCustId("410483554096");
-//			user.setCustName("本地登录的测试用户");
-//			user.setOrgName("1");
-//			user.setIsLeader(2);
-//			user.setRealName("本地登录的测试用户");
-//			user.setOrgId("44335897692635728163");
-//		} else {
-//			try {
-//				user = (UserInfo) request.getSession().getAttribute("user");
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return user;
-//	}
+	/**
+	 * 
+	 * 从session里获取当前登录的用户
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public UserInfo getCurrentUser(HttpServletRequest request) {
+		UserInfo user = new UserInfo();
+		if ("127.0.0.1".equals(request.getRemoteAddr())) {
+			user.setCustId("410483554096");
+			user.setCustName("本地登录的测试用户");
+			user.setOrgName("1");
+			user.setIsLeader(2);
+			user.setRealName("本地登录的测试用户");
+			user.setOrgId("44335897692635728163");
+		} else {
+			try {
+				user = (UserInfo) request.getSession().getAttribute("user");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}
 
 }
