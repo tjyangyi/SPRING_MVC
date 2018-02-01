@@ -12,7 +12,7 @@
        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
 	<import resource="spring-config.xml" />
-	<import resource="spring-context.xml" />
-	<import resource="spring-template.xml" />
+	<import resource="spring-bean.xml" />
+	<import resource="spring-aop.xml" />
 
 </beans>

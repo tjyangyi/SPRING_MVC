@@ -1,0 +1,57 @@
+1、spring配置
+spring.xml spring配置的总入口 import其他的spring的xml
+spring-config.xml 配置文件引入
+spring-bean.xml bean文件组装，包括annotation的扫描和xml配置方式
+spring-aop.xml aop切面管理
+spring-mvc.xml springmvc配置
+
+2、SERVICE层有事务管理
+ACTION层主要做为数据解封、service层调用、数据封装返回等与业务无关的事情
+service层负责业务主体逻辑
+dao层只负责与数据库的交互
+代码整体3层考虑的时候，需要注意事务在service
+
+3、service层的方法命名规范参考：
+save update remove等拥有写的权限
+get query 和 其他没有遵循命名规范的只有读的权限
+
+<tx:method name="save*" propagation="REQUIRED" />
+<tx:method name="add*" propagation="REQUIRED" />
+<tx:method name="put*" propagation="REQUIRED" />
+<tx:method name="create*" propagation="REQUIRED" />
+<tx:method name="insert*" propagation="REQUIRED" />
+<tx:method name="update*" propagation="REQUIRED" />
+<tx:method name="sync*" propagation="REQUIRED" />
+<tx:method name="copy*" propagation="REQUIRED" />
+<tx:method name="merge*" propagation="REQUIRED" />
+<tx:method name="del*" propagation="REQUIRED" />
+<tx:method name="delete*" propagation="REQUIRED" />
+<tx:method name="remove*" propagation="REQUIRED" />
+<tx:method name="query*" propagation="REQUIRED" read-only="true" />
+<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+<tx:method name="count*" propagation="REQUIRED" read-only="true" />
+<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+<tx:method name="list*" propagation="REQUIRED" read-only="true" />
+<tx:method name="*" read-only="true" />
+
+4、日志
+使用Log logger = LogFactory.getLog(WelcomeAction.class);获得logger
+注意：Log和LogFacotry引入的是
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+使用
+logger.debug("debug");
+logger.info("info");
+logger.warn("warn");
+logger.error("error");
+输出相应级别的日志,级别顺序是debug info warn error
+在log4j.properties中可以修改log4j.logger.com.fhzz=DEBUG 输出日志的级别
+在web.xml中配置了
+<context-param>
+	<param-name>log4jRefreshInterval</param-name>
+	<param-value>10000</param-value>
+</context-param>
+每10秒回刷新一次log4j配置，修改日志级别不需要重启服务
+
+
+
