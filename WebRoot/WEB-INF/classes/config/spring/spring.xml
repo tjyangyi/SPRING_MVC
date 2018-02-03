@@ -14,5 +14,5 @@
 	<import resource="spring-config.xml" />
 	<import resource="spring-bean.xml" />
 	<import resource="spring-aop.xml" />
-
+<import resource="spring-security.xml" />
 </beans>
