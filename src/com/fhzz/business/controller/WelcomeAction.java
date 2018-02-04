@@ -39,4 +39,12 @@ public class WelcomeAction extends BaseAction {
 		welcomeService.saveWelcome(welcome);
 		return "welcome";
 	}
+	
+	@RequestMapping("queryAllWelcome")
+	public String queryAllWelcome(HttpServletRequest request,
+			HttpServletResponse response, ModelMap model) {
+		logger.info("queryAllWelcome");
+		welcomeService.queryAllWelcome();
+		return "welcome";
+	}
 }

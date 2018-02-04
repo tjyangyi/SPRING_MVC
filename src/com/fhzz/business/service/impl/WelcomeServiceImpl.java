@@ -6,7 +6,7 @@ package com.fhzz.business.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fhzz.business.dao.IWelcomeDao;
+import com.fhzz.business.dao.welcome.IWelcomeDao;
 import com.fhzz.business.entity.Welcome;
 import com.fhzz.business.service.IWelcomeService;
 import com.fhzz.core.utils.Result;
@@ -24,6 +24,11 @@ public class WelcomeServiceImpl implements IWelcomeService {
 	@Override
 	public Result saveWelcome(Welcome welcome) {
 		return welcomeDao.saveWelcome(welcome);
+	}
+
+	@Override
+	public Result queryAllWelcome() {
+		return welcomeDao.queryAllWelcome();
 	}
 
 }

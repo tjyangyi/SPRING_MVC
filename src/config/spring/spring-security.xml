@@ -9,8 +9,9 @@
 	<http>
 		<!-- 不拦截login.jsp -->
 		<intercept-url pattern="/toLogin.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/queryAllWelcome.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<!--仅拦截到manager下面的内容，具备access对应权限的 -->
-		<intercept-url pattern="/*" access="ROLE_ADMIN" />
+		<intercept-url pattern="/*" access="ROLE_TO_INDEX" />
 		<!-- 登录表单设置 -->
 		<form-login login-page="/toLogin.do" login-processing-url="/login.do"
 			default-target-url="/toIndex.do" username-parameter="username"
@@ -22,10 +23,7 @@
 	</http>
 
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<user name="a" password="1" authorities="ROLE_ADMIN" />
-			</user-service>
+		<authentication-provider user-service-ref="defaultUserDetailsService">
 		</authentication-provider>
 	</authentication-manager>
 </beans:beans>  
