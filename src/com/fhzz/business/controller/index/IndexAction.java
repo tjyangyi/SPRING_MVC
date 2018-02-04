@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.fhzz.business.controller.login;
+package com.fhzz.business.controller.index;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,16 +12,15 @@ import com.fhzz.core.controller.BaseAction;
 
 /**
  * @author YangYi
- *
+ * 
  */
 @Controller
-public class LoginAction extends BaseAction {
-	Log logger = LogFactory.getLog(LoginAction.class);
-	
-	@RequestMapping("toLogin")  
-    public String toLogin() {  
-        return "login/login";  
-    }  
-	
-	
+public class IndexAction extends BaseAction {
+	Log logger = LogFactory.getLog(IndexAction.class);
+
+	@RequestMapping("toIndex")
+	public String toLogin() {
+		return "index/index";
+	}
+
 }

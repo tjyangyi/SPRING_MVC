@@ -29,24 +29,14 @@ public class WelcomeAction extends BaseAction {
 	private IWelcomeService welcomeService;
 
 	@RequestMapping("welcome")
-	public String welcome(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String welcome(HttpServletRequest request,
+			HttpServletResponse response, ModelMap model) {
 		logger.debug("welcome");
 		logger.info("welcome");
 		logger.warn("welcome");
 		logger.error("welcome");
 		Welcome welcome = new Welcome("1", "001", "yy");
 		welcomeService.saveWelcome(welcome);
-		return "welcome1";
-	}
-	
-	@RequestMapping("welcome2")
-	public String welcome2(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		logger.debug("welcome2");
-		logger.info("welcome2");
-		logger.warn("welcome2");
-		logger.error("welcome2");
-		Welcome welcome = new Welcome("2", "002", "yy");
-		welcomeService.saveWelcome(welcome);
-		return "welcome2";
+		return "welcome";
 	}
 }

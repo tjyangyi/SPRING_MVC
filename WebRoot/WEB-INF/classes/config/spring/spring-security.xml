@@ -12,8 +12,9 @@
 		<!--仅拦截到manager下面的内容，具备access对应权限的 -->
 		<intercept-url pattern="/*" access="ROLE_ADMIN" />
 		<!-- 登录表单设置 -->
-		<form-login login-page="/toLogin.do" username-parameter="username"
-			password-parameter="password" default-target-url="/welcome2.do" />
+		<form-login login-page="/toLogin.do" login-processing-url="/login.do"
+			default-target-url="/toIndex.do" username-parameter="username"
+			password-parameter="password" />
 		<!-- authentication-failure-url="/welcome.do" -->
 		<!-- 登出操作后跳转到该页面 -->
 		<!-- <logout logout-success-url="/welcome.do" delete-cookies="JSESSIONID" 
