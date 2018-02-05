@@ -68,7 +68,7 @@ public class SysAuthorities implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
 	@Column(name = "AUTHORITY_ID", unique = true, nullable = false, length = 100)
 	public String getAuthorityId() {

@@ -43,7 +43,7 @@ public class SysAuthoritiesResources implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
 	@Column(name = "ID", unique = true, nullable = false, length = 100)
 	public String getId() {

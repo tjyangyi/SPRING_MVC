@@ -94,7 +94,7 @@ public class SysUsers implements UserDetails, Serializable {
 
 	// Property accessors
 	@Id
-	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
 	@Column(name = "USER_ID", unique = true, nullable = false, length = 100)
 	public String getUserId() {

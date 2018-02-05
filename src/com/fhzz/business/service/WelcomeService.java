@@ -11,7 +11,7 @@ import com.fhzz.core.utils.Result;
  * @CreateTime: 2018年1月29日 下午5:06:52
  * @Copyright: FHZZ
  */
-public interface IWelcomeService {
+public interface WelcomeService {
 	Result saveWelcome(Welcome welcome);
 	
 	Result queryAllWelcome();

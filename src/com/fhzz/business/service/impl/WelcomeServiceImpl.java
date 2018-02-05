@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fhzz.business.dao.welcome.IWelcomeDao;
 import com.fhzz.business.entity.Welcome;
-import com.fhzz.business.service.IWelcomeService;
+import com.fhzz.business.service.WelcomeService;
 import com.fhzz.core.utils.Result;
 
 /**
@@ -17,7 +17,7 @@ import com.fhzz.core.utils.Result;
  * @Copyright: FHZZ
  */
 @Service
-public class WelcomeServiceImpl implements IWelcomeService {
+public class WelcomeServiceImpl implements WelcomeService {
 	@Autowired
 	private IWelcomeDao welcomeDao;
 
