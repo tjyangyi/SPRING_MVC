@@ -13,7 +13,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Repository;
 
 import com.fhzz.business.dao.sys.SysUsersDao;
-import com.fhzz.business.entity.Welcome;
 import com.fhzz.business.entity.sys.SysAuthorities;
 import com.fhzz.business.entity.sys.SysUsers;
 import com.fhzz.core.dao.DaoTemplate;
