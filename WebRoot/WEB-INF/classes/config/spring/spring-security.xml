@@ -10,7 +10,11 @@
 	<http auto-config="true" access-decision-manager-ref="accessDecisionManager">
 		<!-- 自定义的access-denied-handler -->
 		<access-denied-handler ref="defaultAccessDeniedHandler" />
-		<session-management invalid-session-url="/toLogin.do" />
+		<!-- <session-management invalid-session-url="/toLogin.do"> <concurrency-control 
+			error-if-maximum-exceeded="true" max-sessions="1" expired-url="/toLogin.do" 
+			/> </session-management> -->
+		<!-- <session-management session-authentication-strategy-ref="concurrentSessionControlStrategy" 
+			/> -->
 		<!-- 不拦截的请求 -->
 		<intercept-url pattern="/toLogin.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/queryAllWelcome.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
@@ -27,8 +31,7 @@
 		<!-- authentication-success-handler-ref:自定义登录成功后的Handler -->
 		<form-login login-page="/toLogin.do" login-processing-url="/login.do"
 			authentication-failure-url="/toLogin.do" default-target-url="/toIndex.do"
-			username-parameter="username" password-parameter="password"
-			authentication-success-handler-ref="defaultLoginSuccessHandler" />
+			username-parameter="username" password-parameter="password" />
 		<!-- 登出操作 -->
 		<!-- invalidate-session是否销毁Session -->
 		<!-- logout-url logout地址 -->

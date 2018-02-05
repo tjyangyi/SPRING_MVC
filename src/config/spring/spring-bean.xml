@@ -12,7 +12,7 @@
        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
 	<!-- 扫描注解bean -->
-	<context:component-scan base-package="com.fhzz"/>
+	<context:component-scan base-package="com.fhzz" />
 
 	<!-- Oracle数据库连接池 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -133,4 +133,13 @@
 	<bean id="authenticatedVoter"
 		class="org.springframework.security.access.vote.AuthenticatedVoter" />
 
+
+	<bean id="concurrentSessionControlStrategy"
+		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+		<property name="maximumSessions" value="1"></property>
+	</bean>
+
+	<bean id="sessionRegistry"
+		class="org.springframework.security.core.session.SessionRegistryImpl" />
 </beans>

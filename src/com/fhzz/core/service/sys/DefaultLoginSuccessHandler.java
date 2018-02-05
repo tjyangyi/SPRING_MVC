@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -77,7 +78,8 @@ public class DefaultLoginSuccessHandler implements
 
 	private void saveLoginInfo(HttpServletRequest request,
 			Authentication authentication) {
-		SysUsers user = (SysUsers) authentication.getPrincipal();
+		SysUsers user = (SysUsers) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
 		try {
 			String ip = IPUtils.getIpAddress(request);
 			user.setLastLogin(new Date());

@@ -68,11 +68,6 @@
 		<property name="contentType" value="text/html;charset=UTF-8" />
 		<property name="exposeSpringMacroHelpers" value="true" />
 		<property name="toolboxConfigLocation" value="/WEB-INF/classes/config/velocity/toolbox.xml" />
-		<property name="attributesMap">
-	        <map>
-	            <entry key="velocitySpringSecurityTool" value-ref="velocitySpringSecurityTool" />
-	        </map>
-    	</property>
 	</bean>
 
 </beans>

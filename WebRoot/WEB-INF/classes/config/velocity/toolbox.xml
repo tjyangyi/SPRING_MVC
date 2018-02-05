@@ -16,4 +16,9 @@
      <scope>application</scope>  
      <class>org.apache.velocity.tools.generic.NumberTool</class>  
   </tool>  
+  <tool>
+      <key>security</key>
+      <scope>request</scope>
+      <class>com.fhzz.core.utils.SecurityVelocity</class>
+  </tool>
 </toolbox>

@@ -20,5 +20,12 @@
 	      <input name="submit" type="submit" value="登出" />  
 	    </form>  
     </div>
+	#if($security.hasAnyRole("AUTH_TO_INDEX"))
+          <h2>拥有AUTH_TO_INDEX权限</h2>
+	#end
+	#if(!$security.hasAnyRole("AUTH_SUPER"))
+          <h2>没有AUTH_SUPER权限</h2>
+	#end
+	
 </body> 
 </html>
