@@ -60,8 +60,8 @@ public class SysUsersDaoImpl extends DaoTemplate implements SysUsersDao {
 	}
 
 	@Override
-	public void saveSysUser(SysUsers sysUser) {
-		getHibernateTemplate().save(sysUser);
+	public void saveOrUpdateSysUser(SysUsers sysUser) {
+		getHibernateTemplate().saveOrUpdate(sysUser);
 
 	}
 

@@ -18,5 +18,5 @@ public interface SysUsersDao {
 
 	public Collection<GrantedAuthority> loadUserAuthorities(String username);
 	
-	public void saveSysUser(SysUsers sysUser);
+	public void saveOrUpdateSysUser(SysUsers sysUser);
 }

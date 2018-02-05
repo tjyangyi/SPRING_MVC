@@ -41,8 +41,6 @@ public class DefaultLoginSuccessHandler implements
 
 	@Value("/toIndex.do")
 	private String defaultTargetUrl;
-	@Value("true")
-	private boolean forwardToDestination;
 
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -65,26 +63,23 @@ public class DefaultLoginSuccessHandler implements
 			HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		this.saveLoginInfo(request, authentication);
-		if (this.forwardToDestination) {
-			logger.info("Login success,Forwarding to " + this.defaultTargetUrl);
-			request.getRequestDispatcher(this.defaultTargetUrl).forward(
-					request, response);
-		} else {
-			logger.info("Login success,Redirecting to " + this.defaultTargetUrl);
-			this.redirectStrategy.sendRedirect(request, response,
-					this.defaultTargetUrl);
-		}
+		logger.info("Login success,Redirecting to " + this.defaultTargetUrl);
+		this.redirectStrategy.sendRedirect(request, response,
+				this.defaultTargetUrl);
 	}
 
 	private void saveLoginInfo(HttpServletRequest request,
 			Authentication authentication) {
 		SysUsers user = (SysUsers) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
+		logger.info("user =" + user);
+		logger.info("userId = " + user.getUserId());
+		logger.info("username = " + user.getUsername());
 		try {
 			String ip = IPUtils.getIpAddress(request);
 			user.setLastLogin(new Date());
 			user.setLoginIp(ip);
-			this.sysUsersDao.saveSysUser(user);
+			this.sysUsersDao.saveOrUpdateSysUser(user);
 		} catch (DataAccessException e) {
 			if (logger.isWarnEnabled()) {
 				logger.warn("无法更新用户登录信息至数据库", e);

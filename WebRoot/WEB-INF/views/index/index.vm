@@ -7,6 +7,7 @@
 <body style="overflow:hidden;" oncontextmenu="return false;"> 
     <div>
     	INDEX页面
+    	<p>用户ID：${SPRING_SECURITY_CONTEXT.authentication.principal.userId}</p>  
 		<p>用户名：${SPRING_SECURITY_CONTEXT.authentication.principal.username}</p>  
 		<p>用户姓名：${SPRING_SECURITY_CONTEXT.authentication.principal.name} </p>  
 		<p>拥有的权限：${SPRING_SECURITY_CONTEXT.authentication.principal.authorities}</p>
