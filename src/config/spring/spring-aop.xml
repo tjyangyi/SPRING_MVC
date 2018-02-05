@@ -13,6 +13,9 @@
 	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<!-- 开启事务控制的注解支持，需要放在以下xml方式配置的前面，以使得带有@Transactional的方法生效 -->
+	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
 
 	<!-- 事物传播属性配置 -->
 	<tx:advice id="txAdvice" transaction-manager="txManager">
@@ -40,7 +43,8 @@
 
 	<!-- 事务拦截配置 -->
 	<aop:config expose-proxy="true">
-		<aop:pointcut id="txPointcut" expression="execution(* com.fhzz.business.service..*.*(..))" />
+		<aop:pointcut id="txPointcut" expression="execution(* com.fhzz.*.service..*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
+	
 </beans>
