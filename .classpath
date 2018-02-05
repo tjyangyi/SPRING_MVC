@@ -48,7 +48,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-validator-5.0.3.Final.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-jdbc-4.1.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-orm-4.1.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aspectjweaver-1.5.3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/c3p0-0.9.1.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/com.oracle.jdbc.ojdbc5.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dom4j-1.6.1.jar"/>
@@ -67,5 +66,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-security-web-3.2.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/cglib-2.2.2.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aspectjweaver-1.8.7.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

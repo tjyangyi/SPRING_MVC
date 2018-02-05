@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context" xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xmlns:util="http://www.springframework.org/schema/util"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
@@ -9,13 +10,19 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- 开启@AspectJ风格的切面声明 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
 	<!-- 事务处理 -->
-	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<!-- 开启事务控制的注解支持，需要放在以下xml方式配置的前面，以使得带有@Transactional的方法生效 -->
-	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+	<tx:annotation-driven transaction-manager="txManager"
+		proxy-target-class="true" />
 
 	<!-- 事物传播属性配置 -->
 	<tx:advice id="txAdvice" transaction-manager="txManager">
@@ -43,8 +50,9 @@
 
 	<!-- 事务拦截配置 -->
 	<aop:config expose-proxy="true">
-		<aop:pointcut id="txPointcut" expression="execution(* com.fhzz.*.service..*.*(..))" />
+		<aop:pointcut id="txPointcut"
+			expression="execution(* com.fhzz.*.service..*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
-	
+
 </beans>

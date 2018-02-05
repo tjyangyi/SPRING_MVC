@@ -19,6 +19,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.fhzz.business.entity.Welcome;
 import com.fhzz.business.service.WelcomeService;
 import com.fhzz.core.controller.BaseAction;
+import com.fhzz.core.log.OperationLog;
+import com.fhzz.core.log.OperationTypeEnum;
 
 /**
  * @author YangYi
@@ -32,12 +34,13 @@ public class WelcomeAction extends BaseAction {
 	private WelcomeService welcomeService;
 
 	@RequestMapping("welcome")
+	@OperationLog(operationType = OperationTypeEnum.Query, operationDesc = "访问welcome方法")
 	public String welcome(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
-		logger.debug("welcome");
-		logger.info("welcome");
-		logger.warn("welcome");
-		logger.error("welcome");
+//		logger.debug("welcome");
+//		logger.info("welcome");
+//		logger.warn("welcome");
+//		logger.error("welcome");
 		Welcome welcome = new Welcome("1", "001", "yy");
 		welcomeService.saveWelcome(welcome);
 		return "welcome";
