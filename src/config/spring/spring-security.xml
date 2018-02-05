@@ -6,20 +6,29 @@
                         http://www.springframework.org/schema/security   
                         http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<http>
-		<!-- 不拦截login.jsp -->
+	<!-- 使用自定义的accessDecisionManager -->
+	<http auto-config="true" access-decision-manager-ref="accessDecisionManager">
+		<!-- 自定义的access-denied-handler -->
+		<access-denied-handler ref="defaultAccessDeniedHandler" />
+		<session-management invalid-session-url="/toLogin.do" />
+		<!-- 不拦截的请求 -->
 		<intercept-url pattern="/toLogin.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/queryAllWelcome.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/welcomeAjaxRequest.do" access="AUTH_AJAX" />
 		<!--仅拦截到manager下面的内容，具备access对应权限的 -->
-		<intercept-url pattern="/*" access="ROLE_TO_INDEX" />
+		<intercept-url pattern="/*" access="AUTH_TO_INDEX" />
 		<!-- 登录表单设置 -->
+		<!-- login-page:登录页面 -->
+		<!-- login-processing-url:自定义的登录提交action名称,需要与登录form中的action保持一致 -->
+		<!-- authentication-failure-url：登录失败后跳转的页面 -->
+		<!-- default-target-url：登录成功后跳转的页面 -->
+		<!-- username-parameter：登录用户名的参数名称,需要与登录form中的input name='username'保持一致 -->
+		<!-- password-parameter：登录密码的参数名称,需要与登录form中的input name='password'保持一致 -->
 		<form-login login-page="/toLogin.do" login-processing-url="/login.do"
-			default-target-url="/toIndex.do" username-parameter="username"
-			password-parameter="password" />
-		<!-- authentication-failure-url="/welcome.do" -->
+			authentication-failure-url="/toLogin.do" default-target-url="/toIndex.do"
+			username-parameter="username" password-parameter="password" />
 		<!-- 登出操作后跳转到该页面 -->
-		<!-- <logout logout-success-url="/welcome.do" delete-cookies="JSESSIONID" 
-			/> -->
+		<logout logout-success-url="/toLogin.do" delete-cookies="JSESSIONID" />
 	</http>
 
 	<authentication-manager>

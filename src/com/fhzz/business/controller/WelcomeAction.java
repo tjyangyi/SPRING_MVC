@@ -3,6 +3,8 @@
  */
 package com.fhzz.business.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fhzz.business.entity.Welcome;
 import com.fhzz.business.service.IWelcomeService;
 import com.fhzz.core.controller.BaseAction;
@@ -39,7 +42,7 @@ public class WelcomeAction extends BaseAction {
 		welcomeService.saveWelcome(welcome);
 		return "welcome";
 	}
-	
+
 	@RequestMapping("queryAllWelcome")
 	public String queryAllWelcome(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
@@ -47,4 +50,14 @@ public class WelcomeAction extends BaseAction {
 		welcomeService.queryAllWelcome();
 		return "welcome";
 	}
+
+	@RequestMapping("welcomeAjaxRequest")
+	public void welcomeAjaxRequest(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		JSONObject json = new JSONObject();
+		json.put("result", "success");
+		json.put("object", "object");
+		sendAjax(response, json);
+	}
+
 }

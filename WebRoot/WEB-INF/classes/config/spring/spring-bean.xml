@@ -22,48 +22,20 @@
 	<!-- Oracle数据库连接池 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
-		<property name="driverClass">
-			<value>${connection.driver_class}</value>
-		</property>
-		<property name="jdbcUrl">
-			<value>${connection.url}</value>
-		</property>
-		<property name="user">
-			<value>${connection.username}</value>
-		</property>
-		<property name="password">
-			<value>${connection.password}</value>
-		</property>
-		<property name="minPoolSize">
-			<value>10</value>
-		</property>
-		<property name="maxPoolSize">
-			<value>150</value>
-		</property>
-		<property name="maxIdleTime">
-			<value>60</value>
-		</property>
-		<property name="acquireIncrement">
-			<value>5</value>
-		</property>
-		<property name="maxStatements">
-			<value>0</value>
-		</property>
-		<property name="initialPoolSize">
-			<value>10</value>
-		</property>
-		<property name="idleConnectionTestPeriod">
-			<value>60</value>
-		</property>
-		<property name="acquireRetryAttempts">
-			<value>30</value>
-		</property>
-		<property name="breakAfterAcquireFailure">
-			<value>false</value>
-		</property>
-		<property name="testConnectionOnCheckout">
-			<value>false</value>
-		</property>
+		<property name="driverClass" value="${connection.driver_class}" />
+		<property name="jdbcUrl" value="${connection.url}" />
+		<property name="user" value="${connection.username}" />
+		<property name="password" value="${connection.password}" />
+		<property name="minPoolSize" value="10" />
+		<property name="maxPoolSize" value="150" />
+		<property name="maxIdleTime" value="60" />
+		<property name="acquireIncrement" value="5" />
+		<property name="maxStatements" value="0" />
+		<property name="initialPoolSize" value="10" />
+		<property name="idleConnectionTestPeriod" value="60" />
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="breakAfterAcquireFailure" value="false" />
+		<property name="testConnectionOnCheckout" value="false" />
 	</bean>
 
 	<!-- Hibernate sessionFactory -->
@@ -114,7 +86,7 @@
 	</bean>
 
 	<!-- Spring Security相关的bean定义 -->
-	<!-- 定义上下文返回的消息的国际化 -->
+	<!-- 定义上下文返回的消息的国际化,文件名不要加.properties后缀,否则无法找到文件 -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basename" value="classpath:config/spring-security-message" />
@@ -137,5 +109,33 @@
 		<property name="cacheManagerName" value="userCacheManager" />
 		<property name="configLocation" value="classpath:config/spring/ehcache-user.xml" />
 	</bean>
+
+	<!-- Spring Security accessDecisionManager 决策管理器 -->
+	<!-- AffirmativeBased 一票通过，只要有一个投票器通过就允许访问 -->
+	<!-- ConsensusBased 有一半以上投票器通过才允许访问资源 -->
+	<!-- UnanimousBased 所有投票器都通过才允许访问 -->
+	<!-- 注入 roleVoter修改rolePrefix,否则Spring要求权限必须以ROLE_开头 -->
+	<bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<constructor-arg name="decisionVoters">
+			<list>
+				<ref bean="roleVoter" />
+				<ref bean="authenticatedVoter" />
+			</list>
+		</constructor-arg>
+		<property name="messageSource" ref="messageSource"></property>
+	</bean>
+
+	<!-- 修改rolePrefix,否则Spring要求权限必须以ROLE_开头 -->
+	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+		<property name="rolePrefix" value=""></property>
+	</bean>
+
+	<!-- authenticatedVoter是为了支持IS_AUTHENTICATED这种认证，authenticatedVoter提供的3种认证，分别是 -->
+	<!-- IS_AUTHENTICATED_ANONYMOUSLY 允许匿名用户进入 -->
+	<!-- IS_AUTHENTICATED_FULLY 允许登录用户进入 -->
+	<!-- IS_AUTHENTICATED_REMEMBERED 允许登录用户和rememberMe用户进入 -->
+	<bean id="authenticatedVoter"
+		class="org.springframework.security.access.vote.AuthenticatedVoter" />
 
 </beans>
