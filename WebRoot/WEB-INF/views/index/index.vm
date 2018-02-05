@@ -15,5 +15,10 @@
 		<button id="sendAjax" onclick="onSendAjaxButtonClicked()">测试AJAX请求
         </button>
     </div>
+	<div >
+		<form action="logout.do" method="post">  
+	      <input name="submit" type="submit" value="登出" />  
+	    </form>  
+    </div>
 </body> 
 </html>

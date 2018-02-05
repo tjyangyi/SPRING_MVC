@@ -29,8 +29,12 @@
 			authentication-failure-url="/toLogin.do" default-target-url="/toIndex.do"
 			username-parameter="username" password-parameter="password"
 			authentication-success-handler-ref="defaultLoginSuccessHandler" />
-		<!-- 登出操作后跳转到该页面 -->
-		<logout logout-success-url="/toLogin.do" delete-cookies="JSESSIONID" />
+		<!-- 登出操作 -->
+		<!-- invalidate-session是否销毁Session -->
+		<!-- logout-url logout地址 -->
+		<!-- logout-success-url logout成功后要跳转的地址 -->
+		<logout invalidate-session="true" logout-url="/logout.do"
+			logout-success-url="/toLogin.do" />
 	</http>
 
 	<authentication-manager>
