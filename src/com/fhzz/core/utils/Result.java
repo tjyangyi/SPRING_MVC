@@ -28,6 +28,12 @@ public class Result implements java.io.Serializable {
 
 	private Object response = null; // 返回值 返回的结果
 
+	@Override
+	public String toString() {
+		return "Result [value=" + value + ", info=" + info + ", errorCode="
+				+ errorCode + ", response=" + response + "]";
+	}
+
 	public Result() {
 		super();
 	}
@@ -37,7 +43,8 @@ public class Result implements java.io.Serializable {
 		this.value = value;
 	}
 
-	private static final Result successInstance = new Result(STATE_SUCCESS, INFO_SUCCESS);
+	private static final Result successInstance = new Result(STATE_SUCCESS,
+			INFO_SUCCESS);
 
 	public static Result getSuccessInstance() {
 		return successInstance;
@@ -47,7 +54,8 @@ public class Result implements java.io.Serializable {
 		return new Result(STATE_SUCCESS, INFO_SUCCESS, response);
 	}
 
-	private static final Result failureInstance = new Result(STATE_FAILURE, INFO_FAILURE);
+	private static final Result failureInstance = new Result(STATE_FAILURE,
+			INFO_FAILURE);
 
 	public static Result getFailureInstance() {
 		return failureInstance;

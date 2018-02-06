@@ -3,83 +3,206 @@
  */
 package com.fhzz.core.interceptor;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Date;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import com.fhzz.business.entity.sys.SysUsers;
 import com.fhzz.core.annotation.OperationLog;
-import com.fhzz.core.dao.log.LogRecordDao;
 import com.fhzz.core.entity.LogRecord;
+import com.fhzz.core.service.log.LogRecordService;
 
 /**
  * @author YangYi
  * 
  */
 @Aspect
-@Service
+@Component
 public class OperationLogInterceptor {
+	private Log logger = LogFactory.getLog(OperationLogInterceptor.class);
+
+	@Value("${OperationLogInterceptor.annotationPointcut.enable}")
+	private boolean enableAnnotationPointcut;// 根据配置文件是否打开@annotation注解方法的日志
+
+	@Value("${OperationLogInterceptor.actionPointcut.enable}")
+	private boolean enableActionPointcut;// 根据配置文件是否打开service层所有方法的日志
+
+	@Value("${OperationLogInterceptor.servicePointcut.enable}")
+	private boolean enableEServicePointcut;// 根据配置文件是否打开service层所有方法的日志
+
 	@Autowired
-	private LogRecordDao LogRecordDao;
-	
-	// 环绕触发
-	// 触发条件为：注解为operationLog的
+	private LogRecordService logRecordService;
+
+	/**
+	 * 对@OperationLog注解了的方法进行拦截
+	 * 
+	 * @param joinPoint
+	 *            连接点
+	 * @param operationLog
+	 *            operationLog注解
+	 * @return
+	 * 
+	 * @throws Throwable
+	 */
 	@Around("@annotation(operationLog)")
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW, rollbackFor = { Exception.class })
-	public Object doAroundMethod(ProceedingJoinPoint joinPoint,
+	public Object aroundAnnotationPointcut(ProceedingJoinPoint joinPoint,
 			OperationLog operationLog) throws Throwable {
-		long startTime = System.currentTimeMillis();// 开始时间
-
-		//String methodName = joinPoint.getSignature().getName();
-		Signature signature = joinPoint.getSignature();    
-		MethodSignature methodSignature = (MethodSignature)signature;
-		Method targetMethod = methodSignature.getMethod();
-		System.out.println("classname:" + targetMethod.getDeclaringClass().getName());    
-		System.out.println("superclass:" + targetMethod.getDeclaringClass().getSuperclass().getName());    
-		System.out.println("isinterface:" + targetMethod.getDeclaringClass().isInterface());    
-		System.out.println("target:" + joinPoint.getTarget().getClass().getName());    
-		System.out.println("proxy:" + joinPoint.getThis().getClass().getName());    
-		System.out.println("method:" + targetMethod.getName());    
-		
-		Object[] params = joinPoint.getArgs();// 获取请求参数
-		System.out.println("监听到传入参数为:");
-		for (Object param : params) {
-			System.out.println(param);
+		if (!enableAnnotationPointcut) {
+			return joinPoint.proceed();
 		}
+		return this.aroundMethod(joinPoint, operationLog, Thread
+				.currentThread().getStackTrace()[1].getMethodName());
+	}
 
-		// ###################上面代码为方法执行前#####################
-		Object result = joinPoint.proceed();// 执行方法，获取返回参数
-		// ###################下面代码为方法执行后#####################
-		System.out.println("返回值为:" + result);
+	/**
+	 * 对action层，即com.fhzz.business.action下所有类的所有方法拦截,但不能拦截login下的action
+	 * 
+	 * @param joinPoint
+	 *            连接点
+	 * @return
+	 * 
+	 * @throws Throwable
+	 */
+	@Around("execution(* com.fhzz.business.controller..*.*(..)) && !execution(* com.fhzz.business.controller.login..*.*(..))")
+	public Object aroundActionPointcut(ProceedingJoinPoint joinPoint)
+			throws Throwable {
+		if (!enableActionPointcut
+				|| this.isOperationLogAnnotationExist(joinPoint)) { // 如果被拦截的方法标有OperationLog注解交由aroundAnnotationPointcut方法处理，此方法中不处理
+			return joinPoint.proceed();
+		}
+		return this.aroundMethod(joinPoint, null, Thread.currentThread()
+				.getStackTrace()[1].getMethodName());//Thread.currentThread().getStackTrace()[1].getMethodName()获取当前执行的方法名称
+	}
 
+	/**
+	 * 对service层，即com.fhzz.business.service下所有类的所有方法拦截
+	 * 
+	 * @param joinPoint
+	 *            连接点
+	 * @return
+	 * 
+	 * @throws Throwable
+	 */
+	@Around("execution(* com.fhzz.business.service..*.*(..))")
+	public Object aroundServicePointcut(ProceedingJoinPoint joinPoint)
+			throws Throwable {
+		if (!enableEServicePointcut
+				|| this.isOperationLogAnnotationExist(joinPoint)) {// 如果被拦截的方法标有OperationLog注解交由aroundAnnotationPointcut方法处理，此方法中不处理
+			return joinPoint.proceed();
+		}
+		return this.aroundMethod(joinPoint, null, Thread.currentThread()
+				.getStackTrace()[1].getMethodName());//Thread.currentThread().getStackTrace()[1].getMethodName()获取当前执行的方法名称
+	}
+
+	/**
+	 * around增强方法
+	 * 
+	 * @param joinPoint
+	 *            连接点
+	 * @param operationLog
+	 *            operationLog注解
+	 * @param pointcutMethodName
+	 *            aroundAnnotationPointcut或aroundExecutionPointcut
+	 * @return
+	 * 
+	 * @throws Throwable
+	 */
+	private Object aroundMethod(ProceedingJoinPoint joinPoint,
+			OperationLog operationLog, String pointcutMethodName)
+			throws Throwable {
+		logger.debug("########开始执行:拦截器[" + this.getClass().getSimpleName()
+				+ "]切点方法[" + pointcutMethodName + "]########");
+		LogRecord logRecord = this.buildLogRecord(joinPoint, operationLog);
+		logger.debug("开始执行:类[" + logRecord.getTargetClass() + "]方法["
+				+ logRecord.getTargetMethod() + "]");
+		try {
+			Object result = joinPoint.proceed();// 执行真正的方法，并获取返回参数
+			logRecord.setTargetMethodResult(String.valueOf(result));// 返回值
+			logger.debug("正常结束:类[" + logRecord.getTargetClass() + "]方法["
+					+ logRecord.getTargetMethod() + "]");
+			return result;
+		} catch (Exception e) {
+			logRecord.setTargetMethodException(e.getMessage());
+			logger.debug("异常结束:类[" + logRecord.getTargetClass() + "]方法["
+					+ logRecord.getTargetMethod() + "]");
+			throw e;
+		} finally {
+			logRecord.setOperationEndTime(new Date());// 结束时间
+			logRecordService.saveOrUpdateLogRecord(logRecord);
+			logger.debug(logRecord.toString());
+			logger.debug("########结束执行:拦截器[" + this.getClass().getSimpleName()
+					+ "]切点方法[" + pointcutMethodName + "]########");
+		}
+	}
+
+	/**
+	 * 构造日志记录
+	 * 
+	 * @param joinPoint
+	 * @param operationLog
+	 * @return
+	 */
+	private LogRecord buildLogRecord(ProceedingJoinPoint joinPoint,
+			OperationLog operationLog) {
 		SysUsers user = (SysUsers) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();// 操作人
-
-		String operTypeStr = operationLog.operationType().toString();// 操作类型
-		String operDesc = operationLog.operationDesc();
-		System.out.println("操作人: " + user.getName() + "  操作类型: " + operTypeStr
-				+ "   操作描述：" + operDesc);
-
-		long endTime = System.currentTimeMillis();// 结束时间
-		float excTime = (float) (endTime - startTime) / 1000;
-		System.out.println("执行时间:" + excTime + "s");
-		System.out
-				.println("#######################分隔符##########################");
-		
-		LogRecord logRecord = new LogRecord();
-		logRecord.setOperationDesc(operDesc);
-		logRecord.setOperationType(operTypeStr);
-		LogRecordDao.saveLogRecord(logRecord);
-		return result;
-
+		String operationUserId = user.getUserId();// 操作人ID
+		String operationUsername = user.getUsername();// 操作人姓名
+		String operationType = null;
+		String operationDesc = null;
+		if (operationLog != null) {
+			operationType = operationLog.operationType().toString();// 操作类型
+			operationDesc = operationLog.operationDesc();// 操作描述
+		}
+		Signature signature = joinPoint.getSignature();
+		MethodSignature methodSignature = (MethodSignature) signature;
+		Method method = methodSignature.getMethod();// 被调用的方法
+		String targetClass = method.getDeclaringClass().getName();// 调用方法所属的类
+		String targetMethod = method.getName();// 调用的方法名称
+		Object[] params = joinPoint.getArgs();// 获取请求参数
+		StringBuffer buff = new StringBuffer();
+		for (Object param : params) {
+			buff.append(param);
+			buff.append(",");
+		}
+		String targetMethodParams = buff.toString();// 调用方法传入的参数
+		Date operationStartTime = new Date();// 开始时间
+		LogRecord logRecord = new LogRecord(operationUserId, operationUsername,
+				operationType, operationDesc, targetClass, targetMethod,
+				targetMethodParams, operationStartTime);
+		return logRecord;
 	}
+
+	/**
+	 * 被拦截的方法是否标有OperationLog注解<br>
+	 * 如果标有此注解，则交由aroundAnnotationPointcut方法处理，其他Around方法直接跳过
+	 * 
+	 * @param joinPoint
+	 * @return
+	 */
+	private boolean isOperationLogAnnotationExist(ProceedingJoinPoint joinPoint) {
+		Signature signature = joinPoint.getSignature();
+		MethodSignature methodSignature = (MethodSignature) signature;
+		Method method = methodSignature.getMethod();// 被调用的方法
+		Annotation[] ans = method.getAnnotations();
+		for (int i = 0; i < ans.length; i++) {
+			if (ans[i].annotationType().equals(OperationLog.class)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

@@ -19,6 +19,12 @@ public class Welcome implements java.io.Serializable {
 
 	// Constructors
 
+	@Override
+	public String toString() {
+		return "Welcome [id=" + id + ", userId=" + userId + ", userName="
+				+ userName + "]";
+	}
+
 	/** default constructor */
 	public Welcome() {
 	}

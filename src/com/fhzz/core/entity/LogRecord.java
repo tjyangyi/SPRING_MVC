@@ -1,4 +1,5 @@
 package com.fhzz.core.entity;
+
 // default package
 
 import java.util.Date;
@@ -21,17 +22,18 @@ public class LogRecord implements java.io.Serializable {
 	// Fields
 	private static final long serialVersionUID = -3038598717546880774L;
 	private String logId;
-	private String operationUserId;
-	private String operationUeraname;
-	private String operationType;
-	private String operationDesc;
-	private String targetClass;
-	private String targetMethod;
-	private String targetMethodParams;
-	private String targetMethodResult;
-	private Date operationStartTime;
-	private Date operationEndTime;
-	private Long operationElapsedTimeMillis;
+	private Date operationStartTime;// 方法开始时间
+	private Date operationEndTime;// 方法结束时间
+	private Long operationElapsedTimeMillis;// 方法耗时
+	private String operationType;// 操作类型
+	private String operationDesc;// 操作描述
+	private String operationUsername;// 操作人NAME
+	private String operationUserId;// 操作人ID
+	private String targetClass;// 调用方法所属的类
+	private String targetMethod;// 调用的方法
+	private String targetMethodResult;// 调用方法返回值
+	private String targetMethodException;// 调用方法抛出的异常
+	private String targetMethodParams;// 调用方法传入的参数
 
 	// Constructors
 
@@ -44,22 +46,38 @@ public class LogRecord implements java.io.Serializable {
 		this.logId = logId;
 	}
 
+	public LogRecord(String operationUserId, String operationUsername,
+			String operationType, String operationDesc, String targetClass,
+			String targetMethod, String targetMethodParams,
+			Date operationStartTime) {
+		super();
+		this.operationUserId = operationUserId;
+		this.operationUsername = operationUsername;
+		this.operationType = operationType;
+		this.operationDesc = operationDesc;
+		this.targetClass = targetClass;
+		this.targetMethod = targetMethod;
+		this.targetMethodParams = targetMethodParams;
+		this.operationStartTime = operationStartTime;
+	}
+
 	/** full constructor */
 	public LogRecord(String logId, String operationUserId,
-			String operationUeraname, String operationType,
+			String operationUsername, String operationType,
 			String operationDesc, String targetClass, String targetMethod,
 			String targetMethodParams, String targetMethodResult,
-			Date operationStartTime, Date operationEndTime,
-			Long operationElapsedTimeMillis) {
+			String targetMethodException, Date operationStartTime,
+			Date operationEndTime, Long operationElapsedTimeMillis) {
 		this.logId = logId;
 		this.operationUserId = operationUserId;
-		this.operationUeraname = operationUeraname;
+		this.operationUsername = operationUsername;
 		this.operationType = operationType;
 		this.operationDesc = operationDesc;
 		this.targetClass = targetClass;
 		this.targetMethod = targetMethod;
 		this.targetMethodParams = targetMethodParams;
 		this.targetMethodResult = targetMethodResult;
+		this.targetMethodException = targetMethodException;
 		this.operationStartTime = operationStartTime;
 		this.operationEndTime = operationEndTime;
 		this.operationElapsedTimeMillis = operationElapsedTimeMillis;
@@ -87,13 +105,13 @@ public class LogRecord implements java.io.Serializable {
 		this.operationUserId = operationUserId;
 	}
 
-	@Column(name = "OPERATION_UERANAME", length = 100)
-	public String getOperationUeraname() {
-		return this.operationUeraname;
+	@Column(name = "OPERATION_USERNAME", length = 100)
+	public String getOperationUsername() {
+		return operationUsername;
 	}
 
-	public void setOperationUeraname(String operationUeraname) {
-		this.operationUeraname = operationUeraname;
+	public void setOperationUsername(String operationUsername) {
+		this.operationUsername = operationUsername;
 	}
 
 	@Column(name = "OPERATION_TYPE")
@@ -150,6 +168,15 @@ public class LogRecord implements java.io.Serializable {
 		this.targetMethodResult = targetMethodResult;
 	}
 
+	@Column(name = "TARGET_METHOD_EXCEPTION", length = 2000)
+	public String getTargetMethodException() {
+		return targetMethodException;
+	}
+
+	public void setTargetMethodException(String targetMethodException) {
+		this.targetMethodException = targetMethodException;
+	}
+
 	@Column(name = "OPERATION_START_TIME", length = 7)
 	public Date getOperationStartTime() {
 		return this.operationStartTime;
@@ -166,6 +193,8 @@ public class LogRecord implements java.io.Serializable {
 
 	public void setOperationEndTime(Date operationEndTime) {
 		this.operationEndTime = operationEndTime;
+		this.operationElapsedTimeMillis = this.getOperationEndTime().getTime()
+				- this.getOperationStartTime().getTime();
 	}
 
 	@Column(name = "OPERATION_ELAPSED_TIME_MILLIS", precision = 16, scale = 0)
@@ -175,6 +204,20 @@ public class LogRecord implements java.io.Serializable {
 
 	public void setOperationElapsedTimeMillis(Long operationElapsedTimeMillis) {
 		this.operationElapsedTimeMillis = operationElapsedTimeMillis;
+	}
+
+	@Override
+	public String toString() {
+		return "LogRecord [logId=" + logId + ", operationStartTime="
+				+ operationStartTime + ", operationEndTime=" + operationEndTime
+				+ ", operationElapsedTimeMillis=" + operationElapsedTimeMillis
+				+ ", operationType=" + operationType + ", operationDesc="
+				+ operationDesc + ", operationUsername=" + operationUsername
+				+ ", operationUserId=" + operationUserId + ", targetClass="
+				+ targetClass + ", targetMethod=" + targetMethod
+				+ ", targetMethodResult=" + targetMethodResult
+				+ ", targetMethodException=" + targetMethodException
+				+ ", targetMethodParams=" + targetMethodParams + "]";
 	}
 
 }

@@ -23,7 +23,7 @@ public class WelcomeServiceImpl implements WelcomeService {
 
 	@Override
 	public Result saveWelcome(Welcome welcome) {
-		return welcomeDao.saveWelcome(welcome);
+		 return welcomeDao.saveWelcome(welcome);
 	}
 
 	@Override

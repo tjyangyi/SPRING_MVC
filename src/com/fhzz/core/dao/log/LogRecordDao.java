@@ -14,10 +14,10 @@ import com.fhzz.core.utils.Result;
  * 
  */
 @Repository
-public class LogRecordDao extends DaoTemplate  {
+public class LogRecordDao extends DaoTemplate {
 
-	public Result saveLogRecord(LogRecord logRecord) {
-		getHibernateTemplate().save(logRecord);
+	public Result saveOrUpdateLogRecord(LogRecord logRecord) {
+		getHibernateTemplate().saveOrUpdate(logRecord);
 		return Result.getSuccessInstance();
 	}
 

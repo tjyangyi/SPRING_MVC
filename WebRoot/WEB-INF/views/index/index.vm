@@ -21,6 +21,16 @@
 	      <input name="submit" type="submit" value="登出" />  
 	    </form>  
     </div>
+    <div >
+		<form action="welcome.do" method="post">  
+	      <input name="submit" type="submit" value="welcome" />  
+	    </form>  
+    </div>
+     <div >
+		<form action="queryAllWelcome.do" method="post">  
+	      <input name="submit" type="submit" value="queryAllWelcome" />  
+	    </form>  
+    </div>
 	#if($security.hasAnyRole("AUTH_TO_INDEX"))
           <h2>拥有AUTH_TO_INDEX权限</h2>
 	#end
