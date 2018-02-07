@@ -1,4 +1,4 @@
-package com.fhzz.core.annotation;
+package com.fhzz.core.log.anotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,7 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.fhzz.core.interceptor.OperationTypeEnum;
+import com.fhzz.core.log.interceptor.OperationTypeEnum;
 
 @Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)

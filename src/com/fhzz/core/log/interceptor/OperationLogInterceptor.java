@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.fhzz.core.interceptor;
+package com.fhzz.core.log.interceptor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -20,9 +20,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.fhzz.business.entity.sys.SysUsers;
-import com.fhzz.core.annotation.OperationLog;
-import com.fhzz.core.entity.LogRecord;
-import com.fhzz.core.service.log.LogRecordService;
+import com.fhzz.core.log.anotation.OperationLog;
+import com.fhzz.core.log.entity.LogRecord;
+import com.fhzz.core.log.service.LogRecordService;
 
 /**
  * @author YangYi

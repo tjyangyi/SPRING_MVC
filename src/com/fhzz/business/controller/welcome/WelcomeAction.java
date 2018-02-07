@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSONObject;
 import com.fhzz.business.entity.Welcome;
 import com.fhzz.business.service.WelcomeService;
-import com.fhzz.core.annotation.OperationLog;
 import com.fhzz.core.controller.BaseAction;
-import com.fhzz.core.interceptor.OperationTypeEnum;
+import com.fhzz.core.log.anotation.OperationLog;
+import com.fhzz.core.log.interceptor.OperationTypeEnum;
 
 /**
  * @author YangYi

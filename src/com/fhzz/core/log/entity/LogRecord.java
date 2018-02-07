@@ -1,4 +1,4 @@
-package com.fhzz.core.entity;
+package com.fhzz.core.log.entity;
 
 // default package
 
