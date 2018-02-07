@@ -16,8 +16,8 @@ import com.fhzz.core.utils.Result;
 @Repository
 public class LogRecordDao extends DaoTemplate {
 
-	public Result saveOrUpdateLogRecord(LogRecord logRecord) {
-		getHibernateTemplate().saveOrUpdate(logRecord);
+	public Result saveLogRecord(LogRecord logRecord) {
+		getHibernateTemplate().save(logRecord);
 		return Result.getSuccessInstance();
 	}
 

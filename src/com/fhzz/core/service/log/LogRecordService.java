@@ -14,7 +14,7 @@ public class LogRecordService {
 	private LogRecordDao logRecordDao;
 
 	@Transactional
-	public Result saveOrUpdateLogRecord(LogRecord logRecord) {
-		return logRecordDao.saveOrUpdateLogRecord(logRecord);
+	public Result saveLogRecord(LogRecord logRecord) {
+		return logRecordDao.saveLogRecord(logRecord);
 	}
 }

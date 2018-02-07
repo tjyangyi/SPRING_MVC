@@ -33,6 +33,9 @@ import com.fhzz.core.service.log.LogRecordService;
 public class OperationLogInterceptor {
 	private Log logger = LogFactory.getLog(OperationLogInterceptor.class);
 
+	@Value("${OperationLogInterceptor.saveToDatabase.enable}")
+	private boolean enableSaveToDatabase;// 根据配置文件是否将日志写入数据库LOG_RECORD表
+	
 	@Value("${OperationLogInterceptor.annotationPointcut.enable}")
 	private boolean enableAnnotationPointcut;// 根据配置文件是否打开@annotation注解方法的日志
 
@@ -40,7 +43,7 @@ public class OperationLogInterceptor {
 	private boolean enableActionPointcut;// 根据配置文件是否打开action层所有方法的日志
 
 	@Value("${OperationLogInterceptor.servicePointcut.enable}")
-	private boolean enableEServicePointcut;// 根据配置文件是否打开service层所有方法的日志
+	private boolean enableServicePointcut;// 根据配置文件是否打开service层所有方法的日志
 
 	@Autowired
 	private LogRecordService logRecordService;
@@ -98,7 +101,7 @@ public class OperationLogInterceptor {
 	@Around("execution(* com.fhzz.business.service..*.*(..))")
 	public Object aroundServicePointcut(ProceedingJoinPoint joinPoint)
 			throws Throwable {
-		if (!enableEServicePointcut
+		if (!enableServicePointcut
 				|| this.isOperationLogAnnotationExist(joinPoint)) {// 如果被拦截的方法标有OperationLog注解交由aroundAnnotationPointcut方法处理，此方法中不处理
 			return joinPoint.proceed();
 		}
@@ -129,7 +132,7 @@ public class OperationLogInterceptor {
 		logger.debug("开始执行:类[" + logRecord.getTargetClass() + "]方法["
 				+ logRecord.getTargetMethod() + "]");
 		try {
-			Object result = joinPoint.proceed();// 执行真正的方法，并获取返回参数
+			Object result = joinPoint.proceed();// ***执行真正的方法，并获取返回参数***
 			logRecord.setTargetMethodResult(String.valueOf(result));// 返回值
 			logger.debug("正常结束:类[" + logRecord.getTargetClass() + "]方法["
 					+ logRecord.getTargetMethod() + "]");
@@ -141,7 +144,9 @@ public class OperationLogInterceptor {
 			throw e;
 		} finally {
 			logRecord.setOperationEndTime(new Date());// 结束时间
-			logRecordService.saveOrUpdateLogRecord(logRecord);
+			if (enableSaveToDatabase) {
+				logRecordService.saveLogRecord(logRecord);
+			}
 			logger.debug(logRecord.toString());
 			logger.debug("########结束执行:拦截器[" + this.getClass().getSimpleName()
 					+ "]切点方法[" + pointcutMethodName + "]########");

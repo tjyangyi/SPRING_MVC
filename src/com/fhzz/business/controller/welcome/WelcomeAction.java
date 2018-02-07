@@ -37,10 +37,6 @@ public class WelcomeAction extends BaseAction {
 	@OperationLog(operationType = OperationTypeEnum.Query, operationDesc = "访问welcome方法")
 	public String welcome(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
-//		logger.debug("welcome");
-//		logger.info("welcome");
-//		logger.warn("welcome");
-//		logger.error("welcome");
 		Welcome welcome = new Welcome("1", "001", "yy");
 		welcomeService.saveWelcome(welcome);
 		return "welcome";
