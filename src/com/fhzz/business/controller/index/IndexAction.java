@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fhzz.business.entity.sys.SysUsers;
 import com.fhzz.core.controller.BaseAction;
+import com.fhzz.core.sercurity.entity.SysUsers;
 
 /**
  * @author YangYi

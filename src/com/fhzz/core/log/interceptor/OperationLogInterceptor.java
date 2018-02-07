@@ -19,10 +19,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import com.fhzz.business.entity.sys.SysUsers;
 import com.fhzz.core.log.anotation.OperationLog;
 import com.fhzz.core.log.entity.LogRecord;
 import com.fhzz.core.log.service.LogRecordService;
+import com.fhzz.core.sercurity.entity.SysUsers;
 
 /**
  * @author YangYi
