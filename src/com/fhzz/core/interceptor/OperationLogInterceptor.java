@@ -37,7 +37,7 @@ public class OperationLogInterceptor {
 	private boolean enableAnnotationPointcut;// 根据配置文件是否打开@annotation注解方法的日志
 
 	@Value("${OperationLogInterceptor.actionPointcut.enable}")
-	private boolean enableActionPointcut;// 根据配置文件是否打开service层所有方法的日志
+	private boolean enableActionPointcut;// 根据配置文件是否打开action层所有方法的日志
 
 	@Value("${OperationLogInterceptor.servicePointcut.enable}")
 	private boolean enableEServicePointcut;// 根据配置文件是否打开service层所有方法的日志
@@ -83,7 +83,7 @@ public class OperationLogInterceptor {
 			return joinPoint.proceed();
 		}
 		return this.aroundMethod(joinPoint, null, Thread.currentThread()
-				.getStackTrace()[1].getMethodName());//Thread.currentThread().getStackTrace()[1].getMethodName()获取当前执行的方法名称
+				.getStackTrace()[1].getMethodName());// Thread.currentThread().getStackTrace()[1].getMethodName()获取当前执行的方法名称
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class OperationLogInterceptor {
 			return joinPoint.proceed();
 		}
 		return this.aroundMethod(joinPoint, null, Thread.currentThread()
-				.getStackTrace()[1].getMethodName());//Thread.currentThread().getStackTrace()[1].getMethodName()获取当前执行的方法名称
+				.getStackTrace()[1].getMethodName());// Thread.currentThread().getStackTrace()[1].getMethodName()获取当前执行的方法名称
 	}
 
 	/**
@@ -124,7 +124,8 @@ public class OperationLogInterceptor {
 			throws Throwable {
 		logger.debug("########开始执行:拦截器[" + this.getClass().getSimpleName()
 				+ "]切点方法[" + pointcutMethodName + "]########");
-		LogRecord logRecord = this.buildLogRecord(joinPoint, operationLog);
+		LogRecord logRecord = this.buildLogRecord(joinPoint, operationLog,
+				pointcutMethodName);
 		logger.debug("开始执行:类[" + logRecord.getTargetClass() + "]方法["
 				+ logRecord.getTargetMethod() + "]");
 		try {
@@ -155,7 +156,7 @@ public class OperationLogInterceptor {
 	 * @return
 	 */
 	private LogRecord buildLogRecord(ProceedingJoinPoint joinPoint,
-			OperationLog operationLog) {
+			OperationLog operationLog, String pointcutMethodName) {
 		SysUsers user = (SysUsers) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();// 操作人
 		String operationUserId = user.getUserId();// 操作人ID
@@ -181,7 +182,7 @@ public class OperationLogInterceptor {
 		Date operationStartTime = new Date();// 开始时间
 		LogRecord logRecord = new LogRecord(operationUserId, operationUsername,
 				operationType, operationDesc, targetClass, targetMethod,
-				targetMethodParams, operationStartTime);
+				targetMethodParams, operationStartTime, pointcutMethodName);
 		return logRecord;
 	}
 

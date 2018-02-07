@@ -34,6 +34,7 @@ public class LogRecord implements java.io.Serializable {
 	private String targetMethodResult;// 调用方法返回值
 	private String targetMethodException;// 调用方法抛出的异常
 	private String targetMethodParams;// 调用方法传入的参数
+	private String pointcutMethodName;// 切点方法名称;
 
 	// Constructors
 
@@ -49,7 +50,7 @@ public class LogRecord implements java.io.Serializable {
 	public LogRecord(String operationUserId, String operationUsername,
 			String operationType, String operationDesc, String targetClass,
 			String targetMethod, String targetMethodParams,
-			Date operationStartTime) {
+			Date operationStartTime, String pointcutMethodName) {
 		super();
 		this.operationUserId = operationUserId;
 		this.operationUsername = operationUsername;
@@ -59,6 +60,7 @@ public class LogRecord implements java.io.Serializable {
 		this.targetMethod = targetMethod;
 		this.targetMethodParams = targetMethodParams;
 		this.operationStartTime = operationStartTime;
+		this.pointcutMethodName = pointcutMethodName;
 	}
 
 	/** full constructor */
@@ -67,7 +69,8 @@ public class LogRecord implements java.io.Serializable {
 			String operationDesc, String targetClass, String targetMethod,
 			String targetMethodParams, String targetMethodResult,
 			String targetMethodException, Date operationStartTime,
-			Date operationEndTime, Long operationElapsedTimeMillis) {
+			Date operationEndTime, Long operationElapsedTimeMillis,
+			String pointcutMethodName) {
 		this.logId = logId;
 		this.operationUserId = operationUserId;
 		this.operationUsername = operationUsername;
@@ -81,6 +84,7 @@ public class LogRecord implements java.io.Serializable {
 		this.operationStartTime = operationStartTime;
 		this.operationEndTime = operationEndTime;
 		this.operationElapsedTimeMillis = operationElapsedTimeMillis;
+		this.pointcutMethodName = pointcutMethodName;
 	}
 
 	// Property accessors
@@ -206,6 +210,15 @@ public class LogRecord implements java.io.Serializable {
 		this.operationElapsedTimeMillis = operationElapsedTimeMillis;
 	}
 
+	@Column(name = "POINTCUT_METHOD_NAME", length = 255)
+	public String getPointcutMethodName() {
+		return pointcutMethodName;
+	}
+
+	public void setPointcutMethodName(String pointcutMethodName) {
+		this.pointcutMethodName = pointcutMethodName;
+	}
+
 	@Override
 	public String toString() {
 		return "LogRecord [logId=" + logId + ", operationStartTime="
@@ -217,7 +230,8 @@ public class LogRecord implements java.io.Serializable {
 				+ targetClass + ", targetMethod=" + targetMethod
 				+ ", targetMethodResult=" + targetMethodResult
 				+ ", targetMethodException=" + targetMethodException
-				+ ", targetMethodParams=" + targetMethodParams + "]";
+				+ ", targetMethodParams=" + targetMethodParams
+				+ ", pointcutMethodName=" + pointcutMethodName + "]";
 	}
 
 }

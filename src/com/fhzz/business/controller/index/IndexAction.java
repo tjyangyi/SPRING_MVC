@@ -22,7 +22,7 @@ public class IndexAction extends BaseAction {
 	Log logger = LogFactory.getLog(IndexAction.class);
 
 	@RequestMapping("toIndex")
-	public String toLogin() {
+	public String toIndex() {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		logger.info(user);
