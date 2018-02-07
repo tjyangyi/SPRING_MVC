@@ -26,9 +26,14 @@
 	      <input name="submit" type="submit" value="welcome" />  
 	    </form>  
     </div>
-     <div >
+    <div >
 		<form action="queryAllWelcome.do" method="post">  
 	      <input name="submit" type="submit" value="queryAllWelcome" />  
+	    </form>  
+    </div>
+	<div >
+		<form action="quartzListJob.do" method="post">  
+	      <input name="submit" type="submit" value="任务列表" />  
 	    </form>  
     </div>
 	#if($security.hasAnyRole("AUTH_TO_INDEX"))
