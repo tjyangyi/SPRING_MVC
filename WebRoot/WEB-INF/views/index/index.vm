@@ -36,6 +36,11 @@
 	      <input name="submit" type="submit" value="任务列表" />  
 	    </form>  
     </div>
+	<div >
+		<form action="welcomeDatagrid.do" method="post">  
+	      <input name="submit" type="submit" value="Datagrid列表DEMO" />  
+	    </form>  
+    </div>
 	#if($security.hasAnyRole("AUTH_TO_INDEX"))
           <h2>拥有AUTH_TO_INDEX权限</h2>
 	#end

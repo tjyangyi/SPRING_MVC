@@ -1,2 +1,3 @@
-<script type="text/javascript" src="resource/js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="resource/comm/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="resource/js/comm/ajaxError.js"></script>
+<script type="text/javascript" src="resource/js/comm/string.js"></script>

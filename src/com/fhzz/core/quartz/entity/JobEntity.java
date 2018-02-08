@@ -1,209 +1,235 @@
 package com.fhzz.core.quartz.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.quartz.JobDataMap;
 
 public class JobEntity {
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private int jobId;
+	private int jobId;
 
-    private String jobType;
+	private String jobType;
 
-    private String jobGroup;
+	private String jobGroup;
 
-    private String jobName;
+	private String jobName;
 
-    private String triggerName;
+	private String triggerName;
 
-    private String triggerGroupName;
+	private String triggerGroupName;
 
-    private String cronExpr;
+	private String cronExpr;
 
-    private Date previousFireTime;
+	private Date previousFireTime;
 
-    private Date nextFireTime;
+	private String previousFireTimeStr;
 
-    private String jobStatus;
+	private Date nextFireTime;
 
-    private long runTimes;
+	private String nextFireTimeStr;
 
-    private long duration;
+	private String jobStatus;
 
-    private Date startTime;
+	private long runTimes;
 
-    private Date endTime;
+	private long duration;
 
-    private String jobMemo;
+	private Date startTime;
 
-    private String jobClass;
+	private Date endTime;
 
-    private String jobMethod;
+	private String jobMemo;
 
-    private String jobObject;
+	private String jobClass;
 
-    private int count;
+	private String jobMethod;
 
-    private JobDataMap jobDataMap;
+	private String jobObject;
 
-    public int getJobId() {
-        return jobId;
-    }
+	private int count;
 
-    public void setJobId(int jobId) {
-        this.jobId = jobId;
-    }
+	private JobDataMap jobDataMap;
 
-    public String getJobType() {
-        return jobType;
-    }
+	public String getPreviousFireTimeStr() {
+		return previousFireTimeStr;
+	}
 
-    public void setJobType(String jobType) {
-        this.jobType = jobType;
-    }
+	public void setPreviousFireTimeStr(String previousFireTimeStr) {
+		this.previousFireTimeStr = previousFireTimeStr;
+	}
 
-    public String getJobGroup() {
-        return jobGroup;
-    }
+	public String getNextFireTimeStr() {
+		return nextFireTimeStr;
+	}
 
-    public void setJobGroup(String jobGroup) {
-        this.jobGroup = jobGroup;
-    }
+	public void setNextFireTimeStr(String nextFireTimeStr) {
+		this.nextFireTimeStr = nextFireTimeStr;
+	}
 
-    public String getJobName() {
-        return jobName;
-    }
+	public int getJobId() {
+		return jobId;
+	}
 
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
+	public void setJobId(int jobId) {
+		this.jobId = jobId;
+	}
 
-    public String getTriggerName() {
-        return triggerName;
-    }
+	public String getJobType() {
+		return jobType;
+	}
 
-    public void setTriggerName(String triggerName) {
-        this.triggerName = triggerName;
-    }
+	public void setJobType(String jobType) {
+		this.jobType = jobType;
+	}
 
-    public String getTriggerGroupName() {
-        return triggerGroupName;
-    }
+	public String getJobGroup() {
+		return jobGroup;
+	}
 
-    public void setTriggerGroupName(String triggerGroupName) {
-        this.triggerGroupName = triggerGroupName;
-    }
+	public void setJobGroup(String jobGroup) {
+		this.jobGroup = jobGroup;
+	}
 
-    public String getCronExpr() {
-        return cronExpr;
-    }
+	public String getJobName() {
+		return jobName;
+	}
 
-    public void setCronExpr(String cronExpr) {
-        this.cronExpr = cronExpr;
-    }
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
 
-    public Date getPreviousFireTime() {
-        return previousFireTime;
-    }
+	public String getTriggerName() {
+		return triggerName;
+	}
 
-    public void setPreviousFireTime(Date previousFireTime) {
-        this.previousFireTime = previousFireTime;
-    }
+	public void setTriggerName(String triggerName) {
+		this.triggerName = triggerName;
+	}
 
-    public Date getNextFireTime() {
-        return nextFireTime;
-    }
+	public String getTriggerGroupName() {
+		return triggerGroupName;
+	}
 
-    public void setNextFireTime(Date nextFireTime) {
-        this.nextFireTime = nextFireTime;
-    }
+	public void setTriggerGroupName(String triggerGroupName) {
+		this.triggerGroupName = triggerGroupName;
+	}
 
-    public String getJobStatus() {
-        return jobStatus;
-    }
+	public String getCronExpr() {
+		return cronExpr;
+	}
 
-    public void setJobStatus(String jobStatus) {
-        this.jobStatus = jobStatus;
-    }
+	public void setCronExpr(String cronExpr) {
+		this.cronExpr = cronExpr;
+	}
 
-    public long getRunTimes() {
-        return runTimes;
-    }
+	public Date getPreviousFireTime() {
+		return previousFireTime;
+	}
 
-    public void setRunTimes(long runTimes) {
-        this.runTimes = runTimes;
-    }
+	public void setPreviousFireTime(Date previousFireTime) {
+		this.previousFireTime = previousFireTime;
+		if (previousFireTime != null)
+			this.previousFireTimeStr = sdf.format(previousFireTime);
+	}
 
-    public long getDuration() {
-        return duration;
-    }
+	public Date getNextFireTime() {
+		return nextFireTime;
+	}
 
-    public void setDuration(long duration) {
-        this.duration = duration;
-    }
+	public void setNextFireTime(Date nextFireTime) {
+		this.nextFireTime = nextFireTime;
+		if (nextFireTime != null)
+			this.nextFireTimeStr = sdf.format(nextFireTime);
+	}
 
-    public Date getStartTime() {
-        return startTime;
-    }
+	public String getJobStatus() {
+		return jobStatus;
+	}
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
+	public void setJobStatus(String jobStatus) {
+		this.jobStatus = jobStatus;
+	}
 
-    public Date getEndTime() {
-        return endTime;
-    }
+	public long getRunTimes() {
+		return runTimes;
+	}
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
+	public void setRunTimes(long runTimes) {
+		this.runTimes = runTimes;
+	}
 
-    public String getJobMemo() {
-        return jobMemo;
-    }
+	public long getDuration() {
+		return duration;
+	}
 
-    public void setJobMemo(String jobMemo) {
-        this.jobMemo = jobMemo;
-    }
+	public void setDuration(long duration) {
+		this.duration = duration;
+	}
 
-    public String getJobClass() {
-        return jobClass;
-    }
+	public Date getStartTime() {
+		return startTime;
+	}
 
-    public void setJobClass(String jobClass) {
-        this.jobClass = jobClass;
-    }
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
 
-    public String getJobMethod() {
-        return jobMethod;
-    }
+	public Date getEndTime() {
+		return endTime;
+	}
 
-    public void setJobMethod(String jobMethod) {
-        this.jobMethod = jobMethod;
-    }
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
 
-    public int getCount() {
-        return count;
-    }
+	public String getJobMemo() {
+		return jobMemo;
+	}
 
-    public void setCount(int count) {
-        this.count = count;
-    }
+	public void setJobMemo(String jobMemo) {
+		this.jobMemo = jobMemo;
+	}
 
-    public String getJobObject() {
-        return jobObject;
-    }
+	public String getJobClass() {
+		return jobClass;
+	}
 
-    public void setJobObject(String jobObject) {
-        this.jobObject = jobObject;
-    }
+	public void setJobClass(String jobClass) {
+		this.jobClass = jobClass;
+	}
 
-    public JobDataMap getJobDataMap() {
-        return jobDataMap;
-    }
+	public String getJobMethod() {
+		return jobMethod;
+	}
 
-    public void setJobDataMap(JobDataMap jobDataMap) {
-        this.jobDataMap = jobDataMap;
-    }
+	public void setJobMethod(String jobMethod) {
+		this.jobMethod = jobMethod;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getJobObject() {
+		return jobObject;
+	}
+
+	public void setJobObject(String jobObject) {
+		this.jobObject = jobObject;
+	}
+
+	public JobDataMap getJobDataMap() {
+		return jobDataMap;
+	}
+
+	public void setJobDataMap(JobDataMap jobDataMap) {
+		this.jobDataMap = jobDataMap;
+	}
 
 }

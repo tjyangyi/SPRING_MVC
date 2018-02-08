@@ -12,7 +12,7 @@
     </script>
 </head>
 <body style="background: beige; margin: 300px 600px 200px;" >
-  <form action="quartz/edit.do" method="post">
+  <form action="quartzEdit.do" method="post">
 	<input type="hidden" name="oldjobName" value="${pd.jobName}" >
 	<input type="hidden" name="oldjobGroup" value="${pd.jobGroup}" >
 	<input type="hidden" name="oldtriggerName" value="${pd.triggerName}" >

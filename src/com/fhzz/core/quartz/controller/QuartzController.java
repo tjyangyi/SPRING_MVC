@@ -1,5 +1,6 @@
 package com.fhzz.core.quartz.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +29,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fhzz.core.controller.BaseAction;
 import com.fhzz.core.quartz.entity.JobEntity;
 import com.fhzz.core.quartz.service.QuartzService;
 
 @Controller
-public class QuartzController {
+public class QuartzController extends BaseAction{
 
 	@Autowired
 	private Scheduler quartzScheduler;
@@ -49,9 +51,19 @@ public class QuartzController {
 	@RequestMapping(value = "/quartzListJob")
 	public String listJob(HttpServletRequest request,
 			HttpServletResponse response) throws SchedulerException {
+		return "quartz/listjob";
+	}
+	
+
+	@RequestMapping("/getQuartzJobListJson")
+	public void getQuartzJobListJson(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, SchedulerException {
 		List<JobEntity> jobInfos = this.getSchedulerJobInfo();
 		request.setAttribute("jobInfos", jobInfos);
-		return "quartz/listjob";
+		JSONObject json = new JSONObject();
+		json.put("total", jobInfos.size());
+		json.put("rows", jobInfos);
+		sendAjax(response, json);
 	}
 
 	/**
@@ -99,8 +111,8 @@ public class QuartzController {
 	 * @throws SchedulerException
 	 * @throws ClassNotFoundException
 	 */
-	@RequestMapping(value = "/toEdit")
-	public String toEdit(HttpServletRequest request,
+	@RequestMapping(value = "/quartzToEdit")
+	public String quartzToEdit(HttpServletRequest request,
 			HttpServletResponse response) throws SchedulerException {
 
 		String jobName = request.getParameter("jobName");
@@ -135,7 +147,7 @@ public class QuartzController {
 	 * @throws SchedulerException
 	 * @throws ClassNotFoundException
 	 */
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/quartzEdit", method = RequestMethod.POST)
 	public String edit(HttpServletRequest request, HttpServletResponse response)
 			throws SchedulerException, ClassNotFoundException {
 		String jobName = request.getParameter("jobName");
@@ -163,7 +175,7 @@ public class QuartzController {
 		return "quartz/message";
 	}
 
-	@RequestMapping(value = "/pauseJob", method = RequestMethod.POST)
+	@RequestMapping(value = "/quartzPauseJob", method = RequestMethod.POST)
 	@ResponseBody
 	public String pauseJob(@RequestParam("jobName") String jobName,
 			@RequestParam("jobGroupName") String jobGroupName) {
@@ -179,9 +191,9 @@ public class QuartzController {
 		return json.toJSONString();
 	}
 
-	@RequestMapping(value = "/resumeJob", method = RequestMethod.POST)
+	@RequestMapping(value = "/quartzResumeJob", method = RequestMethod.POST)
 	@ResponseBody
-	public String resumeJob(@RequestParam("jobName") String jobName,
+	public String quartzResumeJob(@RequestParam("jobName") String jobName,
 			@RequestParam("jobGroupName") String jobGroupName) {
 		JSONObject json = new JSONObject();
 
@@ -195,7 +207,7 @@ public class QuartzController {
 		return json.toJSONString();
 	}
 
-	@RequestMapping(value = "/deleteJob", method = RequestMethod.POST)
+	@RequestMapping(value = "/quartzDeleteJob", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteJob(@RequestParam("jobName") String jobName,
 			@RequestParam("jobGroupName") String jobGroupName,
@@ -235,12 +247,12 @@ public class QuartzController {
 					jobInfo.setTriggerName(triggerKey.getName());
 					jobInfo.setTriggerGroupName(triggerKey.getGroup());
 					jobInfo.setCronExpr(trigger.getCronExpression());
-					jobInfo.setNextFireTime(trigger.getNextFireTime());
 					jobInfo.setPreviousFireTime(trigger.getPreviousFireTime());
+					jobInfo.setNextFireTime(trigger.getNextFireTime());
 					jobInfo.setStartTime(trigger.getStartTime());
 					jobInfo.setEndTime(trigger.getEndTime());
 					jobInfo.setJobClass(jd.getJobClass().getCanonicalName());
-					// jobInfo.setDuration(Long.parseLong(jd.getDescription()));
+					//jobInfo.setDuration(Long.parseLong(jd.getDescription()));
 					Trigger.TriggerState triggerState = quartzScheduler
 							.getTriggerState(trigger.getKey());
 					jobInfo.setJobStatus(triggerState.toString());// NONE无,

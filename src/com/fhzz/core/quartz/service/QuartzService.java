@@ -2,6 +2,7 @@ package com.fhzz.core.quartz.service;
 
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
+import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
@@ -19,7 +20,7 @@ public class QuartzService {
 	private Scheduler quartzScheduler;
 
 	public void addJob(String jobName, String jobGroupName, String triggerName,
-			String triggerGroupName, Class cls, String cron) {
+			String triggerGroupName, Class<? extends Job> cls, String cron) {
 		try {
 			// 获取调度器
 			Scheduler sched = quartzScheduler;
@@ -62,7 +63,7 @@ public class QuartzService {
 					oldtriggerGroup);
 
 			JobDetail job = sched.getJobDetail(jobKey);
-			Class jobClass = job.getJobClass();
+			Class<? extends Job> jobClass = job.getJobClass();
 			// 停止触发器
 			sched.pauseTrigger(triggerKey);
 			// 移除触发器

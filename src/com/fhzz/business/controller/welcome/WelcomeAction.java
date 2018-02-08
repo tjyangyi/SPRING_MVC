@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fhzz.business.entity.Welcome;
 import com.fhzz.business.service.welcome.WelcomeService;
@@ -39,7 +40,7 @@ public class WelcomeAction extends BaseAction {
 			HttpServletResponse response, ModelMap model) {
 		Welcome welcome = new Welcome("1", "001", "yy");
 		welcomeService.saveWelcome(welcome);
-		return "welcome";
+		return "welcome/welcome";
 	}
 
 	@RequestMapping("queryAllWelcome")
@@ -47,7 +48,7 @@ public class WelcomeAction extends BaseAction {
 			HttpServletResponse response, ModelMap model) {
 		logger.info("queryAllWelcome");
 		welcomeService.queryAllWelcome();
-		return "welcome";
+		return "welcome/welcome";
 	}
 
 	@RequestMapping("welcomeAjaxRequest")
@@ -59,4 +60,24 @@ public class WelcomeAction extends BaseAction {
 		sendAjax(response, json);
 	}
 
+	@RequestMapping("welcomeDatagrid")
+	public String welcomeDatagrid(HttpServletRequest request,
+			HttpServletResponse response, ModelMap model) {
+		logger.info("welcomeDatagrid");
+		return "welcome/welcomeDatagrid";
+	}
+	
+	@RequestMapping("getWelcomeDatagridJson")
+	public void getWelcomeDatagridJson(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		JSONArray rows = new JSONArray();
+		JSONObject j = new  JSONObject();
+		j.put("productid", "FI-SW-01");
+		rows.add(j);
+		
+		JSONObject json = new JSONObject();
+		json.put("total", "1");
+		json.put("rows", rows);
+		sendAjax(response, json);
+	}
 }
