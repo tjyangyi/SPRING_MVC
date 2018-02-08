@@ -12,22 +12,22 @@
 </script>
  </head>
   
- <body style="background: beige; margin: 300px 600px 200px;" >
+ <body style="background: beige;" >
   <form action="quartzAddJob.do" method="post">
 	<span>新增Trigger</span>
 	<hr/>
 	<table id="table_report" class="table table-striped table-bordered table-hover">
        <tr>
-       		<td>cron</td><td><input type="text" name="cron" value=""/></td>
+       		<td>cronExpression</td><td><input type="text" name="cronExpression" value=""/></td>
        </tr>
        <tr>
-       		<td>clazz</td><td><input type="text" name="clazz" value=""/></td>
+       		<td>jobClass</td><td><input type="text" name="jobClass" value=""/></td>
        </tr>
        <tr>
        		<td>jobName</td><td><input type="text" name="jobName" value=""/></td>
        </tr>
        <tr>
-       		<td>jobGroupName</td><td><input type="text" name="jobGroupName" value=""/></td>
+       		<td>jobGroup</td><td><input type="text" name="jobGroup" value=""/></td>
        </tr>
        <tr>
       		 <td>triggerName</td><td><input type="text" name="triggerName" value=""/></td>

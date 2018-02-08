@@ -1,65 +1,49 @@
 package com.fhzz.core.quartz.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.quartz.CronTrigger;
-import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobDetail;
-import org.quartz.JobKey;
-import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerKey;
-import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fhzz.core.controller.BaseAction;
-import com.fhzz.core.quartz.entity.JobEntity;
 import com.fhzz.core.quartz.service.QuartzService;
+import com.fhzz.core.quartz.vo.CronJobInfo;
 
 @Controller
-public class QuartzController extends BaseAction{
-
-	@Autowired
-	private Scheduler quartzScheduler;
+public class QuartzController extends BaseAction {
 
 	@Autowired
 	private QuartzService quartzService;
 
 	/**
 	 * 定时列表页
-	 * 
-	 * @return
-	 * @throws SchedulerException
 	 */
 	@RequestMapping(value = "/quartzListJob")
 	public String listJob(HttpServletRequest request,
 			HttpServletResponse response) throws SchedulerException {
 		return "quartz/listjob";
 	}
-	
 
-	@RequestMapping("/getQuartzJobListJson")
-	public void getQuartzJobListJson(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, SchedulerException {
-		List<JobEntity> jobInfos = this.getSchedulerJobInfo();
-		request.setAttribute("jobInfos", jobInfos);
+	/**
+	 * 获取所有使用Cron表达式的JOB
+	 */
+	@RequestMapping("/getAllCronJobInfos")
+	public void getAllCronJobInfos(HttpServletRequest request,
+			HttpServletResponse response) throws IOException,
+			SchedulerException {
+		List<CronJobInfo> jobInfos = quartzService.getAllCronJobInfos();
 		JSONObject json = new JSONObject();
 		json.put("total", jobInfos.size());
 		json.put("rows", jobInfos);
@@ -67,85 +51,44 @@ public class QuartzController extends BaseAction{
 	}
 
 	/**
-	 * 跳转到新增
-	 * 
-	 * @return
-	 * @throws SchedulerException
-	 * @throws ClassNotFoundException
+	 * 跳转到新增界面
 	 */
 	@RequestMapping(value = "/quartzToAddJob")
-	public String quartzToAddJob(HttpServletRequest request, HttpServletResponse response)
-			throws SchedulerException {
+	public String quartzToAddJob(HttpServletRequest request,
+			HttpServletResponse response) throws SchedulerException {
 		return "quartz/addjob";
 	}
 
 	/**
 	 * 新增job
-	 * 
-	 * @return
-	 * @throws SchedulerException
-	 * @throws ClassNotFoundException
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/quartzAddJob", method = RequestMethod.POST)
-	public String quartzAddJob(HttpServletRequest request, HttpServletResponse response)
-			throws SchedulerException, ClassNotFoundException {
-		String jobName = request.getParameter("jobName");
-		String jobGroupName = request.getParameter("jobGroupName");
-		String triggerName = request.getParameter("triggerName");
-		String triggerGroupName = request.getParameter("triggerGroupName");
-		String clazz = request.getParameter("clazz");
-		Class<Job> cls = (Class<Job>) Class.forName(clazz);
-		String cron = request.getParameter("cron");
-		quartzService.addJob(jobName, jobGroupName, triggerName,
-				triggerGroupName, cls, cron);
-		request.setAttribute("message", "添加任务成功!");
-		request.setAttribute("opName", "添加任务!");
-		return "quartz/message";
+	public ModelAndView quartzAddJob(@ModelAttribute CronJobInfo cronJobInfo,
+			ModelAndView modelAndView) throws SchedulerException,
+			ClassNotFoundException {
+		quartzService.addJob(cronJobInfo);
+		modelAndView.addObject("message", "添加任务成功!");
+		modelAndView.addObject("opName", "添加任务!");
+		modelAndView.setViewName("quartz/message");
+		return modelAndView;
 	}
 
 	/**
 	 * 跳转到编辑
-	 * 
-	 * @return
-	 * @throws SchedulerException
-	 * @throws ClassNotFoundException
 	 */
 	@RequestMapping(value = "/quartzToEdit")
-	public String quartzToEdit(HttpServletRequest request,
-			HttpServletResponse response) throws SchedulerException {
-
-		String jobName = request.getParameter("jobName");
-		String jobGroup = request.getParameter("jobGroup");
-
-		JobKey jobKey = JobKey.jobKey(jobName, jobGroup);
-		JobDetail jd = quartzScheduler.getJobDetail(jobKey);
-		@SuppressWarnings("unchecked")
-		List<CronTrigger> triggers = (List<CronTrigger>) quartzScheduler
-				.getTriggersOfJob(jobKey);
-		CronTrigger trigger = triggers.get(0);
-		TriggerKey triggerKey = trigger.getKey();
-		String cron = trigger.getCronExpression();
-		Map<String, String> pd = new HashMap<String, String>();
-		pd.put("jobName", jobKey.getName());
-		pd.put("jobGroup", jobKey.getGroup());
-		pd.put("triggerName", triggerKey.getName());
-		pd.put("triggerGroupName", triggerKey.getGroup());
-		pd.put("cron", cron);
-		pd.put("clazz", jd.getJobClass().getCanonicalName());
-
-		request.setAttribute("pd", pd);
-		request.setAttribute("msg", "edit");
-
-		return "quartz/editjob";
+	public ModelAndView quartzToEdit(@RequestParam("jobName") String jobName,
+			@RequestParam("jobGroup") String jobGroup, ModelAndView modelAndView)
+			throws SchedulerException {
+		CronJobInfo cronJobInfo = quartzService.getCronJobInfo(jobGroup,
+				jobName);
+		modelAndView.addObject("cronJobInfo", cronJobInfo);
+		modelAndView.setViewName("quartz/editjob");
+		return modelAndView;
 	}
 
 	/**
 	 * 编辑job
-	 * 
-	 * @return
-	 * @throws SchedulerException
-	 * @throws ClassNotFoundException
 	 */
 	@RequestMapping(value = "/quartzEdit", method = RequestMethod.POST)
 	public String edit(HttpServletRequest request, HttpServletResponse response)
@@ -154,15 +97,11 @@ public class QuartzController extends BaseAction{
 		String jobGroupName = request.getParameter("jobGroupName");
 		String triggerName = request.getParameter("triggerName");
 		String triggerGroupName = request.getParameter("triggerGroupName");
-		//String clazz = request.getParameter("clazz");
-		//Class<Job> cls = (Class<Job>) Class.forName(clazz);
 		String cron = request.getParameter("cron");
-
 		String oldjobName = request.getParameter("oldjobName");
 		String oldjobGroup = request.getParameter("oldjobGroup");
 		String oldtriggerName = request.getParameter("oldtriggerName");
 		String oldtriggerGroup = request.getParameter("oldtriggerGroup");
-
 		boolean result = quartzService.modifyJobTime(oldjobName, oldjobGroup,
 				oldtriggerName, oldtriggerGroup, jobName, jobGroupName,
 				triggerName, triggerGroupName, cron);
@@ -175,106 +114,48 @@ public class QuartzController extends BaseAction{
 		return "quartz/message";
 	}
 
+	/**
+	 * 暂停任务
+	 */
 	@RequestMapping(value = "/quartzPauseJob", method = RequestMethod.POST)
 	@ResponseBody
 	public String pauseJob(@RequestParam("jobName") String jobName,
-			@RequestParam("jobGroupName") String jobGroupName) {
+			@RequestParam("jobGroupName") String jobGroupName)
+			throws SchedulerException {
 		JSONObject json = new JSONObject();
-
-		if (StringUtils.isEmpty(jobName) || StringUtils.isEmpty(jobGroupName)) {
-			json.put("status", "wrong");
-		} else {
-			quartzService.pauseJob(jobName, jobGroupName);
-			json.put("status", "success");
-		}
-
-		return json.toJSONString();
+		quartzService.pauseJob(jobName, jobGroupName);
+		json.put("status", "success");
+		return json.toString();
 	}
 
+	/**
+	 * 恢复任务
+	 */
 	@RequestMapping(value = "/quartzResumeJob", method = RequestMethod.POST)
 	@ResponseBody
 	public String quartzResumeJob(@RequestParam("jobName") String jobName,
-			@RequestParam("jobGroupName") String jobGroupName) {
+			@RequestParam("jobGroupName") String jobGroupName)
+			throws SchedulerException {
 		JSONObject json = new JSONObject();
-
-		if (StringUtils.isEmpty(jobName) || StringUtils.isEmpty(jobGroupName)) {
-			json.put("status", "wrong");
-		} else {
-			quartzService.resumeJob(jobName, jobGroupName);
-			json.put("status", "success");
-		}
-
-		return json.toJSONString();
+		quartzService.resumeJob(jobName, jobGroupName);
+		json.put("status", "success");
+		return json.toString();
 	}
 
+	/**
+	 * 删除任务
+	 */
 	@RequestMapping(value = "/quartzDeleteJob", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteJob(@RequestParam("jobName") String jobName,
 			@RequestParam("jobGroupName") String jobGroupName,
 			@RequestParam("triggerName") String triggerName,
-			@RequestParam("triggerGroupName") String triggerGroupName) {
+			@RequestParam("triggerGroupName") String triggerGroupName)
+			throws SchedulerException {
 		JSONObject json = new JSONObject();
-
-		if (StringUtils.isEmpty(jobName) || StringUtils.isEmpty(jobGroupName)
-				|| StringUtils.isEmpty(triggerName)
-				|| StringUtils.isEmpty(triggerGroupName)) {
-			json.put("status", "wrong");
-		} else {
-			quartzService.removeJob(jobName, jobGroupName, triggerName,
-					triggerGroupName);
-			json.put("status", "success");
-		}
-
-		return json.toJSONString();
+		quartzService.removeJob(jobName, jobGroupName, triggerName,
+				triggerGroupName);
+		json.put("status", "success");
+		return json.toString();
 	}
-
-	private List<JobEntity> getSchedulerJobInfo() throws SchedulerException {
-		List<JobEntity> jobInfos = new ArrayList<JobEntity>();
-		List<String> triggerGroupNames = quartzScheduler.getTriggerGroupNames();
-		for (String triggerGroupName : triggerGroupNames) {
-			Set<TriggerKey> triggerKeySet = quartzScheduler
-					.getTriggerKeys(GroupMatcher
-							.triggerGroupEquals(triggerGroupName));
-			for (TriggerKey triggerKey : triggerKeySet) {
-				Trigger t = quartzScheduler.getTrigger(triggerKey);
-				if (t instanceof CronTrigger) {
-					CronTrigger trigger = (CronTrigger) t;
-					JobKey jobKey = trigger.getJobKey();
-					JobDetail jd = quartzScheduler.getJobDetail(jobKey);
-					JobEntity jobInfo = new JobEntity();
-					jobInfo.setJobName(jobKey.getName());
-					jobInfo.setJobGroup(jobKey.getGroup());
-					jobInfo.setTriggerName(triggerKey.getName());
-					jobInfo.setTriggerGroupName(triggerKey.getGroup());
-					jobInfo.setCronExpr(trigger.getCronExpression());
-					jobInfo.setPreviousFireTime(trigger.getPreviousFireTime());
-					jobInfo.setNextFireTime(trigger.getNextFireTime());
-					jobInfo.setStartTime(trigger.getStartTime());
-					jobInfo.setEndTime(trigger.getEndTime());
-					jobInfo.setJobClass(jd.getJobClass().getCanonicalName());
-					//jobInfo.setDuration(Long.parseLong(jd.getDescription()));
-					Trigger.TriggerState triggerState = quartzScheduler
-							.getTriggerState(trigger.getKey());
-					jobInfo.setJobStatus(triggerState.toString());// NONE无,
-																	// NORMAL正常,
-																	// PAUSED暂停,
-																	// COMPLETE完全,
-																	// ERROR错误,
-																	// BLOCKED阻塞
-					JobDataMap map = quartzScheduler.getJobDetail(jobKey)
-							.getJobDataMap();
-					if (null != map && map.size() != 0) {
-						jobInfo.setCount(Integer.parseInt((String) map
-								.get("count")));
-						jobInfo.setJobDataMap(map);
-					} else {
-						jobInfo.setJobDataMap(new JobDataMap());
-					}
-					jobInfos.add(jobInfo);
-				}
-			}
-		}
-		return jobInfos;
-	}
-
 }

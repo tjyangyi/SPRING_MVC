@@ -14,27 +14,24 @@
 <body style="background: beige;">
   <h2 style="text-align: center;">任务列表</h2>
   <div style="margin:20px 0;"></div>
-	<table class="easyui-datagrid" title="Format DataGrid Columns" style="width:1300px;height:500px"
-			data-options="rownumbers:true,singleSelect:true,iconCls:'icon-ok',url:'getQuartzJobListJson.do',method:'get'">
+	<table class="easyui-datagrid" title="Format DataGrid Columns" style="width:1860px;height:500px"
+			data-options="rownumbers:true,singleSelect:true,iconCls:'icon-ok',url:'getAllCronJobInfos.do',method:'get'">
 		<thead>
 			<tr>
 				<th data-options="field:'attr1',width:240,formatter:operationFormatter">操作</th>
 				<th data-options="field:'jobGroup',width:100">任务组名称</th>
-				<th data-options="field:'jobName',width:100">定时任务名称</th>
+				<th data-options="field:'jobName',width:100">任务名称</th>
 				<th data-options="field:'triggerGroupName',width:120">触发器组名称</th>
 				<th data-options="field:'triggerName',width:120">触发器名称</th>
-				<th data-options="field:'cronExpr',width:120">时间表达式</th>
-				<th data-options="field:'previousFireTimeStr',width:140">上次运行时间</th>
+				<th data-options="field:'cronExpression',width:120">时间表达式</th>
+				<th data-options="field:'prevFireTimeStr',width:140">上次运行时间</th>
 				<th data-options="field:'nextFireTimeStr',width:140">下次运行时间</th>
-				<th data-options="field:'jobStatus',width:80">任务状态</th>
-				<th data-options="field:'runTimes',width:80">已经运行时间</th>
-				<th data-options="field:'duration',width:80">持续运行时间</th>
-				<th data-options="field:'startTime',width:80">开始时间</th>
-				<th data-options="field:'endTime',width:80">结束时间</th>
-				<th data-options="field:'jobClass',width:80">任务类名</th>
-				<th data-options="field:'jobMethod',width:80">方法名称</th>
-				<th data-options="field:'jobObject',width:80">jobObject</th>
-				<th data-options="field:'count',width:80">运行次数</th>
+				<th data-options="field:'triggerState',width:80">任务状态</th>
+				<th data-options="field:'priority',width:80">优先级</th>
+				<th data-options="field:'startTimeStr',width:140">开始时间</th>
+				<th data-options="field:'endTimeStr',width:140">结束时间</th>
+				<th data-options="field:'jobClass',width:250">任务类名</th>
+				<th data-options="field:'jobDataMapJson',width:80">jobDataMap</th>
 			</tr>
 		</thead>
 	</table>

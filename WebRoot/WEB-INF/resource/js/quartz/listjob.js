@@ -7,7 +7,9 @@ function operationFormatter(val, row, index) {
 	r = r.replaceAll("{row.jobName}", "'" + row.jobName + "'");
 	r = r.replaceAll("{row.jobGroup}", "'" + row.jobGroup + "'");
 	r = r.replaceAll("{row.triggerName}", "'" + row.triggerName + "'");
-	r = r.replaceAll("{row.triggerGroupName}", "'" + row.triggerGroupName + "'");
+	r = r
+			.replaceAll("{row.triggerGroupName}", "'" + row.triggerGroupName
+					+ "'");
 	return r;
 }
 
@@ -28,8 +30,9 @@ function pauseJob(jobName, jobGroupName) {
 	}, function(data) {
 		if (data.status = 'success') {
 			window.location.href = window.location.href;
+			alert("暂停成功！");
 		} else {
-			alert("操作失败，请刷新重新！");
+			alert("暂停失败！");
 		}
 	});
 }
@@ -42,8 +45,9 @@ function resumeJob(jobName, jobGroupName) {
 	}, function(data) {
 		if (data.status = 'success') {
 			window.location.href = window.location.href;
+			alert("恢复成功！");
 		} else {
-			alert("操作失败，请刷新重新！");
+			alert("恢复失败！");
 		}
 	});
 }
@@ -57,8 +61,9 @@ function deleteJob(jobName, jobGroupName, triggerName, triggerGroupName) {
 	}, function(data) {
 		if (data.status = 'success') {
 			window.location.href = window.location.href;
+			alert("删除成功！");
 		} else {
-			alert("操作失败，请刷新重新！");
+			alert("删除失败！");
 		}
 	});
 }
