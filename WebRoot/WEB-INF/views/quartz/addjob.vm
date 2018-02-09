@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"> 
   <head>
-	#parse("common/common.vm")
+	#parse("comm/comm.vm")
     <title>新增任务</title>
 	<script>
     $(document).ready(function() {
@@ -15,13 +15,21 @@
  <body style="background: beige;" >
   <form action="quartzAddJob.do" method="post">
 	<span>新增Trigger</span>
+	$jobNameList
 	<hr/>
-	<table id="table_report" class="table table-striped table-bordered table-hover">
+	<table id="table_report">
        <tr>
-       		<td>cronExpression</td><td><input type="text" name="cronExpression" value=""/></td>
+			<td>cronExpression</td><td><input type="text" width="200" name="cronExpression" value=""/></td>
        </tr>
        <tr>
-       		<td>jobClass</td><td><input type="text" name="jobClass" value=""/></td>
+       		<td>jobClass</td>
+			<td>
+				<select name="jobClass" >
+					#foreach( $jobName in $jobNameList) 
+					<option value ="$jobName">$jobName</option>
+					#end
+                </select>
+			</td>
        </tr>
        <tr>
        		<td>jobName</td><td><input type="text" name="jobName" value=""/></td>

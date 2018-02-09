@@ -1,20 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
-	<meta charset="UTF-8">
-	#parse("common/common.vm")
 	<title>任务列表</title>
-	<link rel="stylesheet" type="text/css" href="resource/comm/easyui-1.5.4.1/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="resource/comm/easyui-1.5.4.1/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="resource/comm/easyui-1.5.4.1/demo/demo.css">
-	<script type="text/javascript" src="resource/comm/easyui-1.5.4.1//jquery.easyui.min.js"></script>
-	 
+	#parse("comm/comm.vm")
+	#parse("comm/datagrid.vm")
 	<script type="text/javascript" src="resource/js/quartz/listjob.js"></script>
 </head>
 <body style="background: beige;">
   <h2 style="text-align: center;">任务列表</h2>
+  <div>
+	<button type="button" onclick="quartzToAddJob();" class="btn">新增任务</button>
+	<button type="button" onclick="refreshData();" class="btn">刷新列表</button>
+  </div>
   <div style="margin:20px 0;"></div>
-	<table class="easyui-datagrid" title="Format DataGrid Columns" style="width:1860px;height:500px"
+	<table id="datagrid" class="easyui-datagrid" title="Format DataGrid Columns" style="width:1860px;height:500px"
 			data-options="rownumbers:true,singleSelect:true,iconCls:'icon-ok',url:'getAllCronJobInfos.do',method:'get'">
 		<thead>
 			<tr>
@@ -36,8 +35,5 @@
 		</thead>
 	</table>
 </table>
-<div style="width: 90%;margin: 0 auto;text-align: center;margin-top: 25px;">
-	<button type="button" onclick="add();" class="btn">新增任务</button>
-</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
-	 #parse("common/common.vm")
+	 #parse("comm/comm.vm")
 	<script type="text/javascript" src="resource/js/index/index.js"></script>
 </head>
 <body style="overflow:hidden;" oncontextmenu="return false;"> 
@@ -39,6 +39,11 @@
 	<div >
 		<form action="welcomeDatagrid.do" method="post">  
 	      <input name="submit" type="submit" value="Datagrid列表DEMO" />  
+	    </form>  
+    </div>
+	<div >
+		<form action="toSpringMVCDemo.do" method="post">  
+	      <input name="submit" type="submit" value="SPRING_MVC前后台交互DEMO" />  
 	    </form>  
     </div>
 	#if($security.hasAnyRole("AUTH_TO_INDEX"))

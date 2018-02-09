@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
 	<meta charset="UTF-8">
-	#parse("common/common.vm")
+	#parse("comm/comm.vm")
 	<title>Format DataGrid Columns - jQuery EasyUI Demo</title>
 	<link rel="stylesheet" type="text/css" href="resource/comm/easyui-1.5.4.1/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="resource/comm/easyui-1.5.4.1/themes/icon.css">

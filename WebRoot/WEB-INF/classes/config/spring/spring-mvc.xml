@@ -12,7 +12,8 @@
 
 	<!-- 开启controller注解支持 -->
 	<context:component-scan base-package="com.fhzz.**.controller">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
 	<!--开启记录操作日志 -->
@@ -23,7 +24,12 @@
 		<mvc:message-converters register-defaults="true">
 			<bean
 				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-				<property name="supportedMediaTypes" value="text/html;charset=UTF-8" />
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
 				<property name="features">
 					<array>
 						<value>WriteMapNullValue</value>
@@ -48,9 +54,11 @@
 	<mvc:resources mapping="/resource/comm/**" location="/WEB-INF/resource/comm/" />
 
 	<!-- View定义 -->
-	<bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+	<bean id="velocityConfigurer"
+		class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
 		<property name="resourceLoaderPath" value="/WEB-INF/views/" />
-		<property name="configLocation"	value="/WEB-INF/classes/config/velocity/velocity.properties" />
+		<property name="configLocation"
+			value="/WEB-INF/classes/config/velocity/velocity.properties" />
 		<property name="velocityProperties">
 			<props>
 				<prop key="input.encoding">UTF-8</prop>
@@ -61,7 +69,8 @@
 		</property>
 	</bean>
 
-	<bean class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+	<bean
+		class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
 		<property name="prefix" value="" />
 		<property name="suffix" value=".vm" />
 		<property name="cache" value="true" />
