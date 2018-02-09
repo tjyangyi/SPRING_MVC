@@ -20,7 +20,7 @@ import org.hibernate.annotations.GenericGenerator;
  * SysResources entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "SYS_RESOURCES", schema = "PSOPUSER")
+@Table(name = "SYS_RESOURCES")
 public class SysResources implements java.io.Serializable {
 
 	// Fields

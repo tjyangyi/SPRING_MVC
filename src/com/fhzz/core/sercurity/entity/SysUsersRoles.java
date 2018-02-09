@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
  * SysUsersRoles entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "SYS_USERS_ROLES", schema = "PSOPUSER")
+@Table(name = "SYS_USERS_ROLES")
 public class SysUsersRoles implements java.io.Serializable {
 
 	// Fields

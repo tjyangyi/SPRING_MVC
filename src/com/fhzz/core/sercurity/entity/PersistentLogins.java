@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * PersistentLogins entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "PERSISTENT_LOGINS", schema = "PSOPUSER")
+@Table(name = "PERSISTENT_LOGINS")
 public class PersistentLogins implements java.io.Serializable {
 
 	// Fields

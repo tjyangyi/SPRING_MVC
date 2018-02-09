@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * AssistFile entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "WELCOME", schema = "PSOPUSER")
+@Table(name = "WELCOME")
 public class Welcome implements java.io.Serializable {
 	// Fields
 	private static final long serialVersionUID = -5923136026371408857L;

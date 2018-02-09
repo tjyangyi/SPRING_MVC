@@ -28,7 +28,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 @DynamicUpdate(true)
 @DynamicInsert(true)
-@Table(name = "SYS_USERS", schema = "PSOPUSER")
+@Table(name = "SYS_USERS")
 public class SysUsers implements UserDetails, Serializable {
 
 	// Fields

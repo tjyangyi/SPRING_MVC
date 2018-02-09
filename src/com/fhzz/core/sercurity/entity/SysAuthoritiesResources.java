@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
  * SysAuthoritiesResources entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "SYS_AUTHORITIES_RESOURCES", schema = "PSOPUSER")
+@Table(name = "SYS_AUTHORITIES_RESOURCES")
 public class SysAuthoritiesResources implements java.io.Serializable {
 
 	// Fields

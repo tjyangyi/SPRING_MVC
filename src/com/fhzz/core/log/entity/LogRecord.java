@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
  * LogRecord entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "LOG_RECORD", schema = "PSOPUSER")
+@Table(name = "LOG_RECORD")
 public class LogRecord implements java.io.Serializable {
 
 	// Fields

@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@Table(name = "SYS_MODULES", schema = "PSOPUSER")
+@Table(name = "SYS_MODULES")
 public class SysModules implements java.io.Serializable {
 
 	// Fields
