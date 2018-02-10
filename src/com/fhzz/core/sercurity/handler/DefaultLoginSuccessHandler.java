@@ -28,7 +28,7 @@ import org.springframework.util.StringUtils;
 
 import com.fhzz.core.sercurity.dao.SysUsersDao;
 import com.fhzz.core.sercurity.entity.SysUsers;
-import com.fhzz.core.utils.IPUtils;
+import com.fhzz.core.utils.HTTPUtils;
 
 /**
  * @author YangYi
@@ -76,7 +76,7 @@ public class DefaultLoginSuccessHandler implements
 		logger.info("userId = " + user.getUserId());
 		logger.info("username = " + user.getUsername());
 		try {
-			String ip = IPUtils.getIpAddress(request);
+			String ip = HTTPUtils.getIpAddress(request);
 			user.setLastLogin(new Date());
 			user.setLoginIp(ip);
 			this.sysUsersDao.saveOrUpdateSysUser(user);

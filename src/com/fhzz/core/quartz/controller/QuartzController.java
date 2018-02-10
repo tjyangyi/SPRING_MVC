@@ -35,7 +35,7 @@ public class QuartzController extends BaseAction {
 	 * 定时列表页
 	 */
 	@RequestMapping(value = "quartzListJob")
-	public String listJob() throws SchedulerException {
+	public String listJob() {
 		return "quartz/listjob";
 	}
 
@@ -62,7 +62,7 @@ public class QuartzController extends BaseAction {
 	@RequestMapping("quartzToAddJob")
 	public ModelAndView quartzToAddJob(ModelAndView modelAndView) {
 		List<String> jobNameList = quartzJobRegister.getAllJobsName();
-		modelAndView.addObject("jobNameList",jobNameList);
+		modelAndView.addObject("jobNameList", jobNameList);
 		modelAndView.setViewName("quartz/addjob");
 		return modelAndView;
 	}
@@ -71,7 +71,8 @@ public class QuartzController extends BaseAction {
 	 * 新增job
 	 */
 	@RequestMapping(value = "quartzAddJob", method = RequestMethod.POST)
-	public ModelAndView quartzAddJob(@ModelAttribute CronJobInfo cronJobInfo, ModelAndView modelAndView) {
+	public ModelAndView quartzAddJob(@ModelAttribute CronJobInfo cronJobInfo,
+			ModelAndView modelAndView) {
 		modelAndView.addObject("opName", "添加任务");
 		try {
 			quartzService.addJob(cronJobInfo);
@@ -89,7 +90,8 @@ public class QuartzController extends BaseAction {
 	 */
 	@RequestMapping(value = "triggerJob", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> triggerJob(@ModelAttribute CronJobInfo cronJobInfo) {
+	public Map<String, Object> triggerJob(
+			@ModelAttribute CronJobInfo cronJobInfo) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			quartzService.triggerJob(cronJobInfo);
@@ -108,7 +110,8 @@ public class QuartzController extends BaseAction {
 	public ModelAndView quartzToEdit(@RequestParam("jobName") String jobName,
 			@RequestParam("jobGroup") String jobGroup, ModelAndView modelAndView) {
 		try {
-			CronJobInfo cronJobInfo = quartzService.getCronJobInfo(jobGroup, jobName);
+			CronJobInfo cronJobInfo = quartzService.getCronJobInfo(jobGroup,
+					jobName);
 			modelAndView.addObject("cronJobInfo", cronJobInfo);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -121,7 +124,8 @@ public class QuartzController extends BaseAction {
 	 * 修改触发时间
 	 */
 	@RequestMapping(value = "/quartzEdit", method = RequestMethod.POST)
-	public ModelAndView edit(@ModelAttribute CronJobInfo cronJobInfo, ModelAndView modelAndView) {
+	public ModelAndView edit(@ModelAttribute CronJobInfo cronJobInfo,
+			ModelAndView modelAndView) {
 		modelAndView.addObject("opName", "更新任务");
 		try {
 			quartzService.modifyJobTime(cronJobInfo);
@@ -139,8 +143,10 @@ public class QuartzController extends BaseAction {
 	 */
 	@RequestMapping(value = "/quartzPauseJob", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> quartzPauseJob(@RequestParam("jobName") String jobName,
-			@RequestParam("jobGroup") String jobGroup) throws SchedulerException {
+	public Map<String, Object> quartzPauseJob(
+			@RequestParam("jobName") String jobName,
+			@RequestParam("jobGroup") String jobGroup)
+			throws SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			quartzService.pauseJob(jobName, jobGroup);
@@ -157,8 +163,10 @@ public class QuartzController extends BaseAction {
 	 */
 	@RequestMapping(value = "/quartzResumeJob", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> quartzResumeJob(@RequestParam("jobName") String jobName,
-			@RequestParam("jobGroup") String jobGroup) throws SchedulerException {
+	public Map<String, Object> quartzResumeJob(
+			@RequestParam("jobName") String jobName,
+			@RequestParam("jobGroup") String jobGroup)
+			throws SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			quartzService.resumeJob(jobName, jobGroup);
@@ -175,7 +183,8 @@ public class QuartzController extends BaseAction {
 	 */
 	@RequestMapping(value = "/quartzDeleteJob", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> quartzDeleteJob(@ModelAttribute CronJobInfo cronJobInfo) throws SchedulerException {
+	public Map<String, Object> quartzDeleteJob(
+			@ModelAttribute CronJobInfo cronJobInfo) throws SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			quartzService.removeJob(cronJobInfo);

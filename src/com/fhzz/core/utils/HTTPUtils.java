@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author YangYi
  * 
  */
-public class IPUtils {
+public class HTTPUtils {
 	/**
 	 * 从request获取登录的IP,别问,网上抄的,反正很好用
 	 * 
@@ -35,4 +35,15 @@ public class IPUtils {
 		}
 		return ip;
 	}
+
+	// 判断是否为ajax请求
+	public static boolean isAjaxRequest(HttpServletRequest request) {
+		if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request
+				.getHeader("X-Requested-With") != null && request.getHeader(
+				"X-Requested-With").equals("XMLHttpRequest")))) {
+			return true;
+		}
+		return false;
+	}
+
 }

@@ -11,9 +11,22 @@
 	<button onclick="springMVCRequestParam2();">使用@ModelAttribute 以对象的方式向后台传递参数</button>
 	<button onclick="springMVCRequestParam3();">直接使用HttpServletRequest向后台传递参数</button>
 	<div >
-		<form action="toSpringMVCDemoWithReturn.do" method="post">  
+		<form action="toSpringMVCDemoWithReturn" method="post">  
 	      <input name="submit" type="submit" value="带数据返回的页面跳转" />  
 	    </form>  
     </div>
+    <div >
+		<form action="exceptionForPageJumps" method="post">  
+	      <input name="submit" type="submit" value="exceptionForPageJumps" />  
+	    </form>  
+    </div>
+    <div >
+		<button onclick="businessException();">businessException</button>
+    </div>
+    <div >
+		<button onclick="springMVCReturnJSONByModelAndView();">springMVCReturnJSONByModelAndView</button>
+    </div>
+    
+    
 </body>
 </html>

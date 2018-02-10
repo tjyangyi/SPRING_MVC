@@ -15,6 +15,8 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Service;
 
+import com.fhzz.core.utils.HTTPUtils;
+
 /**
  * @author YangYi
  * @description 自定义权限不足处理程序
@@ -37,7 +39,7 @@ public class DefaultAccessDeniedHandler implements AccessDeniedHandler {
 			HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException,
 			ServletException {
-		boolean isAjax = this.isAjaxRequest(request);
+		boolean isAjax = HTTPUtils.isAjaxRequest(request);
 		if (isAjax) {
 			response.sendError(403);
 		} else if (!response.isCommitted()) {
@@ -73,16 +75,6 @@ public class DefaultAccessDeniedHandler implements AccessDeniedHandler {
 			throw new IllegalArgumentException("errorPage must begin with '/'");
 		}
 		this.errorPage = errorPage;
-	}
-
-	// 判断是否为ajax请求
-	private boolean isAjaxRequest(HttpServletRequest request) {
-		if (request.getHeader("x-requested-with") != null
-				&& request.getHeader("x-requested-with").equals(
-						"XMLHttpRequest")) {
-			return true;
-		}
-		return false;
 	}
 
 }

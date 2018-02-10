@@ -3,7 +3,10 @@ package com.fhzz.core.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,18 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class BaseAction {
+
+	private static ThreadLocal<Map<String, Object>> threadLocalResult = new ThreadLocal<Map<String, Object>>();
+
+	@PostConstruct
+	public void init() {
+		threadLocalResult.set(new HashMap<String, Object>());
+	}
+
+	public Map<String, Object> result() {
+		return threadLocalResult.get();
+	}
+
 	/**
 	 * 将信息返回给客户端
 	 * 
@@ -23,7 +38,8 @@ public class BaseAction {
 	 * @param response
 	 * @throws IOException
 	 */
-	public void writeTo(String msg, HttpServletResponse response) throws IOException {
+	public void writeTo(String msg, HttpServletResponse response)
+			throws IOException {
 		OutputStream os = null;
 		try {
 			os = response.getOutputStream();
@@ -60,7 +76,8 @@ public class BaseAction {
 	/**
 	 * Ajax发送信息
 	 */
-	public void sendAjax(HttpServletResponse response, Object obj) throws IOException {
+	public void sendAjax(HttpServletResponse response, Object obj)
+			throws IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.print(obj);
@@ -68,30 +85,30 @@ public class BaseAction {
 		out.close();
 	}
 
-//	/**
-//	 * 
-//	 * 从session里获取当前登录的用户
-//	 * 
-//	 * @param request
-//	 * @return
-//	 */
-//	public UserInfo getCurrentUser(HttpServletRequest request) {
-//		UserInfo user = new UserInfo();
-//		if ("127.0.0.1".equals(request.getRemoteAddr())) {
-//			user.setCustId("410483554096");
-//			user.setCustName("本地登录的测试用户");
-//			user.setOrgName("1");
-//			user.setIsLeader(2);
-//			user.setRealName("本地登录的测试用户");
-//			user.setOrgId("44335897692635728163");
-//		} else {
-//			try {
-//				user = (UserInfo) request.getSession().getAttribute("user");
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return user;
-//	}
+	// /**
+	// *
+	// * 从session里获取当前登录的用户
+	// *
+	// * @param request
+	// * @return
+	// */
+	// public UserInfo getCurrentUser(HttpServletRequest request) {
+	// UserInfo user = new UserInfo();
+	// if ("127.0.0.1".equals(request.getRemoteAddr())) {
+	// user.setCustId("410483554096");
+	// user.setCustName("本地登录的测试用户");
+	// user.setOrgName("1");
+	// user.setIsLeader(2);
+	// user.setRealName("本地登录的测试用户");
+	// user.setOrgId("44335897692635728163");
+	// } else {
+	// try {
+	// user = (UserInfo) request.getSession().getAttribute("user");
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// return user;
+	// }
 
 }
