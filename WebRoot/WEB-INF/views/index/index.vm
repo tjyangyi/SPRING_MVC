@@ -5,53 +5,69 @@
 	<script type="text/javascript" src="resource/js/index/index.js"></script>
 </head>
 <body style="overflow:hidden;" oncontextmenu="return false;"> 
-    <div>
-    	INDEX页面
-    	<p>用户ID：${SPRING_SECURITY_CONTEXT.authentication.principal.userId}</p>  
-		<p>用户名：${SPRING_SECURITY_CONTEXT.authentication.principal.username}</p>  
-		<p>用户姓名：${SPRING_SECURITY_CONTEXT.authentication.principal.name} </p>  
-		<p>拥有的权限：${SPRING_SECURITY_CONTEXT.authentication.principal.authorities}</p>
+	<div>
+		<h3>权限模块</h3>
+        <div>
+        	INDEX页面
+        	<p>用户ID：${SPRING_SECURITY_CONTEXT.authentication.principal.userId}</p>  
+    		<p>用户名：${SPRING_SECURITY_CONTEXT.authentication.principal.username}</p>  
+    		<p>用户姓名：${SPRING_SECURITY_CONTEXT.authentication.principal.name} </p>  
+    		<p>拥有的权限：${SPRING_SECURITY_CONTEXT.authentication.principal.authorities}</p>
+        </div>
+			#if($security.hasAnyRole("AUTH_TO_INDEX"))
+				<p>您能看到这行字，表示拥有AUTH_TO_INDEX权限</p>
+			#end
+        	#if(!$security.hasAnyRole("AUTH_SUPER"))
+				<p>您能看到这行字，表示没有AUTH_SUPER权限</p>
+        	#end
+    	<div >
+    		<button id="sendAjax" onclick="onSendAjaxButtonClicked()">测试权限不足的AJAX请求
+            </button>
+        </div>
+    	<div >
+    		<form action="logout.do" method="post">  
+    	      <input name="submit" type="submit" value="登出" />  
+    	    </form>  
+        </div>
+	</div>
+	<div style="padding-top:10px">
+        <h3>SPRINGMVC</h3>
+		<div >
+    		<form action="toSpringMVCDemo.do" method="post">  
+    	      <input name="submit" type="submit" value="SPRING_MVC前后台交互DEMO" />  
+    	    </form>  
+		</div>
     </div>
-	<div >
-		<button id="sendAjax" onclick="onSendAjaxButtonClicked()">测试AJAX请求
-        </button>
+	<div style="padding-top:10px">
+		<h3>WELCOME</h3>
+        <div >
+    		<form action="welcome.do" method="post">  
+    	      <input name="submit" type="submit" value="welcome" />  
+    	    </form>  
+        </div>
+        <div >
+    		<form action="queryAllWelcome.do" method="post">  
+    	      <input name="submit" type="submit" value="queryAllWelcome" />  
+    	    </form>  
+        </div>
     </div>
-	<div >
-		<form action="logout.do" method="post">  
-	      <input name="submit" type="submit" value="登出" />  
-	    </form>  
+	<div style="padding-top:10px">
+        <h3>DATAGRID</h3>
+		<div>
+    		<form action="welcomeDatagrid.do" method="post">  
+    	      <input name="submit" type="submit" value="Datagrid列表DEMO" />  
+    	    </form>  
+		</div>
     </div>
-    <div >
-		<form action="welcome.do" method="post">  
-	      <input name="submit" type="submit" value="welcome" />  
-	    </form>  
+	<div style="padding-top:10px">
+		<h3>QUARTZ</h3>
+		<div >
+    		<form action="quartzListJob.do" method="post">  
+    	      <input name="submit" type="submit" value="任务列表" />  
+    	    </form>  
+		</div>
     </div>
-    <div >
-		<form action="queryAllWelcome.do" method="post">  
-	      <input name="submit" type="submit" value="queryAllWelcome" />  
-	    </form>  
-    </div>
-	<div >
-		<form action="quartzListJob.do" method="post">  
-	      <input name="submit" type="submit" value="任务列表" />  
-	    </form>  
-    </div>
-	<div >
-		<form action="welcomeDatagrid.do" method="post">  
-	      <input name="submit" type="submit" value="Datagrid列表DEMO" />  
-	    </form>  
-    </div>
-	<div >
-		<form action="toSpringMVCDemo.do" method="post">  
-	      <input name="submit" type="submit" value="SPRING_MVC前后台交互DEMO" />  
-	    </form>  
-    </div>
-	#if($security.hasAnyRole("AUTH_TO_INDEX"))
-          <h2>拥有AUTH_TO_INDEX权限</h2>
-	#end
-	#if(!$security.hasAnyRole("AUTH_SUPER"))
-          <h2>没有AUTH_SUPER权限</h2>
-	#end
 	
+
 </body> 
 </html>

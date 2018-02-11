@@ -6,27 +6,31 @@
 	<script type="text/javascript" src="resource/js/demo/springMVCDemo.js"></script>
 </head>
 <body style="background: beige;">
-	<button onclick="springMVCReturnJSON();">使用POST请求JSON数据展示</button>
-	<button onclick="springMVCRequestParam1();">使用@RequestParam向后台传递参数</button>
-	<button onclick="springMVCRequestParam2();">使用@ModelAttribute 以对象的方式向后台传递参数</button>
-	<button onclick="springMVCRequestParam3();">直接使用HttpServletRequest向后台传递参数</button>
-	<div >
+	AJAX请求请按F12从控制台看结果
+	<div>
+		<button onclick="springMVCReturnJSON();">使用POST请求JSON数据示例</button>
+    </div>
+	<div>
+		<button onclick="springMVCRequestParam1();">使用@RequestParam向后台传递参数示例</button>
+    </div>
+	<div>
+		<button onclick="springMVCRequestParam2();">使用@ModelAttribute以对象的方式向后台传递参数示例</button>
+    </div>
+	<div>
+		<button onclick="springMVCRequestParam3();">直接使用HttpServletRequest向后台传递参数示例</button>
+	</div>
+	<div>
 		<form action="toSpringMVCDemoWithReturn" method="post">  
-	      <input name="submit" type="submit" value="带数据返回的页面跳转" />  
+	      <input name="submit" type="submit" value="带数据返回的页面跳转示例" />  
 	    </form>  
     </div>
     <div >
-		<form action="exceptionForPageJumps" method="post">  
-	      <input name="submit" type="submit" value="exceptionForPageJumps" />  
+		<form action="exceptionForPageJump" method="post">  
+	      <input name="submit" type="submit" value="界面跳转异常示例" />  
 	    </form>  
     </div>
     <div >
-		<button onclick="businessException();">businessException</button>
+		<button onclick="exceptionForAJAX();">AJAX请求异常示例</button>
     </div>
-    <div >
-		<button onclick="springMVCReturnJSONByModelAndView();">springMVCReturnJSONByModelAndView</button>
-    </div>
-    
-    
 </body>
 </html>

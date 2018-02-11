@@ -4,6 +4,8 @@
 package com.fhzz.business.controller.welcome;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -68,16 +71,15 @@ public class WelcomeAction extends BaseAction {
 	}
 	
 	@RequestMapping("getWelcomeDatagridJson")
-	public void getWelcomeDatagridJson(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	@ResponseBody
+	public Map<String,Object> getWelcomeDatagridJson() throws IOException {
+		Map<String,Object> map = new HashMap<String,Object>();
 		JSONArray rows = new JSONArray();
 		JSONObject j = new  JSONObject();
 		j.put("productid", "FI-SW-01");
 		rows.add(j);
-		
-		JSONObject json = new JSONObject();
-		json.put("total", "1");
-		json.put("rows", rows);
-		sendAjax(response, json);
+		map.put("total", "1");
+		map.put("rows", rows);
+		return map;
 	}
 }

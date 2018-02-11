@@ -5,26 +5,18 @@ function springMVCReturnJSON() {
 		"param1" : "param1的值",
 		"param2" : "param2的值"
 	}, function(data, status) {
-		// data = JSON.parse(data);// 转化为JSON对象
 		console.log(data);
 		console.log(status);
-//		if (status && data.success) {
-//			alert("运行成功");
-//			// 成功之后的逻辑
-//		} else {
-//			alert("运行失败");
-//		}
 	});
 }
 
 function springMVCRequestParam1() {
 	$.post("springMVCRequestParam1", {
 		"param1" : "param1的值",
-		"param2" : "param2的值"
+		//"param2" : "param2的值"
 	}, function(data, status) {
-		if (status && data.success) {
-			alert("运行成功");
-		}
+		console.log(data);
+		console.log(status);
 	});
 }
 
@@ -33,9 +25,8 @@ function springMVCRequestParam2() {
 		"param1" : "param1的值",
 		"param2" : "param2的值"
 	}, function(data, status) {
-		if (status && data.success) {
-			alert("运行成功");
-		}
+		console.log(data);
+		console.log(status);
 	});
 }
 
@@ -44,38 +35,14 @@ function springMVCRequestParam3() {
 		"param1" : "param1的值",
 		"param2" : "param2的值"
 	}, function(data, status) {
-		if (status && data.success) {
-			alert("运行成功");
-		}
+		console.log(data);
+		console.log(status);
 	});
 }
 
-function businessException() {
-	$.post("businessException", {}, function(data, status) {
-		// data = JSON.parse(data);// 转化为JSON对象
+function exceptionForAJAX() {
+	$.post("exceptionForAJAX", {}, function(data, status) {
 		console.log(data);
 		console.log(status);
-		if (status && data.success) {
-			alert("运行成功");
-			// 成功之后的逻辑
-		} else {
-			alert("运行失败,errorMsg=" + data.errorMsg);
-		}
-	});
-}
-
-function springMVCReturnJSONByModelAndView() {
-	$.post("springMVCReturnJSONByModelAndView.do", {
-		"param1" : "param1的值",
-		"param2" : "param2的值"
-	}, function(data, status) {
-		console.log(data);
-		console.log(status);
-		if (status && data.success) {
-			alert("运行成功");
-			// 成功之后的逻辑
-		} else {
-			alert("运行失败,errorMsg=" + data.errorMsg);
-		}
 	});
 }

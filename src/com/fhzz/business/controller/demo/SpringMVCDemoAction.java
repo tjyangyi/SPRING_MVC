@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.fhzz.business.controller.vo.demo.RequestParamDemo;
 import com.fhzz.core.controller.BaseAction;
@@ -60,10 +59,8 @@ public class SpringMVCDemoAction extends BaseAction {
 	 */
 	@RequestMapping("springMVCReturnJSON")
 	@ResponseBody
-	public Map<String, Object> springMVCReturnJSON(
-			@RequestParam("param1") String param1,
-			@RequestParam("param2") String param2) throws IOException,
-			SchedulerException {
+	public Map<String, Object> springMVCReturnJSON(@RequestParam("param1") String param1,
+			@RequestParam("param2") String param2) throws IOException, SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("success", true);
 		List<String> list = new ArrayList<String>();// 模拟列表返回
@@ -80,9 +77,8 @@ public class SpringMVCDemoAction extends BaseAction {
 	 */
 	@RequestMapping("springMVCRequestParam1")
 	@ResponseBody
-	public Map<String, Object> springMVCRequestParam1(
-			@RequestParam("param1") String param1,
-			@RequestParam("param2") String param2) {
+	public Map<String, Object> springMVCRequestParam1(@RequestParam("param1") String param1,
+			@RequestParam(value = "param2", required = false) String param2) {
 		logger.info(param1);
 		logger.info(param2);
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -95,8 +91,7 @@ public class SpringMVCDemoAction extends BaseAction {
 	 */
 	@RequestMapping("springMVCRequestParam2")
 	@ResponseBody
-	public Map<String, Object> springMVCRequestParam2(
-			@ModelAttribute RequestParamDemo requestParamDemo) {
+	public Map<String, Object> springMVCRequestParam2(@ModelAttribute RequestParamDemo requestParamDemo) {
 		logger.info(requestParamDemo.getParam1());
 		logger.info(requestParamDemo.getParam2());
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -109,8 +104,7 @@ public class SpringMVCDemoAction extends BaseAction {
 	 */
 	@RequestMapping("springMVCRequestParam3")
 	@ResponseBody
-	public Map<String, Object> springMVCRequestParam3(
-			HttpServletRequest request, HttpServletResponse response) {
+	public Map<String, Object> springMVCRequestParam3(HttpServletRequest request, HttpServletResponse response) {
 		String param1 = request.getParameter("param1");
 		String param2 = request.getParameter("param2");
 		logger.info(param1);
@@ -120,49 +114,14 @@ public class SpringMVCDemoAction extends BaseAction {
 		return result;
 	}
 
-	/**
-	 * 使用POST请求JSON数据展示
-	 */
-	@RequestMapping("springMVCReturnJSONByModelAndView")
-	@ResponseBody
-	public ModelAndView springMVCReturnJSONByModelAndView(
-			@RequestParam("param1") String param1,
-			@RequestParam("param2") String param2, ModelAndView modelAndView)
-			throws IOException, SchedulerException {
-		ModelAndView mav = new ModelAndView(new MappingJackson2JsonView());
-		mav.addObject("success", true);
-		List<String> list = new ArrayList<String>();// 模拟列表返回
-		list.add("a");
-		list.add("b");
-		list.add("c");
-		mav.addObject("total", list.size());
-		mav.addObject("rows", list);
-		return mav;
+	@RequestMapping("/exceptionForPageJump")
+	public ModelAndView exceptionForPageJump(HttpServletRequest request) throws Exception {
+		throw new Exception("exceptionForPageJump");
 	}
 
-	// @RequestMapping("/index")
-	// public ModelAndView getIndex(HttpServletRequest request) throws Exception
-	// {
-	// ModelAndView mav = new ModelAndView("index");
-	// return mav;
-	// }
-
-	@RequestMapping("/exceptionForPageJumps")
-	public ModelAndView exceptionForPageJumps(HttpServletRequest request)
-			throws Exception {
-		throw new Exception("exceptionForPageJumps error");
-	}
-
-	@RequestMapping(value = "/businessException", method = RequestMethod.POST)
+	@RequestMapping(value = "/exceptionForAJAX", method = RequestMethod.POST)
 	@ResponseBody
-	public String businessException(HttpServletRequest request)
-			throws Exception {
-		throw new Exception("businessException error");
-	}
-
-	@RequestMapping(value = "/otherException.json", method = RequestMethod.POST)
-	@ResponseBody
-	public String otherException(HttpServletRequest request) throws Exception {
-		throw new Exception();
+	public String exceptionForAJAX(HttpServletRequest request) throws Exception {
+		throw new Exception("exceptionForAJAX");
 	}
 }

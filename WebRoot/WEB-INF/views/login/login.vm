@@ -17,9 +17,5 @@
 	<div>
 		${SPRING_SECURITY_LAST_EXCEPTION.message}  
     </div>
-	<div >
-		<button id="sendAjax" onclick="onSendAjaxButtonClicked()">测试AJAX请求
-        </button>
-    </div>
 </body> 
 </html>
