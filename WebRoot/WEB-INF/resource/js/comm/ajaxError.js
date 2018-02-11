@@ -41,6 +41,10 @@ $(function() {
 				fn.error(XMLHttpRequest, textStatus, errorThrown);
 			},
 			success : function(data, textStatus) {
+				if(data.timeout){
+					  location.href='toLogin.do'; //跳转到登录页面
+					  return;
+				}
 				if(!textStatus){
 					alert("操作失败,错误信息:" + data.errorMsg);
 				}else if(typeof(data.success) != 'undefined' && !data.success){

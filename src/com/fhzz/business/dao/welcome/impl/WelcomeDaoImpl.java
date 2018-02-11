@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fhzz.business.dao.welcome.WelcomeDao;
 import com.fhzz.business.entity.Welcome;
-import com.fhzz.core.dao.DaoTemplate;
+import com.fhzz.core.dao.BaseDaoImpl;
 import com.fhzz.core.utils.Result;
 
 /**
@@ -20,7 +20,7 @@ import com.fhzz.core.utils.Result;
  * @Copyright: FHZZ
  */
 @Repository
-public class WelcomeDaoImpl extends DaoTemplate implements WelcomeDao {
+public class WelcomeDaoImpl extends BaseDaoImpl<Welcome> implements WelcomeDao {
 
 	@Override
 	public Result saveWelcome(Welcome welcome) {

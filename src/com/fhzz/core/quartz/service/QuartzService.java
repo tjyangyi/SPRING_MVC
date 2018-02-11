@@ -94,20 +94,6 @@ public class QuartzService {
 		}
 	}
 
-	/**
-	 * 添加一项任务
-	 */
-	public void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName,
-			Class<? extends Job> cls, String cron) throws SchedulerException {
-		JobDetail job = JobBuilder.newJob(cls).withIdentity(jobName, jobGroupName).build();// 创建一项作业
-		CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName, triggerGroupName)
-				.withSchedule(CronScheduleBuilder.cronSchedule(cron)).build();// 创建一个触发器
-		quartzScheduler.scheduleJob(job, trigger);// 告诉调度器使用该触发器来安排作业
-		if (!quartzScheduler.isShutdown()) {
-			quartzScheduler.start();// 启动
-		}
-	}
-
 	public void triggerJob(CronJobInfo cronJobInfo) throws SchedulerException {
 		JobKey jobKey = JobKey.jobKey(cronJobInfo.getJobName(), cronJobInfo.getJobGroup());
 		quartzScheduler.triggerJob(jobKey);

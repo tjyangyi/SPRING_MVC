@@ -36,7 +36,6 @@ function triggerJob(jobName, jobGroup) {
 		jobName : jobName,
 		jobGroup : jobGroup
 	}, function(data, status) {
-		data = JSON.parse(data);// 转化为JSON对象
 		if (status && data.success) {
 			alert("运行成功");
 			refreshData();
@@ -52,7 +51,6 @@ function pauseJob(jobName, jobGroup) {
 		jobName : jobName,
 		jobGroup : jobGroup
 	}, function(data, status) {
-		data = JSON.parse(data);// 转化为JSON对象
 		if (status && data.success) {
 			alert("暂停成功");
 			refreshData();
@@ -68,7 +66,6 @@ function resumeJob(jobName, jobGroup) {
 		jobName : jobName,
 		jobGroup : jobGroup
 	}, function(data, status) {
-		data = JSON.parse(data);// 转化为JSON对象
 		if (status && data.success) {
 			alert("恢复成功");
 			refreshData();
@@ -86,7 +83,6 @@ function deleteJob(jobName, jobGroup, triggerName, triggerGroupName) {
 		triggerName : triggerName,
 		triggerGroupName : triggerGroupName
 	}, function(data, status) {
-		data = JSON.parse(data);// 转化为JSON对象
 		if (status && data.success) {
 			alert("删除成功");
 			refreshData();

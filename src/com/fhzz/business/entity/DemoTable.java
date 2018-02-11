@@ -1,12 +1,16 @@
 package com.fhzz.business.entity;
+
 // default package
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * DemoTable entity. @author MyEclipse Persistence Tools
@@ -16,13 +20,18 @@ import javax.persistence.Table;
 public class DemoTable implements java.io.Serializable {
 
 	// Fields
-
+	private static final long serialVersionUID = -419597990685300959L;
 	private String id;
 	private String name;
-	private BigDecimal count;
-	private Timestamp createTime;
+	private Integer count;
+	private Date createTime;
 
 	// Constructors
+
+	@Override
+	public String toString() {
+		return "DemoTable [id=" + id + ", name=" + name + ", count=" + count + ", createTime=" + createTime + "]";
+	}
 
 	/** default constructor */
 	public DemoTable() {
@@ -34,8 +43,7 @@ public class DemoTable implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public DemoTable(String id, String name, BigDecimal count,
-			Timestamp createTime) {
+	public DemoTable(String id, String name, Integer count, Date createTime) {
 		this.id = id;
 		this.name = name;
 		this.count = count;
@@ -44,6 +52,8 @@ public class DemoTable implements java.io.Serializable {
 
 	// Property accessors
 	@Id
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@GeneratedValue(generator = "uuid")
 	@Column(name = "ID", unique = true, nullable = false, length = 100)
 	public String getId() {
 		return this.id;
@@ -63,20 +73,20 @@ public class DemoTable implements java.io.Serializable {
 	}
 
 	@Column(name = "COUNT", precision = 22, scale = 0)
-	public BigDecimal getCount() {
+	public Integer getCount() {
 		return this.count;
 	}
 
-	public void setCount(BigDecimal count) {
+	public void setCount(Integer count) {
 		this.count = count;
 	}
 
 	@Column(name = "CREATE_TIME", length = 7)
-	public Timestamp getCreateTime() {
+	public Date getCreateTime() {
 		return this.createTime;
 	}
 
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 

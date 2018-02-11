@@ -41,18 +41,16 @@ public class QuartzController extends BaseAction {
 
 	/**
 	 * 获取所有使用Cron表达式的JOB
+	 * 
+	 * @throws SchedulerException
 	 */
 	@RequestMapping("getAllCronJobInfos")
 	@ResponseBody
-	public Map<String, Object> getAllCronJobInfos() {
+	public Map<String, Object> getAllCronJobInfos() throws SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
-		try {
-			List<CronJobInfo> jobInfos = quartzService.getAllCronJobInfos();
-			result.put("total", jobInfos.size());
-			result.put("rows", jobInfos);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+		List<CronJobInfo> jobInfos = quartzService.getAllCronJobInfos();
+		result.put("total", jobInfos.size());
+		result.put("rows", jobInfos);
 		return result;
 	}
 
@@ -69,71 +67,59 @@ public class QuartzController extends BaseAction {
 
 	/**
 	 * 新增job
+	 * 
+	 * @throws SchedulerException
+	 * @throws ClassNotFoundException
 	 */
 	@RequestMapping(value = "quartzAddJob", method = RequestMethod.POST)
-	public ModelAndView quartzAddJob(@ModelAttribute CronJobInfo cronJobInfo,
-			ModelAndView modelAndView) {
+	public ModelAndView quartzAddJob(@ModelAttribute CronJobInfo cronJobInfo, ModelAndView modelAndView)
+			throws ClassNotFoundException, SchedulerException {
+		quartzService.addJob(cronJobInfo);
 		modelAndView.addObject("opName", "添加任务");
-		try {
-			quartzService.addJob(cronJobInfo);
-			modelAndView.addObject("message", "添加任务成功!");
-		} catch (Exception e) {
-			modelAndView.addObject("message", "添加任务失败!");
-			logger.error(e.getMessage(), e);
-		}
+		modelAndView.addObject("message", "添加任务成功!");
 		modelAndView.setViewName("quartz/message");
 		return modelAndView;
 	}
 
 	/**
 	 * 运行任务
+	 * 
+	 * @throws SchedulerException
 	 */
 	@RequestMapping(value = "triggerJob", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> triggerJob(
-			@ModelAttribute CronJobInfo cronJobInfo) {
+	public Map<String, Object> triggerJob(@ModelAttribute CronJobInfo cronJobInfo) throws SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
-		try {
-			quartzService.triggerJob(cronJobInfo);
-			result.put("success", true);
-		} catch (Exception e) {
-			result.put("success", false);
-			result.put("errorMsg", e.getMessage());
-		}
+		quartzService.triggerJob(cronJobInfo);
+		result.put("success", true);
 		return result;
 	}
 
 	/**
 	 * 跳转到编辑
+	 * 
+	 * @throws SchedulerException
 	 */
 	@RequestMapping(value = "/quartzToEdit")
 	public ModelAndView quartzToEdit(@RequestParam("jobName") String jobName,
-			@RequestParam("jobGroup") String jobGroup, ModelAndView modelAndView) {
-		try {
-			CronJobInfo cronJobInfo = quartzService.getCronJobInfo(jobGroup,
-					jobName);
-			modelAndView.addObject("cronJobInfo", cronJobInfo);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+			@RequestParam("jobGroup") String jobGroup, ModelAndView modelAndView) throws SchedulerException {
+		CronJobInfo cronJobInfo = quartzService.getCronJobInfo(jobGroup, jobName);
+		modelAndView.addObject("cronJobInfo", cronJobInfo);
 		modelAndView.setViewName("quartz/editjob");
 		return modelAndView;
 	}
 
 	/**
 	 * 修改触发时间
+	 * 
+	 * @throws SchedulerException
 	 */
 	@RequestMapping(value = "/quartzEdit", method = RequestMethod.POST)
-	public ModelAndView edit(@ModelAttribute CronJobInfo cronJobInfo,
-			ModelAndView modelAndView) {
+	public ModelAndView edit(@ModelAttribute CronJobInfo cronJobInfo, ModelAndView modelAndView)
+			throws SchedulerException {
 		modelAndView.addObject("opName", "更新任务");
-		try {
-			quartzService.modifyJobTime(cronJobInfo);
-			modelAndView.addObject("message", "修改任务成功!");
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			modelAndView.addObject("message", "修改任务失败!");
-		}
+		quartzService.modifyJobTime(cronJobInfo);
+		modelAndView.addObject("message", "修改任务成功!");
 		modelAndView.setViewName("quartz/message");
 		return modelAndView;
 	}
@@ -143,18 +129,11 @@ public class QuartzController extends BaseAction {
 	 */
 	@RequestMapping(value = "/quartzPauseJob", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> quartzPauseJob(
-			@RequestParam("jobName") String jobName,
-			@RequestParam("jobGroup") String jobGroup)
-			throws SchedulerException {
+	public Map<String, Object> quartzPauseJob(@RequestParam("jobName") String jobName,
+			@RequestParam("jobGroup") String jobGroup) throws SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
-		try {
-			quartzService.pauseJob(jobName, jobGroup);
-			result.put("success", true);
-		} catch (Exception e) {
-			result.put("success", false);
-			result.put("errorMsg", e.getMessage());
-		}
+		quartzService.pauseJob(jobName, jobGroup);
+		result.put("success", true);
 		return result;
 	}
 
@@ -163,18 +142,11 @@ public class QuartzController extends BaseAction {
 	 */
 	@RequestMapping(value = "/quartzResumeJob", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> quartzResumeJob(
-			@RequestParam("jobName") String jobName,
-			@RequestParam("jobGroup") String jobGroup)
-			throws SchedulerException {
+	public Map<String, Object> quartzResumeJob(@RequestParam("jobName") String jobName,
+			@RequestParam("jobGroup") String jobGroup) throws SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
-		try {
-			quartzService.resumeJob(jobName, jobGroup);
-			result.put("success", true);
-		} catch (Exception e) {
-			result.put("success", false);
-			result.put("errorMsg", e.getMessage());
-		}
+		quartzService.resumeJob(jobName, jobGroup);
+		result.put("success", true);
 		return result;
 	}
 
@@ -183,16 +155,10 @@ public class QuartzController extends BaseAction {
 	 */
 	@RequestMapping(value = "/quartzDeleteJob", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> quartzDeleteJob(
-			@ModelAttribute CronJobInfo cronJobInfo) throws SchedulerException {
+	public Map<String, Object> quartzDeleteJob(@ModelAttribute CronJobInfo cronJobInfo) throws SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
-		try {
-			quartzService.removeJob(cronJobInfo);
-			result.put("success", true);
-		} catch (Exception e) {
-			result.put("success", false);
-			result.put("errorMsg", e.getMessage());
-		}
+		quartzService.removeJob(cronJobInfo);
+		result.put("success", true);
 		return result;
 	}
 }

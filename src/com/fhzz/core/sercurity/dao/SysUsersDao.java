@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Repository;
 
-import com.fhzz.core.dao.DaoTemplate;
+import com.fhzz.core.dao.BaseDaoImpl;
 import com.fhzz.core.sercurity.entity.SysAuthorities;
 import com.fhzz.core.sercurity.entity.SysUsers;
 
@@ -21,7 +21,7 @@ import com.fhzz.core.sercurity.entity.SysUsers;
  * 
  */
 @Repository
-public class SysUsersDao extends DaoTemplate   {
+public class SysUsersDao extends BaseDaoImpl<SysUsers>   {
 
 	public SysUsers getByUsername(String username) {
 		return getHibernateTemplate().findUniqueBy(SysUsers.class, "username",

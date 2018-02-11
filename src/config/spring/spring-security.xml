@@ -10,13 +10,16 @@
 	<http auto-config="true" access-decision-manager-ref="accessDecisionManager">
 		<!-- 自定义的access-denied-handler -->
 		<access-denied-handler ref="defaultAccessDeniedHandler" />
-		<!-- <session-management invalid-session-url="/toLogin.do"> <concurrency-control 
-			error-if-maximum-exceeded="true" max-sessions="1" expired-url="/toLogin.do" 
-			/> </session-management> -->
+		<session-management invalid-session-url="/sessionInvalid.do" />
+		<!-- <concurrency-control error-if-maximum-exceeded="true" max-sessions="1" 
+			expired-url="/toLogin.do" /> </session-management> -->
 		<!-- <session-management session-authentication-strategy-ref="concurrentSessionControlStrategy" 
 			/> -->
 		<!-- 不拦截的请求 -->
+		<!-- 登录界面不拦截 -->
 		<intercept-url pattern="/toLogin.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<!-- session失效跳转不拦截 -->
+		<intercept-url pattern="/sessionInvalid.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/queryAllWelcome.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/welcomeAjaxRequest.do" access="AUTH_AJAX" />
 		<!--仅拦截到manager下面的内容，具备access对应权限的 -->
@@ -38,7 +41,8 @@
 		<!-- logout-url logout地址 -->
 		<!-- logout-success-url logout成功后要跳转的地址 -->
 		<logout invalidate-session="false" logout-url="/logout.do"
-			logout-success-url="/toLogin.do" />
+			logout-success-url="/toLogin.do" delete-cookies="JSESSIONID" />
+			
 	</http>
 
 	<authentication-manager>
