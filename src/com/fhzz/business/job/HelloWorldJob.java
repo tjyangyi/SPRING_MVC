@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.fhzz.core.quartz.job;
+package com.fhzz.business.job;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,15 +10,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import com.fhzz.core.quartz.job.AbstractJob;
 import com.fhzz.core.sercurity.controller.LoginAction;
 
 /**
  * @author YangYi
  * 
  */
-@Component
+@Service
 public class HelloWorldJob extends AbstractJob {
 	Log logger = LogFactory.getLog(LoginAction.class);
 

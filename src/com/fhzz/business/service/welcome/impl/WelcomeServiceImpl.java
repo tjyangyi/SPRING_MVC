@@ -6,7 +6,7 @@ package com.fhzz.business.service.welcome.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fhzz.business.dao.welcome.IWelcomeDao;
+import com.fhzz.business.dao.welcome.WelcomeDao;
 import com.fhzz.business.entity.Welcome;
 import com.fhzz.business.service.welcome.WelcomeService;
 import com.fhzz.core.utils.Result;
@@ -19,7 +19,7 @@ import com.fhzz.core.utils.Result;
 @Service
 public class WelcomeServiceImpl implements WelcomeService {
 	@Autowired
-	private IWelcomeDao welcomeDao;
+	private WelcomeDao welcomeDao;
 
 	@Override
 	public Result saveWelcome(Welcome welcome) {

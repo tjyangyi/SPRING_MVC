@@ -11,7 +11,7 @@ import com.fhzz.core.utils.Result;
  * @CreateTime: 2018年1月29日 下午5:08:31
  * @Copyright: FHZZ
  */
-public interface IWelcomeDao {
+public interface WelcomeDao {
 	Result saveWelcome(Welcome welcome);
 	
 	Result queryAllWelcome();
