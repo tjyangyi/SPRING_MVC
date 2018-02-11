@@ -18,8 +18,8 @@ Date: 2018-02-11 13:40:19
 -- ----------------------------
 -- Table structure for DEMO_TABLE
 -- ----------------------------
-DROP TABLE "SPRINGMVC"."DEMO_TABLE";
-CREATE TABLE "SPRINGMVC"."DEMO_TABLE" (
+DROP TABLE "DEMO_TABLE";
+CREATE TABLE "DEMO_TABLE" (
 "ID" VARCHAR2(100 BYTE) NOT NULL ,
 "NAME" VARCHAR2(255 BYTE) NULL ,
 "COUNT" NUMBER NULL ,
@@ -38,9 +38,9 @@ NOCACHE
 -- ----------------------------
 -- Checks structure for table DEMO_TABLE
 -- ----------------------------
-ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "DEMO_TABLE" ADD CHECK ("ID" IS NOT NULL);
 
 -- ----------------------------
 -- Primary Key structure for table DEMO_TABLE
 -- ----------------------------
-ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD PRIMARY KEY ("ID");
+ALTER TABLE "DEMO_TABLE" ADD PRIMARY KEY ("ID");
