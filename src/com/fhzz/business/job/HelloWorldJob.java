@@ -19,7 +19,6 @@ import com.fhzz.core.sercurity.controller.LoginAction;
  * @author YangYi
  * 
  */
-@Service
 public class HelloWorldJob extends AbstractJob {
 	Log logger = LogFactory.getLog(LoginAction.class);
 
