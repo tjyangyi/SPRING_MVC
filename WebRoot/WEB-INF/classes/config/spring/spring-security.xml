@@ -10,7 +10,10 @@
 	<http auto-config="true" access-decision-manager-ref="accessDecisionManager">
 		<!-- 自定义的access-denied-handler -->
 		<access-denied-handler ref="defaultAccessDeniedHandler" />
-		<session-management invalid-session-url="/sessionInvalid.do" />
+		<session-management invalid-session-url="/sessionInvalid.do">
+			<concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" expired-url="/toLogin.do" />
+		</session-management>
 		<!-- <concurrency-control error-if-maximum-exceeded="true" max-sessions="1" 
 			expired-url="/toLogin.do" /> </session-management> -->
 		<!-- <session-management session-authentication-strategy-ref="concurrentSessionControlStrategy" 
@@ -42,7 +45,7 @@
 		<!-- logout-success-url logout成功后要跳转的地址 -->
 		<logout invalidate-session="false" logout-url="/logout.do"
 			logout-success-url="/toLogin.do" delete-cookies="JSESSIONID" />
-			
+
 	</http>
 
 	<authentication-manager>

@@ -10,7 +10,6 @@ import org.apache.commons.logging.LogFactory;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.service.demo.DatabaseOperationExampleService;
