@@ -53,10 +53,20 @@ public class SysUsers implements UserDetails, Serializable {
 
 	private Collection<GrantedAuthority> authorities;
 
+	
+	
 	// Constructors
+
 
 	/** default constructor */
 	public SysUsers() {
+	}
+
+	@Override
+	public String toString() {
+		return "SysUsers [userId=" + userId + ", username=" + username
+				+ ", name=" + name + ", lastLogin=" + lastLogin + ", loginIp="
+				+ loginIp + "]";
 	}
 
 	/** minimal constructor */

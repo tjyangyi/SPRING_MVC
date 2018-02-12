@@ -5,22 +5,24 @@
                         http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
                         http://www.springframework.org/schema/security   
                         http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
 	<!-- 登录界面不拦截 -->
 	<sec:http pattern="/toLogin.do" security="none" />
 	<!-- session失效跳转不拦截 -->
 	<sec:http pattern="/sessionInvalid.do" security="none" />
-	<sec:http pattern="/expired.do" security="none" />
 
 	<!-- 使用自定义的accessDecisionManager -->
 	<sec:http auto-config="true" access-decision-manager-ref="accessDecisionManager">
 		<!-- 配置请求需要的权限 -->
-		<sec:intercept-url pattern="/welcomeAjaxRequest.do"
-			access="AUTH_AJAX" />
+		<sec:intercept-url pattern="/pageJumpWithoutAuth.do"
+			access="SECURITY_DEMO" />
+		<sec:intercept-url pattern="/ajaxWithoutAuth.do"
+			access="SECURITY_DEMO" />
 		<!--需要AUTH_TO_INDEX才能访问 -->
 		<sec:intercept-url pattern="/*" access="AUTH_TO_INDEX" />
 
 		<!-- 自定义的access-denied-handler -->
-		<sec:access-denied-handler ref="defaultAccessDeniedHandler" />
+		<sec:access-denied-handler ref="customAccessDeniedHandler" />
 
 		<!-- 登录表单设置 -->
 		<!-- login-page:登录页面 -->
@@ -31,8 +33,8 @@
 		<!-- password-parameter：登录密码的参数名称,需要与登录form中的input name='password'保持一致 -->
 		<!-- authentication-success-handler-ref:自定义登录成功后的Handler -->
 		<sec:form-login login-page="/toLogin.do"
-			login-processing-url="/login.do" authentication-failure-url="/toLogin.do"
-			authentication-success-handler-ref="defaultLoginSuccessHandler"
+			login-processing-url="/login.do" authentication-failure-url="/toLogin.do?message=authentication-failure"
+			authentication-success-handler-ref="customLoginSuccessHandler"
 			username-parameter="username" password-parameter="password" />
 
 		<!-- 登出操作 -->
@@ -40,26 +42,21 @@
 		<!-- logout-url logout地址 -->
 		<!-- logout-success-url logout成功后要跳转的地址 -->
 		<sec:logout invalidate-session="false" logout-url="/logout.do"
-			logout-success-url="/toLogin.do" delete-cookies="JSESSIONID" />
+			logout-success-url="/toLogin.do?message=logout-success" delete-cookies="JSESSIONID" />
 
-
-		<sec:session-management invalid-session-url="/sessionInvalid.do"
-			session-authentication-error-url="/sessionInvalid.do">
-			<!-- 
+		<!-- Session管理 -->
+		<!-- invalid-session-url Session失效后跳转的界面 -->
+		<sec:session-management invalid-session-url="/sessionInvalid.do?message=invalid-session"
+			session-fixation-protection="migrateSession">
 			<sec:concurrency-control
-				error-if-maximum-exceeded="false" max-sessions="1" expired-url="/expired.do" />
-				 -->
+				error-if-maximum-exceeded="false" max-sessions="1" expired-url="/sessionInvalid.do?message=expired" />
 		</sec:session-management>
-
-		<!-- session控制，当一个账户从多处登时候，先登录的会被顶掉，具体看concurrentSessionControlStrategy的配置 -->
-		<!-- <sec:session-management invalid-session-url="/sessionInvalid.do" session-authentication-strategy-ref="concurrentSessionControlStrategy" 
-			/> <sec:custom-filter ref="customConcurrentSessionFilter" position="CONCURRENT_SESSION_FILTER" 
-			/> -->
 	</sec:http>
 
+	<!-- 使用自定义的UserDetailsService -->
 	<sec:authentication-manager>
 		<sec:authentication-provider
-			user-service-ref="defaultUserDetailsService" />
+			user-service-ref="customUserDetailsService" />
 	</sec:authentication-manager>
 
 	<!-- Spring Security相关的bean定义 -->
@@ -114,26 +111,5 @@
 	<!-- IS_AUTHENTICATED_REMEMBERED 允许登录用户和rememberMe用户进入 -->
 	<bean id="authenticatedVoter"
 		class="org.springframework.security.access.vote.AuthenticatedVoter" />
-
-	<!-- 自定义CONCURRENT_SESSION_FILTER拦截器配置 -->
-	<!-- expiredUrl,当SESSION过期或者无效之后跳转的URL -->
-	<bean id="customConcurrentSessionFilter"
-		class="org.springframework.security.web.session.ConcurrentSessionFilter">
-		<constructor-arg name="sessionRegistry" ref="sessionRegistry" />
-		<constructor-arg name="expiredUrl" value="/toLogin.do" />
-	</bean>
-
-	<!-- SessionControl使用策略 -->
-	<!-- maximumSessions，一个用户最大的session连接数 -->
-	<!-- exceptionIfMaximumExceeded设置为false时,不会抛出异常,会认为先登录的用户session过期 -->
-	<bean id="concurrentSessionControlStrategy"
-		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
-		<constructor-arg name="sessionRegistry" ref="sessionRegistry" />
-		<property name="maximumSessions" value="1"></property>
-		<property name="exceptionIfMaximumExceeded" value="false"></property>
-	</bean>
-
-	<bean id="sessionRegistry"
-		class="org.springframework.security.core.session.SessionRegistryImpl" />
 
 </beans>  

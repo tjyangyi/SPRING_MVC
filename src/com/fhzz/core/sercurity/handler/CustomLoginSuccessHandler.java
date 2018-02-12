@@ -31,8 +31,8 @@ import com.fhzz.core.utils.HTTPUtils;
  * 
  */
 @Service
-public class DefaultLoginSuccessHandler implements AuthenticationSuccessHandler {
-	Log logger = LogFactory.getLog(DefaultLoginSuccessHandler.class);
+public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
+	Log logger = LogFactory.getLog(CustomLoginSuccessHandler.class);
 
 	@Value("/toIndex.do")
 	private String defaultTargetUrl;
@@ -44,25 +44,21 @@ public class DefaultLoginSuccessHandler implements AuthenticationSuccessHandler 
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		this.saveLoginInfo(request, authentication);
-		logger.info("Login success,forward to " + this.defaultTargetUrl);
+		logger.info("登录成功,即将forward:" + this.defaultTargetUrl);
 		request.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());// 登录成功之后将SECURITY放入上下文中
 		request.getRequestDispatcher(this.defaultTargetUrl).forward(request, response);
 	}
 
 	private void saveLoginInfo(HttpServletRequest request, Authentication authentication) {
 		SysUsers user = (SysUsers) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		logger.info("user =" + user);
-		logger.info("userId = " + user.getUserId());
-		logger.info("username = " + user.getUsername());
 		try {
 			String ip = HTTPUtils.getIpAddress(request);
 			user.setLastLogin(new Date());
 			user.setLoginIp(ip);
+			logger.info("登录用户:" + user);
 			this.sysUsersDao.saveOrUpdateSysUser(user);
 		} catch (DataAccessException e) {
-			if (logger.isWarnEnabled()) {
-				logger.warn("无法更新用户登录信息至数据库", e);
-			}
+			logger.warn("无法更新用户登录信息至数据库", e);
 		}
 	}
 

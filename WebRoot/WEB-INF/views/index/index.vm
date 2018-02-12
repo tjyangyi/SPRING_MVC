@@ -21,8 +21,13 @@
 				<p>您能看到这行字，表示没有AUTH_SUPER权限</p>
         	#end
     	<div >
-    		<button id="sendAjax" onclick="onSendAjaxButtonClicked()">测试权限不足的AJAX请求
+    		<button id="sendAjax" onclick="ajaxWithoutAuth()">测试权限不足的AJAX请求
             </button>
+        </div>
+        <div >
+    		<form action="pageJumpWithoutAuth.do" method="post">  
+    	      <input name="submit" type="submit" value="测试权限不足的页面跳转" />  
+    	    </form>  
         </div>
     	<div >
     		<form action="logout.do" method="post">  

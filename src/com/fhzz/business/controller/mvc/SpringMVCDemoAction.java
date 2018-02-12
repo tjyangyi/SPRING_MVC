@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.fhzz.business.controller.demo;
+package com.fhzz.business.controller.mvc;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fhzz.business.controller.vo.demo.RequestParamDemo;
+import com.fhzz.business.vo.demo.RequestParamDemo;
 import com.fhzz.core.controller.BaseAction;
 
 /**

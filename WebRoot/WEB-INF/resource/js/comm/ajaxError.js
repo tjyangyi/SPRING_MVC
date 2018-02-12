@@ -41,8 +41,8 @@ $(function() {
 				fn.error(XMLHttpRequest, textStatus, errorThrown);
 			},
 			success : function(data, textStatus) {
-				if(data.timeout){
-					  location.href='toLogin.do'; //跳转到登录页面
+				if(data.sessionInvalid){
+					  location.href='toLogin.do?message='+data.message; //跳转到登录页面
 					  return;
 				}
 				if(!textStatus){

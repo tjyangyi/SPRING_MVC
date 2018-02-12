@@ -14,8 +14,28 @@
 	      <input name="reset" type="reset" value="重置" />  
 	    </form>  
    	</div>
-	<div>
-		${SPRING_SECURITY_LAST_EXCEPTION.message}  
-    </div>
+		#if(${message} == "authentication-failure")
+		<div>
+			${SPRING_SECURITY_LAST_EXCEPTION.message}  
+    	</div>
+		#end
+		
+		#if(${message} == "logout-success")
+		<div>
+			登出成功
+    	</div>
+		#end
+		
+		#if(${message} == "invalid-session")
+		<div>
+			Session已失效，请重新登录
+    	</div>
+		#end
+		
+		#if(${message} == "expired")
+		<div>
+			有其他人登录该用户，您已被强制登出，请重新登录
+    	</div>
+		#end
 </body> 
 </html>

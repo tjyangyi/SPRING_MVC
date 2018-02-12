@@ -3,7 +3,6 @@
  */
 package com.fhzz.core.sercurity.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.logging.Log;
@@ -25,8 +24,8 @@ import com.fhzz.core.sercurity.entity.SysUsers;
  * @description 自定义用户验证服务
  */
 @Service
-public class DefaultUserDetailsService implements UserDetailsService {
-	Log logger = LogFactory.getLog(DefaultUserDetailsService.class);
+public class CustomUserDetailsService implements UserDetailsService {
+	Log logger = LogFactory.getLog(CustomUserDetailsService.class);
 	@Autowired
 	private SysUsersDao sysUsersDao;
 
@@ -37,26 +36,20 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	private UserCache userCache;
 
 	@Override
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
-		Collection<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Collection<GrantedAuthority> auths = null;
 		SysUsers user = (SysUsers) this.userCache.getUserFromCache(username);
 		if (user == null) {
 			user = this.sysUsersDao.getByUsername(username);
-			if (user == null)
-				throw new UsernameNotFoundException(
-						this.messageSource.getMessage(
-								"UserDetailsService.userNotFount",
-								new Object[] { username }, null));
-			// 得到用户的权限
-			auths = this.sysUsersDao.loadUserAuthorities(username);
+			if (user == null) {
+				throw new UsernameNotFoundException(this.messageSource.getMessage("UserDetailsService.userNotFount",
+						new Object[] { username }, null));
+			}
+			auths = this.sysUsersDao.loadUserAuthorities(username);// 得到用户的权限
 			user.setAuthorities(auths);
+			this.userCache.putUserInCache(user);
 		}
-		logger.info("*********************" + username
-				+ "***********************");
-		logger.info(user.getAuthorities());
-		logger.info("********************************************************");
-		this.userCache.putUserInCache(user);
+		logger.info("用户登录:" + username + ",拥有权限:" + user.getAuthorities());
 		return user;
 	}
 }

@@ -29,7 +29,7 @@ public class DefaultHandlerExceptionResolver implements HandlerExceptionResolver
 		logger.error(exception.getMessage(),exception);// 异常日志记录
 		// 判断是否AJAX请求
 		if (!HTTPUtils.isAjaxRequest(request)) {// 如果不是AJAX请求,VM格式返回
-			ModelAndView modelAndView = new ModelAndView("error/errorPage"); // 统一跳转到errorPage页面
+			ModelAndView modelAndView = new ModelAndView("error/errorInfoPage"); // 统一跳转到errorPage页面
 			modelAndView.addObject("success", false);
 			modelAndView.addObject("errorMsg", exception.getMessage());
 			return modelAndView;
