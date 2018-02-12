@@ -67,11 +67,9 @@ public class SysUsers implements UserDetails, Serializable {
 	}
 
 	/** full constructor */
-	public SysUsers(String userId, String username, String name,
-			String password, Date dtCreate, Date lastLogin, Date deadline,
-			String loginIp, String VQzjgid, String VQzjgmc, String depId,
-			String depName, boolean enabled, boolean accountNonExpired,
-			boolean accountNonLocked, boolean credentialsNonExpired,
+	public SysUsers(String userId, String username, String name, String password, Date dtCreate, Date lastLogin,
+			Date deadline, String loginIp, String VQzjgid, String VQzjgmc, String depId, String depName,
+			boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired,
 			Set<SysUsersRoles> sysUsersRoleses) {
 		this.userId = userId;
 		this.username = username;
@@ -262,6 +260,31 @@ public class SysUsers implements UserDetails, Serializable {
 
 	public void setAuthorities(Collection<GrantedAuthority> authorities) {
 		this.authorities = authorities;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SysUsers other = (SysUsers) obj;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
 	}
 
 }

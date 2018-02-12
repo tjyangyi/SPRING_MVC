@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans   
                         http://www.springframework.org/schema/beans/spring-beans-4.1.xsd  
                         http://www.springframework.org/schema/security   
                         http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	<!-- 登录界面不拦截 -->
+	<sec:http pattern="/toLogin.do" security="none" />
+	<!-- session失效跳转不拦截 -->
+	<sec:http pattern="/sessionInvalid.do" security="none" />
+
 
 	<!-- 使用自定义的accessDecisionManager -->
-	<http auto-config="true" access-decision-manager-ref="accessDecisionManager">
+	<sec:http auto-config="true" access-decision-manager-ref="accessDecisionManager">
+		<!-- 配置请求需要的权限 -->
+		<sec:intercept-url pattern="/welcomeAjaxRequest.do"
+			access="AUTH_AJAX" />
+		<!--需要AUTH_TO_INDEX才能访问 -->
+		<sec:intercept-url pattern="/*" access="AUTH_TO_INDEX" />
+
 		<!-- 自定义的access-denied-handler -->
-		<access-denied-handler ref="defaultAccessDeniedHandler" />
-		<session-management invalid-session-url="/sessionInvalid.do">
-			<concurrency-control max-sessions="1"
-				error-if-maximum-exceeded="true" expired-url="/toLogin.do" />
-		</session-management>
-		<!-- <concurrency-control error-if-maximum-exceeded="true" max-sessions="1" 
-			expired-url="/toLogin.do" /> </session-management> -->
-		<!-- <session-management session-authentication-strategy-ref="concurrentSessionControlStrategy" 
-			/> -->
-		<!-- 不拦截的请求 -->
-		<!-- 登录界面不拦截 -->
-		<intercept-url pattern="/toLogin.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<!-- session失效跳转不拦截 -->
-		<intercept-url pattern="/sessionInvalid.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<intercept-url pattern="/queryAllWelcome.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<intercept-url pattern="/welcomeAjaxRequest.do" access="AUTH_AJAX" />
-		<!--仅拦截到manager下面的内容，具备access对应权限的 -->
-		<intercept-url pattern="/*" access="AUTH_TO_INDEX" />
+		<sec:access-denied-handler ref="defaultAccessDeniedHandler" />
+
 		<!-- 登录表单设置 -->
 		<!-- login-page:登录页面 -->
 		<!-- login-processing-url:自定义的登录提交action名称,需要与登录form中的action保持一致 -->
@@ -35,21 +30,102 @@
 		<!-- username-parameter：登录用户名的参数名称,需要与登录form中的input name='username'保持一致 -->
 		<!-- password-parameter：登录密码的参数名称,需要与登录form中的input name='password'保持一致 -->
 		<!-- authentication-success-handler-ref:自定义登录成功后的Handler -->
-		<form-login login-page="/toLogin.do" login-processing-url="/login.do"
-			authentication-failure-url="/toLogin.do"
+		<sec:form-login login-page="/toLogin.do"
+			login-processing-url="/login.do" authentication-failure-url="/toLogin.do"
 			authentication-success-handler-ref="defaultLoginSuccessHandler"
 			username-parameter="username" password-parameter="password" />
+
 		<!-- 登出操作 -->
 		<!-- invalidate-session是否销毁Session -->
 		<!-- logout-url logout地址 -->
 		<!-- logout-success-url logout成功后要跳转的地址 -->
-		<logout invalidate-session="false" logout-url="/logout.do"
+		<sec:logout invalidate-session="false" logout-url="/logout.do"
 			logout-success-url="/toLogin.do" delete-cookies="JSESSIONID" />
 
-	</http>
+		<!-- session控制，当一个账户从多处登时候，先登录的会被顶掉，具体看concurrentSessionControlStrategy的配置 -->
+		<sec:session-management
+			session-authentication-strategy-ref="concurrentSessionControlStrategy" />
+		<sec:custom-filter ref="customConcurrentSessionFilter"
+			position="CONCURRENT_SESSION_FILTER" />
+	</sec:http>
 
-	<authentication-manager>
-		<authentication-provider user-service-ref="defaultUserDetailsService">
-		</authentication-provider>
-	</authentication-manager>
-</beans:beans>  
+	<sec:authentication-manager>
+		<sec:authentication-provider
+			user-service-ref="defaultUserDetailsService" />
+	</sec:authentication-manager>
+
+	<!-- Spring Security相关的bean定义 -->
+	<!-- 定义上下文返回的消息的国际化,文件名不要加.properties后缀,否则无法找到文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:config/spring-security-message" />
+	</bean>
+
+	<!-- 启用用户的缓存功能 -->
+	<bean id="userCache"
+		class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
+		<property name="cache" ref="userEhCache" />
+	</bean>
+
+	<bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+		<property name="cacheName" value="userCache" />
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
+	<bean id="cacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<!-- 此处需要设置cacheManagerName,否则会与hibernate使用ehcache缓存冲突 -->
+		<property name="cacheManagerName" value="userCacheManager" />
+		<property name="configLocation" value="classpath:config/spring/ehcache-user.xml" />
+	</bean>
+
+	<!-- Spring Security accessDecisionManager 决策管理器 -->
+	<!-- AffirmativeBased 一票通过，只要有一个投票器通过就允许访问 -->
+	<!-- ConsensusBased 有一半以上投票器通过才允许访问资源 -->
+	<!-- UnanimousBased 所有投票器都通过才允许访问 -->
+	<!-- 注入 roleVoter修改rolePrefix,否则Spring要求权限必须以ROLE_开头 -->
+	<bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<constructor-arg name="decisionVoters">
+			<list>
+				<ref bean="roleVoter" />
+				<ref bean="authenticatedVoter" />
+			</list>
+		</constructor-arg>
+		<property name="messageSource" ref="messageSource"></property>
+	</bean>
+
+	<!-- 修改rolePrefix,否则Spring要求权限必须以ROLE_开头 -->
+	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+		<property name="rolePrefix" value=""></property>
+	</bean>
+
+	<!-- authenticatedVoter是为了支持IS_AUTHENTICATED这种认证，authenticatedVoter提供的3种认证，分别是 -->
+	<!-- IS_AUTHENTICATED_ANONYMOUSLY 允许匿名用户进入 -->
+	<!-- IS_AUTHENTICATED_FULLY 允许登录用户进入 -->
+	<!-- IS_AUTHENTICATED_REMEMBERED 允许登录用户和rememberMe用户进入 -->
+	<bean id="authenticatedVoter"
+		class="org.springframework.security.access.vote.AuthenticatedVoter" />
+
+	<!-- 自定义CONCURRENT_SESSION_FILTER拦截器配置 -->
+	<!-- expiredUrl,当SESSION过期或者无效之后跳转的URL -->
+	<bean id="customConcurrentSessionFilter"
+		class="org.springframework.security.web.session.ConcurrentSessionFilter">
+		<constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+		<constructor-arg name="expiredUrl" value="/toLogin.do" />
+	</bean>
+
+	<!-- SessionControl使用策略 -->
+	<!-- maximumSessions，一个用户最大的session连接数 -->
+	<!-- exceptionIfMaximumExceeded设置为false时,不会抛出异常,会认为先登录的用户session过期 -->
+	<bean id="concurrentSessionControlStrategy"
+		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+		<property name="maximumSessions" value="1"></property>
+		<property name="exceptionIfMaximumExceeded" value="false"></property>
+	</bean>
+
+	<bean id="sessionRegistry"
+		class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+</beans>  
