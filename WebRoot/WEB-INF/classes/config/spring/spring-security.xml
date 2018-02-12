@@ -9,7 +9,7 @@
 	<sec:http pattern="/toLogin.do" security="none" />
 	<!-- session失效跳转不拦截 -->
 	<sec:http pattern="/sessionInvalid.do" security="none" />
-
+	<sec:http pattern="/expired.do" security="none" />
 
 	<!-- 使用自定义的accessDecisionManager -->
 	<sec:http auto-config="true" access-decision-manager-ref="accessDecisionManager">
@@ -42,11 +42,19 @@
 		<sec:logout invalidate-session="false" logout-url="/logout.do"
 			logout-success-url="/toLogin.do" delete-cookies="JSESSIONID" />
 
+
+		<sec:session-management invalid-session-url="/sessionInvalid.do"
+			session-authentication-error-url="/sessionInvalid.do">
+			<!-- 
+			<sec:concurrency-control
+				error-if-maximum-exceeded="false" max-sessions="1" expired-url="/expired.do" />
+				 -->
+		</sec:session-management>
+
 		<!-- session控制，当一个账户从多处登时候，先登录的会被顶掉，具体看concurrentSessionControlStrategy的配置 -->
-		<sec:session-management
-			session-authentication-strategy-ref="concurrentSessionControlStrategy" />
-		<sec:custom-filter ref="customConcurrentSessionFilter"
-			position="CONCURRENT_SESSION_FILTER" />
+		<!-- <sec:session-management invalid-session-url="/sessionInvalid.do" session-authentication-strategy-ref="concurrentSessionControlStrategy" 
+			/> <sec:custom-filter ref="customConcurrentSessionFilter" position="CONCURRENT_SESSION_FILTER" 
+			/> -->
 	</sec:http>
 
 	<sec:authentication-manager>

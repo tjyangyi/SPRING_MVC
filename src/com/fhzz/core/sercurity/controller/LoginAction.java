@@ -27,6 +27,12 @@ import com.fhzz.core.utils.HTTPUtils;
 public class LoginAction extends BaseAction {
 	Log logger = LogFactory.getLog(LoginAction.class);
 
+	
+	@RequestMapping("expired")
+	public String expired() {
+		return "login/login";
+	}
+	
 	@RequestMapping("toLogin")
 	public String toLogin() {
 		return "login/login";
