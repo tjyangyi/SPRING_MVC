@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.service.demo.DatabaseOperationExampleService;
@@ -20,6 +21,7 @@ import com.fhzz.core.quartz.job.AbstractJob;
  * @CreateTime: 2018年2月11日 下午1:32:32
  * @Copyright: FHZZ
  */
+@Component
 public class DatabaseExampleJob extends AbstractJob {
 	Log logger = LogFactory.getLog(DatabaseExampleJob.class);
 

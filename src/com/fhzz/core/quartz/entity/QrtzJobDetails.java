@@ -1,6 +1,5 @@
 package com.fhzz.core.quartz.entity;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,9 +40,8 @@ public class QrtzJobDetails implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public QrtzJobDetails(QrtzJobDetailsId id, String jobClassName,
-			String isDurable, String isNonconcurrent, String isUpdateData,
-			String requestsRecovery) {
+	public QrtzJobDetails(QrtzJobDetailsId id, String jobClassName, String isDurable, String isNonconcurrent,
+			String isUpdateData, String requestsRecovery) {
 		this.id = id;
 		this.jobClassName = jobClassName;
 		this.isDurable = isDurable;
@@ -53,9 +51,8 @@ public class QrtzJobDetails implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public QrtzJobDetails(QrtzJobDetailsId id, String description,
-			String jobClassName, String isDurable, String isNonconcurrent,
-			String isUpdateData, String requestsRecovery, byte[] jobData,
+	public QrtzJobDetails(QrtzJobDetailsId id, String description, String jobClassName, String isDurable,
+			String isNonconcurrent, String isUpdateData, String requestsRecovery, byte[] jobData,
 			Set<QrtzTriggers> qrtzTriggerses) {
 		this.id = id;
 		this.description = description;
