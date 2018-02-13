@@ -9,16 +9,16 @@ import java.util.List;
  * @CreateTime: 2018年2月13日 下午12:22:10
  * @Copyright: FHZZ
  */
-public class PageResult implements Serializable {
+public class PageResult<T> implements Serializable {
 	private static final long serialVersionUID = -1750386840274995765L;
 	private long total; // 总记录数
-	private List<?> rows; // 查询出的结果数
+	private List<T> rows; // 查询出的结果数
 
 	public PageResult() {
 		super();
 	}
 
-	public PageResult(long total, List<?> rows) {
+	public PageResult(long total, List<T> rows) {
 		super();
 		this.total = total;
 		this.rows = rows;
@@ -41,7 +41,7 @@ public class PageResult implements Serializable {
 		return rows;
 	}
 
-	public void setRows(List<?> rows) {
+	public void setRows(List<T> rows) {
 		this.rows = rows;
 	}
 

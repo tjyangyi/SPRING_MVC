@@ -73,6 +73,7 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * @return: Page
 	 * @throws
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public PageResult pagedQuery(String hql, int pageNo, int pageSize, Object... values) {
 		Assert.hasText(hql);
 		Assert.isTrue(pageNo >= 1, "pageNo should start from 1");

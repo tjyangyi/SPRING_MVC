@@ -19,5 +19,5 @@ public interface DatabaseOperationExampleService {
 	
 	public DemoTable getDemoTable(String id);
 
-	public PageResult queryDemoTable(PageParam pageParam);
+	public PageResult<DemoTable> queryDemoTable(PageParam pageParam);
 }

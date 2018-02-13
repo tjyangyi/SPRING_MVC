@@ -9,8 +9,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.fhzz.core.vo.PageResult;
 import com.fhzz.core.vo.PageParam;
+import com.fhzz.core.vo.PageResult;
 
 /**
  * @author: YangYi
@@ -18,7 +18,7 @@ import com.fhzz.core.vo.PageParam;
  * @Copyright: FHZZ
  */
 public class JdbcTemplageSupport extends JdbcTemplate {
-	public PageResult pagedQuery(String sql, Class<?> mappedClass, PageParam pageParam, Object... sqlArgs) {
+	public <T> PageResult<T> pagedQuery(String sql, Class<T> mappedClass, PageParam pageParam, Object... sqlArgs) {
 		// 查询总条数
 		StringBuffer countSql = new StringBuffer();
 		countSql.append("SELECT COUNT(*) FROM (");
@@ -39,14 +39,15 @@ public class JdbcTemplageSupport extends JdbcTemplate {
 		dataSql.append("		WHERE");
 		dataSql.append("			ROWNUM <= ").append(pageParam.getEndIndex());
 		dataSql.append("	) WHERE　num > ").append(pageParam.getStartIndex());
-		RowMapper<?> rowMapper = BeanPropertyRowMapper.newInstance(mappedClass);
-		List<?> list = this.query(dataSql.toString(), rowMapper, sqlArgs);
+		RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(mappedClass);
+		List<T> list = this.query(dataSql.toString(), rowMapper, sqlArgs);
 		// 组装PageResult
-		PageResult page = new PageResult(totalCount, list);
+		PageResult<T> page = new PageResult<T>(totalCount, list);
 		return page;
 	}
 
-	public PageResult pagedQuery(String sql, Class<?> mappedClass, int pageIndex, int pageSize, Object... sqlArgs) {
-		return this.pagedQuery(sql, mappedClass, new PageParam(pageIndex, pageSize), sqlArgs);
+	public <T> PageResult<T> pagedQuery(String sql, Class<T> mappedClass, int pageIndex, int pageSize,
+			Object... sqlArgs) {
+		return (PageResult<T>) this.pagedQuery(sql, mappedClass, new PageParam(pageIndex, pageSize), sqlArgs);
 	}
 }

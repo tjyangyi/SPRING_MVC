@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.service.demo.DatabaseOperationExampleService;
 import com.fhzz.core.controller.BaseAction;
+import com.fhzz.core.log.anotation.OperationLog;
 import com.fhzz.core.vo.PageParam;
 import com.fhzz.core.vo.PageResult;
 
@@ -34,16 +36,15 @@ public class DatagridDemoAction extends BaseAction {
 	private DatabaseOperationExampleService databaseOperationExampleService;
 
 	@RequestMapping("toDatagridDemo")
-	public String welcomeDatagrid(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
+	public String welcomeDatagrid(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "datagrid/datagridDemo";
 	}
-	
+
 	@RequestMapping("getDatagridJson")
 	@ResponseBody
-	public PageResult getDatagridJson(@ModelAttribute PageParam pageParam) throws IOException {
-		PageResult page = databaseOperationExampleService.queryDemoTable(pageParam);
-		System.out.println(page);
+	@OperationLog
+	public PageResult<DemoTable> getDatagridJson(@ModelAttribute PageParam pageParam) throws IOException {
+		PageResult<DemoTable> page = databaseOperationExampleService.queryDemoTable(pageParam);
 		return page;
 	}
 }

@@ -41,7 +41,7 @@ public class DatabaseOperationExampleServiceImpl implements DatabaseOperationExa
 	}
 
 	@Override
-	public PageResult queryDemoTable(PageParam pageParam) {
+	public PageResult<DemoTable> queryDemoTable(PageParam pageParam) {
 		return databaseOperationExampleDao.queryDemoTable(pageParam);
 	}
 

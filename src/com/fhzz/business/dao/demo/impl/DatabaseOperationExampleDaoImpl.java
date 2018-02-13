@@ -20,9 +20,9 @@ import com.fhzz.core.vo.PageParam;
 public class DatabaseOperationExampleDaoImpl extends BaseDaoImpl<DemoTable> implements DatabaseOperationExampleDao {
 
 	@Override
-	public PageResult queryDemoTable(PageParam pageParam) {
+	public PageResult<DemoTable> queryDemoTable(PageParam pageParam) {
 		String sql = "SELECT * FROM DEMO_TABLE WHERE NAME = ?";
-		PageResult page = this.getJdbcTemplate().pagedQuery(sql, DemoTable.class, pageParam, "name");
+		PageResult<DemoTable> page = this.getJdbcTemplate().pagedQuery(sql, DemoTable.class, pageParam, "name");
 		return page;
 	}
 }

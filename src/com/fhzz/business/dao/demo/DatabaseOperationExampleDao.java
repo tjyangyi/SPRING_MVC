@@ -13,7 +13,7 @@ import com.fhzz.core.vo.PageParam;
  * @CreateTime: 2018年2月11日 下午1:36:15
  * @Copyright: FHZZ
  */
-public interface DatabaseOperationExampleDao extends BaseDao<DemoTable>{
+public interface DatabaseOperationExampleDao extends BaseDao<DemoTable> {
 
-	PageResult queryDemoTable(PageParam pageParam);
+	PageResult<DemoTable> queryDemoTable(PageParam pageParam);
 }

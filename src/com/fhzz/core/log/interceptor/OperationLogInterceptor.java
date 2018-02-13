@@ -31,7 +31,7 @@ import com.fhzz.core.sercurity.entity.SysUsers;
 @Aspect
 @Component
 public class OperationLogInterceptor {
-	private Log logger = LogFactory.getLog(OperationLogInterceptor.class);
+	Log logger = LogFactory.getLog(OperationLogInterceptor.class);
 
 	@Value("${OperationLogInterceptor.saveToDatabase.enable}")
 	private boolean enableSaveToDatabase;// 根据配置文件是否将日志写入数据库LOG_RECORD表
