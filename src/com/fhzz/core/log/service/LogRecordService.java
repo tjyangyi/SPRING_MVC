@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fhzz.core.log.dao.LogRecordDao;
 import com.fhzz.core.log.entity.LogRecord;
-import com.fhzz.core.utils.Result;
 
 @Service
 public class LogRecordService {
@@ -14,7 +13,7 @@ public class LogRecordService {
 	private LogRecordDao logRecordDao;
 
 	@Transactional
-	public Result saveLogRecord(LogRecord logRecord) {
-		return logRecordDao.saveLogRecord(logRecord);
+	public void saveLogRecord(LogRecord logRecord) {
+		logRecordDao.saveLogRecord(logRecord);
 	}
 }

@@ -5,6 +5,8 @@ package com.fhzz.business.dao.demo;
 
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.core.dao.BaseDao;
+import com.fhzz.core.vo.PageResult;
+import com.fhzz.core.vo.PageParam;
 
 /**
  * @author: YangYi
@@ -12,4 +14,6 @@ import com.fhzz.core.dao.BaseDao;
  * @Copyright: FHZZ
  */
 public interface DatabaseOperationExampleDao extends BaseDao<DemoTable>{
+
+	PageResult queryDemoTable(PageParam pageParam);
 }

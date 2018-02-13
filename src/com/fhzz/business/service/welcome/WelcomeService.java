@@ -3,8 +3,9 @@
  */
 package com.fhzz.business.service.welcome;
 
+import java.util.List;
+
 import com.fhzz.business.entity.Welcome;
-import com.fhzz.core.utils.Result;
 
 /**
  * @author: YangYi
@@ -12,7 +13,7 @@ import com.fhzz.core.utils.Result;
  * @Copyright: FHZZ
  */
 public interface WelcomeService {
-	Result saveWelcome(Welcome welcome);
+	void saveWelcome(Welcome welcome);
 	
-	Result queryAllWelcome();
+	List<Welcome> queryAllWelcome();
 }

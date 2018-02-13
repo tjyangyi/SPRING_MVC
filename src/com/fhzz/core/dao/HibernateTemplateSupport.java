@@ -23,7 +23,8 @@ import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
-import com.fhzz.core.utils.Page;
+import com.fhzz.core.vo.PageParam;
+import com.fhzz.core.vo.PageResult;
 
 /**
  * @FileName : (HibernateTemplateSupport.java)
@@ -72,20 +73,21 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * @return: Page
 	 * @throws
 	 */
-	public Page pagedQuery(String hql, int pageNo, int pageSize, Object... values) {
+	public PageResult pagedQuery(String hql, int pageNo, int pageSize, Object... values) {
 		Assert.hasText(hql);
 		Assert.isTrue(pageNo >= 1, "pageNo should start from 1");
+		PageParam pageParam = new PageParam(pageNo,pageSize);
 		String countQueryString = " select count(*) " + removeSelect(removeOrders(hql));
 		List<?> countlist = super.find(countQueryString, values);
 		if (countlist != null && countlist.size() > 0) {
 			long totalCount = (Long) countlist.get(0);
 			if (totalCount < 1)
-				return new Page();
-			int startIndex = Page.getStartOfPage(pageNo, pageSize);
+				return new PageResult();
+			int startIndex = pageParam.getStartIndex();
 			List<?> list = list(hql, startIndex, pageSize, values);
-			return new Page(startIndex, totalCount, pageSize, list);
+			return new PageResult(totalCount, list);
 		} else {
-			return new Page();
+			return new PageResult();
 		}
 	}
 

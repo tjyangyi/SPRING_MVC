@@ -4,6 +4,8 @@
 package com.fhzz.business.service.demo;
 
 import com.fhzz.business.entity.DemoTable;
+import com.fhzz.core.vo.PageResult;
+import com.fhzz.core.vo.PageParam;
 
 /**
  * @author: YangYi
@@ -16,4 +18,6 @@ public interface DatabaseOperationExampleService {
 	public void updateDemoTable(DemoTable demoTable);
 	
 	public DemoTable getDemoTable(String id);
+
+	public PageResult queryDemoTable(PageParam pageParam);
 }

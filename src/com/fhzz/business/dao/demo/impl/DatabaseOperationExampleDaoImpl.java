@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.fhzz.business.dao.demo.DatabaseOperationExampleDao;
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.core.dao.BaseDaoImpl;
+import com.fhzz.core.vo.PageResult;
+import com.fhzz.core.vo.PageParam;
 
 /**
  * @author: YangYi
@@ -15,5 +17,12 @@ import com.fhzz.core.dao.BaseDaoImpl;
  * @Copyright: FHZZ
  */
 @Repository
-public class DatabaseOperationExampleDaoImpl extends BaseDaoImpl<DemoTable> implements DatabaseOperationExampleDao{
+public class DatabaseOperationExampleDaoImpl extends BaseDaoImpl<DemoTable> implements DatabaseOperationExampleDao {
+
+	@Override
+	public PageResult queryDemoTable(PageParam pageParam) {
+		String sql = "SELECT * FROM DEMO_TABLE WHERE NAME = ?";
+		PageResult page = this.getJdbcTemplate().pagedQuery(sql, DemoTable.class, pageParam, "name");
+		return page;
+	}
 }

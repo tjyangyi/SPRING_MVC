@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import com.fhzz.business.dao.welcome.WelcomeDao;
 import com.fhzz.business.entity.Welcome;
 import com.fhzz.core.dao.BaseDaoImpl;
-import com.fhzz.core.utils.Result;
 
 /**
  * @author: YangYi
@@ -23,17 +22,11 @@ import com.fhzz.core.utils.Result;
 public class WelcomeDaoImpl extends BaseDaoImpl<Welcome> implements WelcomeDao {
 
 	@Override
-	public Result saveWelcome(Welcome welcome) {
-		getHibernateTemplate().saveOrUpdate(welcome);
-		return Result.getSuccessInstance();
-	}
-
-	@Override
-	public Result queryAllWelcome() {
+	public List<Welcome> queryAllWelcome() {
 		String sql = "SELECT * FROM WELCOME";
 		RowMapper<Welcome> rowMapper = BeanPropertyRowMapper.newInstance(Welcome.class);
 		List<Welcome> list = getJdbcTemplate().query(sql, rowMapper);
-		return Result.getSuccessInstance(list);
+		return list;
 	}
 
 }

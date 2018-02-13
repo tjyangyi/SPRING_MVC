@@ -6,9 +6,6 @@ import java.lang.reflect.Type;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-
 /**
  * 
  * @author: YangYi
@@ -20,9 +17,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	private Class<?> entityClass;// DAO的泛型类,即子类所指定的T所对应的Entity
 
 	@Resource(name = "jdbcTemplate")
-	private JdbcTemplate jdbcTemplate;// 注入JDBC模板
+	private JdbcTemplageSupport jdbcTemplate;// 注入JDBC模板
 
-	@Autowired
+	@Resource(name = "hibernateTemplate")
 	private HibernateTemplateSupport hibernateTemplate;// 注入hibernate模板
 
 	public BaseDaoImpl() {
@@ -53,7 +50,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return (T) hibernateTemplate.get(entityClass, id);
 	}
 
-	public JdbcTemplate getJdbcTemplate() {
+	public JdbcTemplageSupport getJdbcTemplate() {
 		return jdbcTemplate;
 	}
 

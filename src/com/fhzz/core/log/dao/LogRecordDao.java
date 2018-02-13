@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.fhzz.core.dao.BaseDaoImpl;
 import com.fhzz.core.log.entity.LogRecord;
-import com.fhzz.core.utils.Result;
 
 /**
  * @author YangYi
@@ -16,9 +15,8 @@ import com.fhzz.core.utils.Result;
 @Repository
 public class LogRecordDao extends BaseDaoImpl<LogRecord> {
 
-	public Result saveLogRecord(LogRecord logRecord) {
+	public void saveLogRecord(LogRecord logRecord) {
 		getHibernateTemplate().save(logRecord);
-		return Result.getSuccessInstance();
 	}
 
 }
