@@ -3,10 +3,6 @@
  */
 package com.fhzz.business.controller.welcome;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.fhzz.business.entity.Welcome;
 import com.fhzz.business.service.welcome.WelcomeService;
 import com.fhzz.core.controller.BaseAction;
@@ -39,47 +32,9 @@ public class WelcomeAction extends BaseAction {
 
 	@RequestMapping("welcome")
 	@OperationLog(operationType = OperationTypeEnum.Query, operationDesc = "访问welcome方法")
-	public String welcome(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
+	public String welcome(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		Welcome welcome = new Welcome("1", "001", "yy");
 		welcomeService.saveWelcome(welcome);
 		return "welcome/welcome";
-	}
-
-	@RequestMapping("queryAllWelcome")
-	public String queryAllWelcome(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
-		logger.info("queryAllWelcome");
-		welcomeService.queryAllWelcome();
-		return "welcome/welcome";
-	}
-
-	@RequestMapping("welcomeAjaxRequest")
-	public void welcomeAjaxRequest(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		JSONObject json = new JSONObject();
-		json.put("result", "success");
-		json.put("object", "object");
-		sendAjax(response, json);
-	}
-
-	@RequestMapping("welcomeDatagrid")
-	public String welcomeDatagrid(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
-		logger.info("welcomeDatagrid");
-		return "welcome/welcomeDatagrid";
-	}
-	
-	@RequestMapping("getWelcomeDatagridJson")
-	@ResponseBody
-	public Map<String,Object> getWelcomeDatagridJson() throws IOException {
-		Map<String,Object> map = new HashMap<String,Object>();
-		JSONArray rows = new JSONArray();
-		JSONObject j = new  JSONObject();
-		j.put("productid", "FI-SW-01");
-		rows.add(j);
-		map.put("total", "1");
-		map.put("rows", rows);
-		return map;
 	}
 }

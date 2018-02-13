@@ -42,14 +42,16 @@
 		<!-- logout-url logout地址 -->
 		<!-- logout-success-url logout成功后要跳转的地址 -->
 		<sec:logout invalidate-session="false" logout-url="/logout.do"
-			logout-success-url="/toLogin.do?message=logout-success" delete-cookies="JSESSIONID" />
+			logout-success-url="/toLogin.do?message=logout-success"
+			delete-cookies="JSESSIONID" />
 
 		<!-- Session管理 -->
 		<!-- invalid-session-url Session失效后跳转的界面 -->
 		<sec:session-management invalid-session-url="/sessionInvalid.do?message=invalid-session"
 			session-fixation-protection="migrateSession">
 			<sec:concurrency-control
-				error-if-maximum-exceeded="false" max-sessions="1" expired-url="/sessionInvalid.do?message=expired" />
+				error-if-maximum-exceeded="false" max-sessions="1"
+				expired-url="/sessionInvalid.do?message=expired" />
 		</sec:session-management>
 	</sec:http>
 
@@ -58,31 +60,6 @@
 		<sec:authentication-provider
 			user-service-ref="customUserDetailsService" />
 	</sec:authentication-manager>
-
-	<!-- Spring Security相关的bean定义 -->
-	<!-- 定义上下文返回的消息的国际化,文件名不要加.properties后缀,否则无法找到文件 -->
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:config/spring-security-message" />
-	</bean>
-
-	<!-- 启用用户的缓存功能 -->
-	<bean id="userCache"
-		class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
-		<property name="cache" ref="userEhCache" />
-	</bean>
-
-	<bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-		<property name="cacheName" value="userCache" />
-		<property name="cacheManager" ref="cacheManager" />
-	</bean>
-
-	<bean id="cacheManager"
-		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<!-- 此处需要设置cacheManagerName,否则会与hibernate使用ehcache缓存冲突 -->
-		<property name="cacheManagerName" value="userCacheManager" />
-		<property name="configLocation" value="classpath:config/spring/ehcache-user.xml" />
-	</bean>
 
 	<!-- Spring Security accessDecisionManager 决策管理器 -->
 	<!-- AffirmativeBased 一票通过，只要有一个投票器通过就允许访问 -->

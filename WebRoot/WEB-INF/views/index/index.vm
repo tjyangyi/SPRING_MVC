@@ -50,16 +50,11 @@
     	      <input name="submit" type="submit" value="welcome" />  
     	    </form>  
         </div>
-        <div >
-    		<form action="queryAllWelcome.do" method="post">  
-    	      <input name="submit" type="submit" value="queryAllWelcome" />  
-    	    </form>  
-        </div>
     </div>
 	<div style="padding-top:10px">
         <h3>DATAGRID</h3>
 		<div>
-    		<form action="welcomeDatagrid.do" method="post">  
+    		<form action="toDatagridDemo.do" method="post">  
     	      <input name="submit" type="submit" value="Datagrid列表DEMO" />  
     	    </form>  
 		</div>

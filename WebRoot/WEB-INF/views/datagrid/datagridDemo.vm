@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+	<title>Format DataGrid Columns - jQuery EasyUI Demo</title>
+	#parse("comm/comm.vm")
+	#parse("comm/datagrid.vm")
+    <script type="text/javascript" src="resource/js/datagrid/datagridDemo.js"></script>
+</head>
+<body>
+	<h2>DataGrid示例</h2>
+	<div style="margin:20px 0;"></div>
+	<table class="easyui-datagrid" title="这里是表格的标题" style="width:700px;height:250px"
+			data-options="rownumbers:true,singleSelect:true,iconCls:'icon-ok',url:'getDatagridJson.do',method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:80">ID</th>
+				<th data-options="field:'name',width:100">Name</th>
+				<th data-options="field:'count',width:80,align:'right'">Count</th>
+				<th data-options="field:'createTime',width:80,align:'right'">CreateTime</th>
+			</tr>
+		</thead>
+	</table>
+</body>
+</html>

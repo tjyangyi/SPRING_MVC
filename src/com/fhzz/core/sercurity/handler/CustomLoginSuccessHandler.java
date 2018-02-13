@@ -14,7 +14,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -51,15 +50,11 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	private void saveLoginInfo(HttpServletRequest request, Authentication authentication) {
 		SysUsers user = (SysUsers) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		try {
-			String ip = HTTPUtils.getIpAddress(request);
-			user.setLastLogin(new Date());
-			user.setLoginIp(ip);
-			logger.info("登录用户:" + user);
-			this.sysUsersDao.saveOrUpdateSysUser(user);
-		} catch (DataAccessException e) {
-			logger.warn("无法更新用户登录信息至数据库", e);
-		}
+		String ip = HTTPUtils.getIpAddress(request);
+		user.setLastLogin(new Date());
+		user.setLoginIp(ip);
+		logger.info("登录用户:" + user);
+		this.sysUsersDao.saveOrUpdateSysUser(user);
 	}
 
 }

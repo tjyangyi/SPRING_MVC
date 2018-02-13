@@ -18,15 +18,16 @@ import com.fhzz.core.utils.HTTPUtils;
 /**
  * @author YangYi
  * 
+ *         统一的全局异常处理,当controller层抛出异常时，由此类统一处理
  */
 @Component
-public class DefaultHandlerExceptionResolver implements HandlerExceptionResolver {
-	Log logger = LogFactory.getLog(DefaultHandlerExceptionResolver.class);
+public class CustomHandlerExceptionResolver implements HandlerExceptionResolver {
+	Log logger = LogFactory.getLog(CustomHandlerExceptionResolver.class);
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object object,
 			Exception exception) {
-		logger.error(exception.getMessage(),exception);// 异常日志记录
+		logger.error(exception.getMessage(), exception);// 异常日志记录
 		// 判断是否AJAX请求
 		if (!HTTPUtils.isAjaxRequest(request)) {// 如果不是AJAX请求,VM格式返回
 			ModelAndView modelAndView = new ModelAndView("error/errorInfoPage"); // 统一跳转到errorPage页面
