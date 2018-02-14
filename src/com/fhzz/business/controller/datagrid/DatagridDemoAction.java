@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.service.demo.DatabaseOperationExampleService;
+import com.fhzz.business.vo.datagrid.DatagridDemoParam;
 import com.fhzz.core.controller.BaseAction;
 import com.fhzz.core.log.anotation.OperationLog;
 import com.fhzz.core.vo.PageParam;
@@ -40,11 +41,33 @@ public class DatagridDemoAction extends BaseAction {
 		return "datagrid/datagridDemo";
 	}
 
-	@RequestMapping("getDatagridJson")
+	/**
+	 * 最简单的，只分页
+	 * 
+	 * @param pageParam
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("getDatagridJson1")
 	@ResponseBody
 	@OperationLog
 	public PageResult<DemoTable> getDatagridJson(@ModelAttribute PageParam pageParam) throws IOException {
 		PageResult<DemoTable> page = databaseOperationExampleService.queryDemoTable(pageParam);
+		return page;
+	}
+
+	/**
+	 * 使用param对象传入参数
+	 * 
+	 * @param pageParam
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("getDatagridJson2")
+	@ResponseBody
+	@OperationLog
+	public PageResult<DemoTable> getDatagridJson2(@ModelAttribute DatagridDemoParam datadgridDemoParam) throws IOException {
+		PageResult<DemoTable> page = databaseOperationExampleService.queryDemoTable(datadgridDemoParam);
 		return page;
 	}
 }

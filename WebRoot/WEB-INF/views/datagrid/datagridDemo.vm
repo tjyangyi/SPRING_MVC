@@ -9,16 +9,38 @@
 <body>
 	<h2>DataGrid示例</h2>
 	<div style="margin:20px 0;"></div>
-	<table class="easyui-datagrid" title="这里是表格的标题" style="width:700px;height:250px"
-			data-options="rownumbers:true,singleSelect:true,iconCls:'icon-ok',url:'getDatagridJson.do',method:'get'">
+	<table id="dg" class="easyui-datagrid" title="这里是表格的标题" style="width:800px;height:600px"
+			data-options="
+			rownumbers:true,
+			singleSelect:true,
+			iconCls:'icon-ok',
+			url:'getDatagridJson2.do',
+			pagination : true,
+			method:'post',
+			fitColumns: true,
+			toolbar:'#tb'
+			">
 		<thead>
 			<tr>
-				<th data-options="field:'id',width:80">ID</th>
+				<th data-options="field:'id',width:300">ID</th>
 				<th data-options="field:'name',width:100">Name</th>
-				<th data-options="field:'count',width:80,align:'right'">Count</th>
-				<th data-options="field:'createTime',width:80,align:'right'">CreateTime</th>
+				<th data-options="field:'count',width:100,align:'right'">Count</th>
+				<th data-options="field:'createTime',width:200,align:'right',formatter: dateFormat2Second">CreateTime</th>
 			</tr>
 		</thead>
 	</table>
+	<div id="tb" style="padding:2px 5px;">
+		Date From: <input id="startTime" class="easyui-datebox" style="width:110px">
+		To: <input id="endTime" class="easyui-datebox" style="width:110px">
+		Language: 
+		<select class="easyui-combobox" panelHeight="auto" style="width:100px">
+			<option value="java">Java</option>
+			<option value="c">C</option>
+			<option value="basic">Basic</option>
+			<option value="perl">Perl</option>
+			<option value="python">Python</option>
+		</select>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="onSearchClick()">Search</a>
+	</div>
 </body>
 </html>

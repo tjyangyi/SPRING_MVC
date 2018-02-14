@@ -4,6 +4,7 @@
 package com.fhzz.business.dao.demo;
 
 import com.fhzz.business.entity.DemoTable;
+import com.fhzz.business.vo.datagrid.DatagridDemoParam;
 import com.fhzz.core.dao.BaseDao;
 import com.fhzz.core.vo.PageResult;
 import com.fhzz.core.vo.PageParam;
@@ -16,4 +17,7 @@ import com.fhzz.core.vo.PageParam;
 public interface DatabaseOperationExampleDao extends BaseDao<DemoTable> {
 
 	PageResult<DemoTable> queryDemoTable(PageParam pageParam);
+	
+	PageResult<DemoTable> queryDemoTable(DatagridDemoParam datagridDemoParam);
+	
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.fhzz.business.dao.demo.DatabaseOperationExampleDao;
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.service.demo.DatabaseOperationExampleService;
+import com.fhzz.business.vo.datagrid.DatagridDemoParam;
 import com.fhzz.core.vo.PageResult;
 import com.fhzz.core.vo.PageParam;
 
@@ -43,6 +44,11 @@ public class DatabaseOperationExampleServiceImpl implements DatabaseOperationExa
 	@Override
 	public PageResult<DemoTable> queryDemoTable(PageParam pageParam) {
 		return databaseOperationExampleDao.queryDemoTable(pageParam);
+	}
+
+	@Override
+	public PageResult<DemoTable> queryDemoTable(DatagridDemoParam datagridDemoParam) {
+		return databaseOperationExampleDao.queryDemoTable(datagridDemoParam);
 	}
 
 }

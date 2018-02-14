@@ -33,9 +33,12 @@ import com.fhzz.core.sercurity.entity.SysUsers;
 public class OperationLogInterceptor {
 	Log logger = LogFactory.getLog(OperationLogInterceptor.class);
 
+	@Value("${OperationLogInterceptor.setTargetMethodResult.enable}")
+	private boolean enableSetTargetMethodResult;// 日志是否记录方法的返回值,由于列表类型的返回值可能会特别长,此处管理是否记录返回值
+
 	@Value("${OperationLogInterceptor.saveToDatabase.enable}")
-	private boolean enableSaveToDatabase;// 根据配置文件是否将日志写入数据库LOG_RECORD表
-	
+	private boolean enableSaveToDatabase;// 日志是否写入到数据库LOG_RECORD表，特别地,@annotation注解的方法不受此控制，一定写入数据库
+
 	@Value("${OperationLogInterceptor.annotationPointcut.enable}")
 	private boolean enableAnnotationPointcut;// 根据配置文件是否打开@annotation注解方法的日志
 
@@ -60,13 +63,11 @@ public class OperationLogInterceptor {
 	 * @throws Throwable
 	 */
 	@Around("@annotation(operationLog)")
-	public Object aroundAnnotationPointcut(ProceedingJoinPoint joinPoint,
-			OperationLog operationLog) throws Throwable {
+	public Object aroundAnnotationPointcut(ProceedingJoinPoint joinPoint, OperationLog operationLog) throws Throwable {
 		if (!enableAnnotationPointcut) {
 			return joinPoint.proceed();
 		}
-		return this.aroundMethod(joinPoint, operationLog, Thread
-				.currentThread().getStackTrace()[1].getMethodName());
+		return this.aroundMethod(joinPoint, operationLog, LogRecord.Pointcut.ANNOTATION_OPERATION_LOG);
 	}
 
 	/**
@@ -79,14 +80,11 @@ public class OperationLogInterceptor {
 	 * @throws Throwable
 	 */
 	@Around("execution(* com.fhzz.business.controller..*.*(..)) && !execution(* com.fhzz.business.controller.login..*.*(..))")
-	public Object aroundActionPointcut(ProceedingJoinPoint joinPoint)
-			throws Throwable {
-		if (!enableActionPointcut
-				|| this.isOperationLogAnnotationExist(joinPoint)) { // 如果被拦截的方法标有OperationLog注解交由aroundAnnotationPointcut方法处理，此方法中不处理
+	public Object aroundActionPointcut(ProceedingJoinPoint joinPoint) throws Throwable {
+		if (!enableActionPointcut || this.isOperationLogAnnotationExist(joinPoint)) { // 如果被拦截的方法标有OperationLog注解交由aroundAnnotationPointcut方法处理，此方法中不处理
 			return joinPoint.proceed();
 		}
-		return this.aroundMethod(joinPoint, null, Thread.currentThread()
-				.getStackTrace()[1].getMethodName());// Thread.currentThread().getStackTrace()[1].getMethodName()获取当前执行的方法名称
+		return this.aroundMethod(joinPoint, null, LogRecord.Pointcut.EXECUTION_CONTROLLER);
 	}
 
 	/**
@@ -99,14 +97,11 @@ public class OperationLogInterceptor {
 	 * @throws Throwable
 	 */
 	@Around("execution(* com.fhzz.business.service..*.*(..))")
-	public Object aroundServicePointcut(ProceedingJoinPoint joinPoint)
-			throws Throwable {
-		if (!enableServicePointcut
-				|| this.isOperationLogAnnotationExist(joinPoint)) {// 如果被拦截的方法标有OperationLog注解交由aroundAnnotationPointcut方法处理，此方法中不处理
+	public Object aroundServicePointcut(ProceedingJoinPoint joinPoint) throws Throwable {
+		if (!enableServicePointcut || this.isOperationLogAnnotationExist(joinPoint)) {// 如果被拦截的方法标有OperationLog注解交由aroundAnnotationPointcut方法处理，此方法中不处理
 			return joinPoint.proceed();
 		}
-		return this.aroundMethod(joinPoint, null, Thread.currentThread()
-				.getStackTrace()[1].getMethodName());// Thread.currentThread().getStackTrace()[1].getMethodName()获取当前执行的方法名称
+		return this.aroundMethod(joinPoint, null, LogRecord.Pointcut.EXECUTION_SERVICE);// Thread.currentThread().getStackTrace()[1].getMethodName()获取当前执行的方法名称
 	}
 
 	/**
@@ -122,34 +117,35 @@ public class OperationLogInterceptor {
 	 * 
 	 * @throws Throwable
 	 */
-	private Object aroundMethod(ProceedingJoinPoint joinPoint,
-			OperationLog operationLog, String pointcutMethodName)
+	private Object aroundMethod(ProceedingJoinPoint joinPoint, OperationLog operationLog, String pointcutMethodName)
 			throws Throwable {
-		logger.debug("########开始执行:拦截器[" + this.getClass().getSimpleName()
-				+ "]切点方法[" + pointcutMethodName + "]########");
-		LogRecord logRecord = this.buildLogRecord(joinPoint, operationLog,
-				pointcutMethodName);
-		logger.debug("开始执行:类[" + logRecord.getTargetClass() + "]方法["
-				+ logRecord.getTargetMethod() + "]");
+		logger.debug("########开始执行:拦截器[" + this.getClass().getSimpleName() + "]切点方法[" + pointcutMethodName
+				+ "]########");
+		LogRecord logRecord = this.buildLogRecord(joinPoint, operationLog, pointcutMethodName);
+		logger.debug("开始执行:类[" + logRecord.getTargetClass() + "]方法[" + logRecord.getTargetMethod() + "]");
 		try {
 			Object result = joinPoint.proceed();// ***执行真正的方法，并获取返回参数***
-			logRecord.setTargetMethodResult(String.valueOf(result));// 返回值
-			logger.debug("正常结束:类[" + logRecord.getTargetClass() + "]方法["
-					+ logRecord.getTargetMethod() + "]");
+			if (enableSetTargetMethodResult) {
+				logRecord.setTargetMethodResult(String.valueOf(result));// 返回值
+			}
+			logger.debug("正常结束:类[" + logRecord.getTargetClass() + "]方法[" + logRecord.getTargetMethod() + "]");
 			return result;
 		} catch (Exception e) {
 			logRecord.setTargetMethodException(e.getMessage());
-			logger.debug("异常结束:类[" + logRecord.getTargetClass() + "]方法["
-					+ logRecord.getTargetMethod() + "]");
+			logger.debug("异常结束:类[" + logRecord.getTargetClass() + "]方法[" + logRecord.getTargetMethod() + "]");
 			throw e;
 		} finally {
 			logRecord.setOperationEndTime(new Date());// 结束时间
-			if (enableSaveToDatabase) {
-				logRecordService.saveLogRecord(logRecord);
+			if (LogRecord.Pointcut.ANNOTATION_OPERATION_LOG.equals(pointcutMethodName) || enableSaveToDatabase) {
+				try {
+					logRecordService.saveLogRecord(logRecord);
+				} catch (Exception e) {
+					logger.error(e, e);
+				}
 			}
 			logger.debug(logRecord.toString());
-			logger.debug("########结束执行:拦截器[" + this.getClass().getSimpleName()
-					+ "]切点方法[" + pointcutMethodName + "]########");
+			logger.debug("########结束执行:拦截器[" + this.getClass().getSimpleName() + "]切点方法[" + pointcutMethodName
+					+ "]########");
 		}
 	}
 
@@ -160,10 +156,8 @@ public class OperationLogInterceptor {
 	 * @param operationLog
 	 * @return
 	 */
-	private LogRecord buildLogRecord(ProceedingJoinPoint joinPoint,
-			OperationLog operationLog, String pointcutMethodName) {
-		SysUsers user = (SysUsers) SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();// 操作人
+	private LogRecord buildLogRecord(ProceedingJoinPoint joinPoint, OperationLog operationLog, String pointcutMethodName) {
+		SysUsers user = (SysUsers) SecurityContextHolder.getContext().getAuthentication().getPrincipal();// 操作人
 		String operationUserId = user.getUserId();// 操作人ID
 		String operationUsername = user.getUsername();// 操作人姓名
 		String operationType = null;
@@ -185,9 +179,8 @@ public class OperationLogInterceptor {
 		}
 		String targetMethodParams = buff.toString();// 调用方法传入的参数
 		Date operationStartTime = new Date();// 开始时间
-		LogRecord logRecord = new LogRecord(operationUserId, operationUsername,
-				operationType, operationDesc, targetClass, targetMethod,
-				targetMethodParams, operationStartTime, pointcutMethodName);
+		LogRecord logRecord = new LogRecord(operationUserId, operationUsername, operationType, operationDesc,
+				targetClass, targetMethod, targetMethodParams, operationStartTime, pointcutMethodName);
 		return logRecord;
 	}
 

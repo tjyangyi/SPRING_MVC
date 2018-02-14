@@ -32,12 +32,6 @@ public class DatabaseExampleJob extends AbstractJob {
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		DemoTable demoTable = new DemoTable(null, "name", 1, new Date());
 		databaseOperationExampleService.saveDemoTable(demoTable);
-
-		DemoTable demoTable2 = new DemoTable(null, "name2", 2, new Date());
-		databaseOperationExampleService.updateDemoTable(demoTable2);
-
-		DemoTable demoTable3 = databaseOperationExampleService.getDemoTable("62e31883-9abd-42ec-b039-4eb90f38fa21");
-		logger.info(demoTable3);
 	}
 
 }

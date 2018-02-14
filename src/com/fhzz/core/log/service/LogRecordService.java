@@ -18,10 +18,6 @@ public class LogRecordService {
 
 	@Transactional
 	public void saveLogRecord(LogRecord logRecord) {
-		try {
-			logRecordDao.saveLogRecord(logRecord);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-		}
+		logRecordDao.saveLogRecord(logRecord);
 	}
 }

@@ -19,6 +19,12 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "LOG_RECORD")
 public class LogRecord implements java.io.Serializable {
 
+	public class Pointcut {
+		public static final String ANNOTATION_OPERATION_LOG = "@annotation(operationLog)";
+		public static final String EXECUTION_CONTROLLER = "execution(* com.fhzz.business.controller..*.*(..))";
+		public static final String EXECUTION_SERVICE = "execution(* com.fhzz.business.service..*.*(..))";
+	}
+
 	// Fields
 	private static final long serialVersionUID = -3038598717546880774L;
 	private String logId;
@@ -36,6 +42,15 @@ public class LogRecord implements java.io.Serializable {
 	private String targetMethodParams;// 调用方法传入的参数
 	private String pointcutMethodName;// 切点方法名称;
 
+	/**
+	 * 修正返回值,返回值很容易大于2000,此处直接截取前2000字符
+	 */
+	private void fixTargetMethodResult() {
+		if (this.getTargetMethodResult().length() > 2000) {// 处理
+			this.targetMethodResult = this.targetMethodResult.substring(0, 2000);
+		}
+	}
+
 	// Constructors
 
 	/** default constructor */
@@ -47,10 +62,9 @@ public class LogRecord implements java.io.Serializable {
 		this.logId = logId;
 	}
 
-	public LogRecord(String operationUserId, String operationUsername,
-			String operationType, String operationDesc, String targetClass,
-			String targetMethod, String targetMethodParams,
-			Date operationStartTime, String pointcutMethodName) {
+	public LogRecord(String operationUserId, String operationUsername, String operationType, String operationDesc,
+			String targetClass, String targetMethod, String targetMethodParams, Date operationStartTime,
+			String pointcutMethodName) {
 		super();
 		this.operationUserId = operationUserId;
 		this.operationUsername = operationUsername;
@@ -64,13 +78,10 @@ public class LogRecord implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public LogRecord(String logId, String operationUserId,
-			String operationUsername, String operationType,
-			String operationDesc, String targetClass, String targetMethod,
-			String targetMethodParams, String targetMethodResult,
-			String targetMethodException, Date operationStartTime,
-			Date operationEndTime, Long operationElapsedTimeMillis,
-			String pointcutMethodName) {
+	public LogRecord(String logId, String operationUserId, String operationUsername, String operationType,
+			String operationDesc, String targetClass, String targetMethod, String targetMethodParams,
+			String targetMethodResult, String targetMethodException, Date operationStartTime, Date operationEndTime,
+			Long operationElapsedTimeMillis, String pointcutMethodName) {
 		this.logId = logId;
 		this.operationUserId = operationUserId;
 		this.operationUsername = operationUsername;
@@ -85,6 +96,7 @@ public class LogRecord implements java.io.Serializable {
 		this.operationEndTime = operationEndTime;
 		this.operationElapsedTimeMillis = operationElapsedTimeMillis;
 		this.pointcutMethodName = pointcutMethodName;
+		this.fixTargetMethodResult();
 	}
 
 	// Property accessors
@@ -170,6 +182,7 @@ public class LogRecord implements java.io.Serializable {
 
 	public void setTargetMethodResult(String targetMethodResult) {
 		this.targetMethodResult = targetMethodResult;
+		this.fixTargetMethodResult();
 	}
 
 	@Column(name = "TARGET_METHOD_EXCEPTION", length = 2000)
@@ -197,8 +210,7 @@ public class LogRecord implements java.io.Serializable {
 
 	public void setOperationEndTime(Date operationEndTime) {
 		this.operationEndTime = operationEndTime;
-		this.operationElapsedTimeMillis = this.getOperationEndTime().getTime()
-				- this.getOperationStartTime().getTime();
+		this.operationElapsedTimeMillis = this.getOperationEndTime().getTime() - this.getOperationStartTime().getTime();
 	}
 
 	@Column(name = "OPERATION_ELAPSED_TIME_MILLIS", precision = 16, scale = 0)
@@ -221,17 +233,16 @@ public class LogRecord implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "LogRecord [logId=" + logId + ", operationStartTime="
-				+ operationStartTime + ", operationEndTime=" + operationEndTime
-				+ ", operationElapsedTimeMillis=" + operationElapsedTimeMillis
-				+ ", operationType=" + operationType + ", operationDesc="
-				+ operationDesc + ", operationUsername=" + operationUsername
-				+ ", operationUserId=" + operationUserId + ", targetClass="
-				+ targetClass + ", targetMethod=" + targetMethod
-				+ ", targetMethodResult=" + targetMethodResult
-				+ ", targetMethodException=" + targetMethodException
-				+ ", targetMethodParams=" + targetMethodParams
-				+ ", pointcutMethodName=" + pointcutMethodName + "]";
+		return System.lineSeparator() + "LogRecord [logId=" + logId + "," + System.lineSeparator()
+				+ " operationStartTime=" + operationStartTime + ", operationEndTime=" + operationEndTime
+				+ ", operationElapsedTimeMillis=" + operationElapsedTimeMillis + "," + System.lineSeparator()
+				+ " operationType=" + operationType + ", operationDesc=" + operationDesc + "," + System.lineSeparator()
+				+ " operationUsername=" + operationUsername + ", operationUserId=" + operationUserId + ","
+				+ System.lineSeparator() + " targetClass=" + targetClass + ", targetMethod=" + targetMethod + ","
+				+ System.lineSeparator() + " targetMethodResult=" + targetMethodResult + "," + System.lineSeparator()
+				+ " targetMethodException=" + targetMethodException + "," + System.lineSeparator()
+				+ " targetMethodParams=" + targetMethodParams + "," + System.lineSeparator() + " pointcutMethodName="
+				+ pointcutMethodName + "]";
 	}
 
 }

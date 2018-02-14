@@ -9,14 +9,14 @@ package com.fhzz.core.vo;
  * @Copyright: FHZZ
  */
 public class PageParam {
-	private int pageIndex = 1; // 当前页码
-	private int pageSize = 10; // 每页的记录数
+	private int page = 1; // 当前页码
+	private int rows = 10; // 每页的记录数
 	private int startIndex;// SQL查询起始INDEX
 	private int endIndex;// SQL查询结束INDEX
 
 	private void initIndex() {
-		this.startIndex = (pageIndex - 1) * pageSize;
-		this.endIndex = startIndex + pageSize;
+		this.startIndex = (page - 1) * rows;
+		this.endIndex = startIndex + rows;
 	}
 
 	public PageParam() {
@@ -24,26 +24,26 @@ public class PageParam {
 		this.initIndex();
 	}
 
-	public PageParam(int pageIndex, int pageSize) {
+	public PageParam(int page, int rows) {
 		super();
-		this.pageIndex = pageIndex;
-		this.pageSize = pageSize;
+		this.page = page;
+		this.rows = rows;
 		this.initIndex();
 	}
 
-	public void setPageIndex(int pageIndex) {
-		this.pageIndex = pageIndex;
+	public void setPage(int page) {
+		this.page = page;
 		this.initIndex();
 	}
 
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+	public void setRows(int rows) {
+		this.rows = rows;
 		this.initIndex();
 	}
 
 	@Override
 	public String toString() {
-		return "PageParam [pageIndex=" + pageIndex + ", pageSize=" + pageSize + "]";
+		return "PageParam [page=" + page + ", rows=" + rows + "]";
 	}
 
 	public int getStartIndex() {
@@ -53,13 +53,11 @@ public class PageParam {
 	public int getEndIndex() {
 		return endIndex;
 	}
-
-	public int getPageIndex() {
-		return pageIndex;
+	public int getPage() {
+		return page;
 	}
-
-	public int getPageSize() {
-		return pageSize;
+	
+	public int getRows() {
+		return rows;
 	}
-
 }

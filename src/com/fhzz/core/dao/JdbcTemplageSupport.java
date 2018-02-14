@@ -18,6 +18,19 @@ import com.fhzz.core.vo.PageResult;
  * @Copyright: FHZZ
  */
 public class JdbcTemplageSupport extends JdbcTemplate {
+
+	/**
+	 * 
+	 * @param sql
+	 *            查询语句
+	 * @param mappedClass
+	 *            查询的结果返回的封装CLASS
+	 * @param pageParam
+	 *            page的参数，包括pageIndex,pageSize
+	 * @param sqlArgs
+	 *            查询语句传入的参数
+	 * @return
+	 */
 	public <T> PageResult<T> pagedQuery(String sql, Class<T> mappedClass, PageParam pageParam, Object... sqlArgs) {
 		// 查询总条数
 		StringBuffer countSql = new StringBuffer();
@@ -46,6 +59,20 @@ public class JdbcTemplageSupport extends JdbcTemplate {
 		return page;
 	}
 
+	/**
+	 * 
+	 * @param sql
+	 *            查询语句
+	 * @param mappedClass
+	 *            查询的结果返回的封装CLASS
+	 * @param pageIndex
+	 *            查询的页码
+	 * @param pageSize
+	 *            一页显示的行数
+	 * @param sqlArgs
+	 *            查询语句传入的参数
+	 * @return
+	 */
 	public <T> PageResult<T> pagedQuery(String sql, Class<T> mappedClass, int pageIndex, int pageSize,
 			Object... sqlArgs) {
 		return (PageResult<T>) this.pagedQuery(sql, mappedClass, new PageParam(pageIndex, pageSize), sqlArgs);
