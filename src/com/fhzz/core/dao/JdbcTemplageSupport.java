@@ -18,6 +18,87 @@ import com.fhzz.core.vo.PageResult;
  * @Copyright: FHZZ
  */
 public class JdbcTemplageSupport extends JdbcTemplate {
+	/**
+	 * 
+	 * @param sql
+	 *            查询语句
+	 * @param sqlArgs
+	 *            查询参数List,顺序需要与sql中的?一一对应
+	 * @param mappedClass
+	 *            查询的结果返回的封装CLASS
+	 * @param pageParam
+	 *            page的参数，包括pageIndex,pageSize
+	 * @return
+	 */
+	public <T> PageResult<T> pagedQuery(String sql, List<Object> sqlArgs,
+			Class<T> mappedClass, PageParam pageParam) {
+		return this.pagedQuery(sql, sqlArgs.toArray(), mappedClass, pageParam);
+	}
+
+	/**
+	 * 
+	 * @param sql
+	 *            查询语句
+	 * @param sqlArgs
+	 *            查询参数List,顺序需要与sql中的?一一对应
+	 * @param mappedClass
+	 *            查询的结果返回的封装CLASS
+	 * @param page
+	 *            查询的页码
+	 * @param rows
+	 *            一页显示的行数
+	 * @return
+	 */
+	public <T> PageResult<T> pagedQuery(String sql, List<Object> sqlArgs,
+			Class<T> mappedClass, int page, int rows) {
+		return this.pagedQuery(sql, sqlArgs.toArray(), mappedClass, page, rows);
+	}
+
+	/**
+	 * 
+	 * @param sql
+	 *            查询语句
+	 * @param sqlArgs
+	 *            查询参数Object数组,顺序需要与sql中的?一一对应
+	 * @param mappedClass
+	 *            查询的结果返回的封装CLASS
+	 * @param page
+	 *            查询的页码
+	 * @param rows
+	 *            一页显示的行数
+	 * @return
+	 */
+	public <T> PageResult<T> pagedQuery(String sql, Object[] sqlArgs,
+			Class<T> mappedClass, int page, int rows) {
+		return this.pagedQuery(sql, sqlArgs, mappedClass, new PageParam(page,
+				rows));
+	}
+
+	/**
+	 * 
+	 * @param sql
+	 *            查询语句
+	 * @param sqlArgs
+	 *            查询参数Object数组,顺序需要与sql中的?一一对应
+	 * @param mappedClass
+	 *            查询的结果返回的封装CLASS
+	 * @param pageParam
+	 *            page的参数，包括pageIndex,pageSize
+	 * @return
+	 */
+	public <T> PageResult<T> pagedQuery(String sql, Object[] sqlArgs,
+			Class<T> mappedClass, PageParam pageParam) {
+		// 查询总条数
+		int totalCount = this.queryForObject(this.buildCountSql(sql),
+				Integer.class, sqlArgs);
+		// 查询数据
+		RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(mappedClass);
+		List<T> list = this.query(this.buildDataSql(sql, pageParam), sqlArgs,
+				rowMapper);
+		// 组装PageResult
+		PageResult<T> page = new PageResult<T>(totalCount, list);
+		return page;
+	}
 
 	/**
 	 * 
@@ -31,14 +112,49 @@ public class JdbcTemplageSupport extends JdbcTemplate {
 	 *            查询语句传入的参数
 	 * @return
 	 */
-	public <T> PageResult<T> pagedQuery(String sql, Class<T> mappedClass, PageParam pageParam, Object... sqlArgs) {
+	public <T> PageResult<T> pagedQuery(String sql, Class<T> mappedClass,
+			PageParam pageParam, Object... sqlArgs) {
 		// 查询总条数
+		int totalCount = this.queryForObject(this.buildCountSql(sql),
+				Integer.class, sqlArgs);
+		// 查询数据
+		RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(mappedClass);
+		List<T> list = this.query(this.buildDataSql(sql, pageParam), rowMapper,
+				sqlArgs);
+		// 组装PageResult
+		PageResult<T> page = new PageResult<T>(totalCount, list);
+		return page;
+	}
+
+	/**
+	 * 
+	 * @param sql
+	 *            查询语句
+	 * @param mappedClass
+	 *            查询的结果返回的封装CLASS
+	 * @param page
+	 *            查询的页码
+	 * @param rows
+	 *            一页显示的行数
+	 * @param sqlArgs
+	 *            查询语句传入的参数
+	 * @return
+	 */
+	public <T> PageResult<T> pagedQuery(String sql, Class<T> mappedClass,
+			int page, int rows, Object... sqlArgs) {
+		return this.pagedQuery(sql, mappedClass, new PageParam(page, rows),
+				sqlArgs);
+	}
+
+	private String buildCountSql(String sql) {
 		StringBuffer countSql = new StringBuffer();
 		countSql.append("SELECT COUNT(*) FROM (");
 		countSql.append(sql);
 		countSql.append(")");
-		int totalCount = this.queryForObject(countSql.toString(), Integer.class, sqlArgs);
-		// 查询数据
+		return countSql.toString();
+	}
+
+	private String buildDataSql(String sql, PageParam pageParam) {
 		StringBuffer dataSql = new StringBuffer();
 		dataSql.append("SELECT");
 		dataSql.append("	*");
@@ -52,29 +168,7 @@ public class JdbcTemplageSupport extends JdbcTemplate {
 		dataSql.append("		WHERE");
 		dataSql.append("			ROWNUM <= ").append(pageParam.getEndIndex());
 		dataSql.append("	) WHERE　num > ").append(pageParam.getStartIndex());
-		RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(mappedClass);
-		List<T> list = this.query(dataSql.toString(), rowMapper, sqlArgs);
-		// 组装PageResult
-		PageResult<T> page = new PageResult<T>(totalCount, list);
-		return page;
+		return dataSql.toString();
 	}
 
-	/**
-	 * 
-	 * @param sql
-	 *            查询语句
-	 * @param mappedClass
-	 *            查询的结果返回的封装CLASS
-	 * @param pageIndex
-	 *            查询的页码
-	 * @param pageSize
-	 *            一页显示的行数
-	 * @param sqlArgs
-	 *            查询语句传入的参数
-	 * @return
-	 */
-	public <T> PageResult<T> pagedQuery(String sql, Class<T> mappedClass, int pageIndex, int pageSize,
-			Object... sqlArgs) {
-		return (PageResult<T>) this.pagedQuery(sql, mappedClass, new PageParam(pageIndex, pageSize), sqlArgs);
-	}
 }

@@ -4,7 +4,7 @@
 	 #parse("comm/comm.vm")
 	<script type="text/javascript" src="resource/js/index/index.js"></script>
 </head>
-<body style="overflow:hidden;" oncontextmenu="return false;"> 
+<body style="overflow:auto;" oncontextmenu="return false;"> 
 	<div>
 		<h3>权限模块</h3>
         <div>

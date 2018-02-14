@@ -14,16 +14,20 @@ import com.fhzz.core.vo.PageParam;
  * 
  */
 public class DatagridDemoParam extends PageParam {
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date startTime;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date endTime;
+
+	private String name;
+
+	private Integer count;
 
 	@Override
 	public String toString() {
-		return "DatagridDemoParam [startTime=" + startTime + ", endTime=" + endTime + ", toString()=" + super.toString()
-				+ "]";
+		return "DatagridDemoParam [startTime=" + startTime + ", endTime="
+				+ endTime + ", toString()=" + super.toString() + "]";
 	}
 
 	public Date getStartTime() {
@@ -40,6 +44,22 @@ public class DatagridDemoParam extends PageParam {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 }
