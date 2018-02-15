@@ -3,3 +3,4 @@
 <script type="text/javascript" src="resource/js/comm/ajaxError.js"></script>
 <script type="text/javascript" src="resource/js/comm/string.js"></script>
 <script type="text/javascript" src="resource/js/comm/date.js"></script>
+<script type="text/javascript" src="resource/js/comm/window.js"></script>

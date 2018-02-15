@@ -2,56 +2,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
   <head>
 	#parse("comm/comm.vm")
+	#parse("comm/easyui.vm")
     <title>新增任务</title>
-	<script>
-    $(document).ready(function() {
-    	$(".cancel").click(function(){
-    		history.go(-1) ;
-    	});
-    });
-</script>
+   <script type="text/javascript" src="resource/js/quartz/addjob.js"></script>
  </head>
   
- <body style="background: beige;" >
-  <form action="quartzAddJob.do" method="post">
-	<span>新增Trigger</span>
-	$jobNameList
-	<hr/>
-	<table id="table_report">
-       <tr>
-			<td>cronExpression</td><td><input type="text" width="200" name="cronExpression" value=""/></td>
-       </tr>
-       <tr>
-       		<td>jobClass</td>
-			<td>
-				<select name="jobClass" >
-					#foreach( $jobName in $jobNameList) 
-					<option value ="$jobName">$jobName</option>
-					#end
-                </select>
-			</td>
-       </tr>
-       <tr>
-       		<td>jobName</td><td><input type="text" name="jobName" value=""/></td>
-       </tr>
-       <tr>
-       		<td>jobGroup</td><td><input type="text" name="jobGroup" value=""/></td>
-       </tr>
-       <tr>
-      		 <td>triggerName</td><td><input type="text" name="triggerName" value=""/></td>
-       </tr>
-       <tr>
-      		 <td>triggerGroupName</td><td><input type="text" name="triggerGroupName" value=""/></td>
-       </tr>
-       <tr>
-       	<td></td>
-       	<td>
-       		<button type="submit" style="border: 0;background-color: #428bca;">提交</button>
-       		<button class="cancel" style="border: 0;background-color: #fff;">返回</button>
-       	</td>
-        </tr>
-	</table>
-  </form>
+ <body >
+		<div style="margin-bottom:10px">
+			CronExpression:
+			<input class="easyui-textbox" name="cronExpression" style="width:100%;height:32px">
+		</div>
+		<div style="margin-bottom:10px">
+			JobClass:
+			<select class="easyui-combobox" name="jobClass" style="width:100%;height:32px" editable="false" >
+				#foreach( $jobName in $jobNameList) 
+				<option value ="$jobName">$jobName</option>
+				#end
+            </select>
+		</div>
+		<div style="margin-bottom:10px">
+			Job Name:
+			<input class="easyui-textbox" name="jobName" style="width:100%;height:32px">
+		</div>
+		<div style="margin-bottom:10px">
+			Job Group:
+			<input class="easyui-textbox" name="jobGroup" style="width:100%;height:32px">
+		</div>
+		<div style="margin-bottom:10px">
+			Trigger Name:
+			<input class="easyui-textbox" name="triggerName" style="width:100%;height:32px">
+		</div>
+		<div style="margin-bottom:10px">
+			Trigger Group Name:
+			<input class="easyui-textbox" name="triggerGroupName" style="width:100%;height:32px">
+		</div>
 </body>
 </html>
 

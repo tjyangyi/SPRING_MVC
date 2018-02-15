@@ -19,6 +19,37 @@ function refreshData() {
 	$('#datagrid').datagrid('load');
 }
 
+function openAddJobDialog() {
+	$("#addJobDialog")
+			.dialog(
+					{
+						title : '新增任务',
+						left: (sizeObject.windowWidth - 500)/2,
+						top: (sizeObject.windowHeight - 500)/2,
+						width : 500,
+						height : 500,
+						modal : true,
+						content : "<iframe id='addJobIframe' scrolling='auto' frameborder='0' src='quartzToAddJob.do' style='width:100%; height:100%; display:block;'></iframe>",
+						buttons : [ {
+							text : '保存',
+							iconCls:'icon-save',
+							handler : function() {
+								$("#addJobIframe")[0].contentWindow.test1();
+							}
+						}, {
+							text : '关闭',
+							iconCls:'icon-cancel',
+						} ]
+
+					});
+	$("#addJobDialog").dialog("open"); // 打开dialog
+}
+
+function addJob() {
+	console.log($('#addJobDialog'));
+	$('#addJobDialog').test1();
+}
+
 // 跳转到新增任务界面
 function quartzToAddJob() {
 	window.location.href = "quartzToAddJob.do";

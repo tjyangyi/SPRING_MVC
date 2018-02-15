@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.fhzz.business.dao.demo.DatabaseOperationExampleDao;
 import com.fhzz.business.entity.DemoTable;
@@ -46,9 +47,9 @@ public class DatabaseOperationExampleDaoImpl extends BaseDaoImpl<DemoTable>
 			sqlSb.append("AND CREATE_TIME < ? ");
 			sqlArgs.add(datagridDemoParam.getEndTime());
 		}
-		if (datagridDemoParam.getName() != null) {
-			sqlSb.append("AND NAME LIKE '%?%' ");
-			sqlArgs.add(datagridDemoParam.getName());
+		if (!StringUtils.isEmpty(datagridDemoParam.getName())) {
+			sqlSb.append("AND NAME LIKE ? ");
+			sqlArgs.add("%" + datagridDemoParam.getName() + "%");
 		}
 		if (datagridDemoParam.getCount() != null) {
 			sqlSb.append("AND COUNT = ? ");

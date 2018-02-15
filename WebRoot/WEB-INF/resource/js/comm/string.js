@@ -4,7 +4,6 @@ String.prototype.replaceAll = function(s1, s2) {
 }
 
 // 加入trim方法支持
-String.prototype.trim=function()
-{
-     return this.replace(/(^\s*)|(\s*$)/g, ”);
+String.prototype.trim = function(){
+	return this.replace(/(^\s*)|(\s*$)/g, "");
 }
