@@ -3,7 +3,7 @@
 <head>
 	<title>Format DataGrid Columns - jQuery EasyUI Demo</title>
 	#parse("comm/comm.vm")
-	#parse("comm/datagrid.vm")
+	#parse("comm/easyui.vm")
     <script type="text/javascript" src="resource/js/datagrid/datagridDemo.js"></script>
 </head>
 <body>
