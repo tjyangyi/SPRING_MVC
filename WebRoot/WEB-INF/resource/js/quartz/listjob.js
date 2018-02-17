@@ -1,6 +1,16 @@
+window.onresize = function resize() {
+	$('#datagrid').datagrid('resize', {
+		height : $(window).height() - 130,
+		width : $(window).width() - 40
+	});
+}
+
+function back(){
+	window.location.href = "toIndex.do"
+}
+
 $(function() {
-	// window.setInterval(refreshData_auto, 5000);
-	$.parser.parse();
+	window.onresize();
 });
 
 // 操作列
@@ -63,7 +73,8 @@ function openAddJobDialog() {
 							text : '保存',
 							iconCls : 'icon-save',
 							handler : function() {
-								$("#addJobIframe")[0].contentWindow.save(addJobDialog.saveCallback);
+								$("#addJobIframe")[0].contentWindow
+										.save(addJobDialog.saveCallback);
 							}
 						}, {
 							text : '关闭',
@@ -102,7 +113,8 @@ function openEditJobDialog(jobName, jobGroup) {
 							text : '保存',
 							iconCls : 'icon-save',
 							handler : function() {
-								$("#editJobIframe")[0].contentWindow.save(editJobDialog.saveCallback);
+								$("#editJobIframe")[0].contentWindow
+										.save(editJobDialog.saveCallback);
 							}
 						}, {
 							text : '关闭',

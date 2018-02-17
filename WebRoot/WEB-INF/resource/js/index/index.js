@@ -1,5 +1,4 @@
 $(function() {
-	console.log("index.js $(function())");
 });
 
 function ajaxWithoutAuth() {

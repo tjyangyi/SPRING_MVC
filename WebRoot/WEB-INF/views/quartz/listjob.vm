@@ -6,30 +6,34 @@
 	#parse("comm/easyui.vm")
 	<script type="text/javascript" src="resource/js/quartz/listjob.js"></script>
 </head>
-<body>
+<body style="overflow-y:hidden">
 	<h2 style="text-align: center;">任务列表</h2>
-	<div style="margin:20px 0;"></div>
-	<table id="datagrid" class="easyui-datagrid" title="Format DataGrid Columns" style="width:1860px;height:500px"
-		data-options="rownumbers:true,singleSelect:true,iconCls:'icon-ok',url:'getAllCronJobInfos.do',method:'get',toolbar:'#tb'">
-		<thead>
-			<tr>
-    			<th data-options="field:'attr1',width:150,formatter:operationFormatter">操作</th>
-    			<th data-options="field:'jobGroup',width:100">任务组名称</th>
-    			<th data-options="field:'jobName',width:100">任务名称</th>
-    			<th data-options="field:'triggerGroupName',width:120">触发器组名称</th>
-    			<th data-options="field:'triggerName',width:120">触发器名称</th>
-    			<th data-options="field:'cronExpression',width:120">时间表达式</th>
-    			<th data-options="field:'prevFireTimeStr',width:140">上次运行时间</th>
-    			<th data-options="field:'nextFireTimeStr',width:140">下次运行时间</th>
-    			<th data-options="field:'triggerState',width:80">任务状态</th>
-    			<th data-options="field:'priority',width:80">优先级</th>
-    			<th data-options="field:'startTimeStr',width:140">开始时间</th>
-    			<th data-options="field:'endTimeStr',width:140">结束时间</th>
-    			<th data-options="field:'jobClass',width:250">任务类名</th>
-    			<th data-options="field:'jobDataMapJson',width:80">jobDataMap</th>
-			</tr>
-		</thead>
-	</table>
+	<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-back" plain="true" onclick="back();">返回首页</a>
+	</div>
+	<div>
+    	<table id="datagrid" class="easyui-datagrid" title="Quartz任务列表"
+    		data-options="rownumbers:true, singleSelect:true, url:'getAllCronJobInfos.do', method:'get', toolbar:'#tb'">
+    		<thead>
+    			<tr>
+        			<th data-options="field:'attr1',width:150,formatter:operationFormatter">操作</th>
+        			<th data-options="field:'jobGroup',width:100">任务组名称</th>
+        			<th data-options="field:'jobName',width:100">任务名称</th>
+        			<th data-options="field:'triggerGroupName',width:120">触发器组名称</th>
+        			<th data-options="field:'triggerName',width:120">触发器名称</th>
+        			<th data-options="field:'cronExpression',width:120">时间表达式</th>
+        			<th data-options="field:'prevFireTimeStr',width:140">上次运行时间</th>
+        			<th data-options="field:'nextFireTimeStr',width:140">下次运行时间</th>
+        			<th data-options="field:'triggerState',width:80">任务状态</th>
+        			<th data-options="field:'priority',width:80">优先级</th>
+        			<th data-options="field:'startTimeStr',width:140">开始时间</th>
+        			<th data-options="field:'endTimeStr',width:140">结束时间</th>
+        			<th data-options="field:'jobClass',width:250">任务类名</th>
+        			<th data-options="field:'jobDataMapJson',width:80">jobDataMap</th>
+    			</tr>
+    		</thead>
+    	</table>
+	</div>
 	<div id="tb" style="padding:2px 5px;">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="openAddJobDialog();"></a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="refreshData_manual();"></a>
