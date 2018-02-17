@@ -34,8 +34,8 @@
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="openAddJobDialog();"></a>
 		<a href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="true" onclick="refreshData_manual();"></a>
 	</div>
-	
-	 <div id="addJobDialog" class="easyui-dialog" closed="true"> 
+	<div id="addJobDialog" class="easyui-dialog" closed="true"> 
+	<div id="editJobDialog" class="easyui-dialog" closed="true"> 
 	</div>
 </body>
 </html>

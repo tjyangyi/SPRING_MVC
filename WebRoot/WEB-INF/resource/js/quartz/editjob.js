@@ -1,5 +1,5 @@
 function save(successCallback) {
-	$.post("quartzAddJob", {
+	$.post("quartzEditJob", {
 		"jobClass" : $('#jobClass').val(),
 		"jobGroup" : $('#jobGroup').val(),
 		"jobName" : $('#jobName').val(),

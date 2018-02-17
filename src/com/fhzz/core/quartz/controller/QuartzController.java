@@ -72,13 +72,13 @@ public class QuartzController extends BaseAction {
 	 * @throws ClassNotFoundException
 	 */
 	@RequestMapping(value = "quartzAddJob", method = RequestMethod.POST)
-	public ModelAndView quartzAddJob(@ModelAttribute CronJobInfo cronJobInfo, ModelAndView modelAndView)
+	@ResponseBody
+	public Map<String, Object> quartzAddJob(@ModelAttribute CronJobInfo cronJobInfo, ModelAndView modelAndView)
 			throws ClassNotFoundException, SchedulerException {
+		Map<String, Object> result = new HashMap<String, Object>();
 		quartzService.addJob(cronJobInfo);
-		modelAndView.addObject("opName", "添加任务");
-		modelAndView.addObject("message", "添加任务成功!");
-		modelAndView.setViewName("quartz/message");
-		return modelAndView;
+		result.put("success", true);
+		return result;
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class QuartzController extends BaseAction {
 	 * 
 	 * @throws SchedulerException
 	 */
-	@RequestMapping(value = "/quartzToEdit")
+	@RequestMapping(value = "quartzToEdit")
 	public ModelAndView quartzToEdit(@RequestParam("jobName") String jobName,
 			@RequestParam("jobGroup") String jobGroup, ModelAndView modelAndView) throws SchedulerException {
 		CronJobInfo cronJobInfo = quartzService.getCronJobInfo(jobGroup, jobName);
@@ -114,14 +114,14 @@ public class QuartzController extends BaseAction {
 	 * 
 	 * @throws SchedulerException
 	 */
-	@RequestMapping(value = "/quartzEdit", method = RequestMethod.POST)
-	public ModelAndView edit(@ModelAttribute CronJobInfo cronJobInfo, ModelAndView modelAndView)
+	@RequestMapping(value = "quartzEditJob", method = RequestMethod.POST)
+	@ResponseBody
+	public  Map<String, Object> quartzEditJob(@ModelAttribute CronJobInfo cronJobInfo, ModelAndView modelAndView)
 			throws SchedulerException {
-		modelAndView.addObject("opName", "更新任务");
+		Map<String, Object> result = new HashMap<String, Object>();		
 		quartzService.modifyJobTime(cronJobInfo);
-		modelAndView.addObject("message", "修改任务成功!");
-		modelAndView.setViewName("quartz/message");
-		return modelAndView;
+		result.put("success", true);
+		return result;
 	}
 
 	/**

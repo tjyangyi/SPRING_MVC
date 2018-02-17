@@ -1,5 +1,5 @@
 $(function() {
-	//window.setInterval(refreshData_auto, 5000);
+	// window.setInterval(refreshData_auto, 5000);
 	$.parser.parse();
 });
 
@@ -7,7 +7,7 @@ $(function() {
 function operationFormatter(val, row, index) {
 	var r = '<a href="#" style="padding-left:3px;padding-right:3px" onclick="triggerJob({row.jobName},{row.jobGroup});">运行</a>'
 			+ '|'
-			+ '<a href="#" style="padding-left:3px;padding-right:3px" onclick="edit({row.jobName},{row.jobGroup});">编辑</a>'
+			+ '<a href="#" style="padding-left:3px;padding-right:3px" onclick="openEditJobDialog({row.jobName},{row.jobGroup});">编辑</a>'
 			+ '|';
 	if (row.triggerState != 'PAUSED') {
 		r += '<a href="#" style="padding-left:3px;padding-right:3px" onclick="pauseJob({row.jobName},{row.jobGroup});">暂停</a>'
@@ -46,6 +46,7 @@ function openAddJobDialog() {
 	var addJobDialog = $("#addJobDialog");
 	addJobDialog.saveCallback = function() {
 		addJobDialog.dialog("close");
+		showMsg('新增任务成功');
 		refreshData_manual();
 	}
 	addJobDialog
@@ -62,8 +63,7 @@ function openAddJobDialog() {
 							text : '保存',
 							iconCls : 'icon-save',
 							handler : function() {
-								$("#addJobIframe")[0].contentWindow
-										.save(addJobDialog.saveCallback);
+								$("#addJobIframe")[0].contentWindow.save(addJobDialog.saveCallback);
 							}
 						}, {
 							text : '关闭',
@@ -77,15 +77,43 @@ function openAddJobDialog() {
 	addJobDialog.dialog("open"); // 打开dialog
 }
 
-// 跳转到新增任务界面
-function quartzToAddJob() {
-	window.location.href = "quartzToAddJob.do";
-}
+function openEditJobDialog(jobName, jobGroup) {
+	var editJobDialog = $('#editJobDialog');
+	editJobDialog.saveCallback = function() {
+		editJobDialog.dialog("close");
+		showMsg('编辑任务成功');
+		refreshData_manual();
+	}
+	editJobDialog
+			.dialog({
+				title : '编辑任务',
+				left : (sizeObject.windowWidth - 500) / 2,
+				top : (sizeObject.windowHeight - 500) / 2,
+				width : 500,
+				height : 500,
+				modal : true,
+				content : "<iframe id='editJobIframe' scrolling='auto' frameborder='0' src='quartzToEdit.do?jobName="
+						+ jobName
+						+ "&jobGroup="
+						+ jobGroup
+						+ "' style='width:100%; height:100%; display:block;'></iframe>",
+				buttons : [
+						{
+							text : '保存',
+							iconCls : 'icon-save',
+							handler : function() {
+								$("#editJobIframe")[0].contentWindow.save(editJobDialog.saveCallback);
+							}
+						}, {
+							text : '关闭',
+							iconCls : 'icon-cancel',
+							handler : function() {
+								editJobDialog.dialog("close");
+							}
+						} ]
 
-// 跳转到编辑任务界面
-function edit(jobName, jobGroup) {
-	window.location.href = "quartzToEdit.do?jobName=" + jobName + "&jobGroup="
-			+ jobGroup;
+			});
+	editJobDialog.dialog("open"); // 打开dialog
 }
 
 // 运行任务
@@ -94,7 +122,7 @@ function triggerJob(jobName, jobGroup) {
 		jobName : jobName,
 		jobGroup : jobGroup
 	}, function(data, status) {
-		alert("运行成功");
+		showMsg('运行成功');
 		refreshData_manual();
 	});
 }
@@ -105,7 +133,7 @@ function pauseJob(jobName, jobGroup) {
 		jobName : jobName,
 		jobGroup : jobGroup
 	}, function(data, status) {
-		alert("暂停成功");
+		showMsg('暂停成功');
 		refreshData_manual();
 	});
 }
@@ -116,7 +144,7 @@ function resumeJob(jobName, jobGroup) {
 		jobName : jobName,
 		jobGroup : jobGroup
 	}, function(data, status) {
-		alert("恢复成功");
+		showMsg('恢复成功');
 		refreshData_manual();
 	});
 }
@@ -129,7 +157,7 @@ function deleteJob(jobName, jobGroup, triggerName, triggerGroupName) {
 		triggerName : triggerName,
 		triggerGroupName : triggerGroupName
 	}, function(data, status) {
-		alert("删除成功");
+		showMsg('删除成功');
 		refreshData_manual();
 	});
 }
