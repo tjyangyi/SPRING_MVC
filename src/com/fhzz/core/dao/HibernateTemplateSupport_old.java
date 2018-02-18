@@ -35,7 +35,7 @@ import com.fhzz.core.vo.PageResult;
  * @modify : 2015-6-1 下午01:27:32
  * @copyright : FiberHome FHZ Telecommunication Technologies Co.Ltd.
  */
-public class HibernateTemplateSupport extends HibernateTemplate {
+public class HibernateTemplateSupport_old extends HibernateTemplate {
 
 	private SessionFactory sessionFactory;
 
@@ -66,8 +66,6 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 		String countQueryString = " select count(*) "
 				+ removeSelect(removeOrders(hql));
 		List<?> countlist = super.find(countQueryString, values);
-		super.findByValueBean(queryString, valueBean);
-		super.findByNamedQueryAndNamedParam(queryName, paramNames, values)
 		if (countlist != null && countlist.size() > 0) {
 			long totalCount = (Long) countlist.get(0);
 			if (totalCount < 1)

@@ -7,34 +7,78 @@
     <script type="text/javascript" src="resource/js/db/databaseDemo.js"></script>
 </head>
 <body>
-	<h2>Database示例</h2>
-	<div style="margin:20px 0;"></div>
-	<table id="dg" class="easyui-datagrid" title="这里是表格的标题" style="width:800px;height:400px"
+    <h2>BaseDao中定义的通用方法示例</h2>
+	<div>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="baseDao_save();">BaseDao save方法保存一条记录</a>
+    </div>
+	<div>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="baseDao_update();">BaseDao update方法更新一条记录</a>
+    </div>
+	<div>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="baseDao_saveOrUpdate();">BaseDao saveOrUpdate方法</a>
+	</div>
+	<div>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="baseDao_saveOrUpdate();">BaseDao get方法根据主键获取记录</a>
+	</div>
+	
+    <h2 style="margin-top:50px;">JdbcTemplageSupport</h2>
+	<table id="dg1" class="easyui-datagrid" title="JDBC分页查找" style="width:1000px;height:400px"
 			data-options="
 			rownumbers:true,
 			singleSelect:true,
 			iconCls:'icon-ok',
-			url:'getDatabaseDemoResult1.do',
+			url:'getDatabaseDemoPageQuery1.do',
 			pagination : true,
 			method:'post',
 			fitColumns: true,
-			toolbar:'#tb'
+			toolbar:'#dg1_toolbar'
 			">
 		<thead>
 			<tr>
 				<th data-options="field:'id',width:300">ID</th>
 				<th data-options="field:'name',width:100">Name</th>
-				<th data-options="field:'count',width:100,align:'right'">Count</th>
+				<th data-options="field:'countNum',width:100,align:'right'">Count</th>
 				<th data-options="field:'createTime',width:200,align:'right',formatter: dateFormat2Second">CreateTime</th>
+				<th data-options="field:'updateTime',width:200,align:'right',formatter: dateFormat2Second">UpdateTime</th>
 			</tr>
 		</thead>
 	</table>
-	<div id="tb" style="padding:2px 5px;">
-		Date From: <input id="startTime" class="easyui-datetimebox" style="width:150px">
-		To: <input id="endTime" class="easyui-datetimebox" style="width:150px">
-		Name: <input id="name" class="easyui-textbox" style="width:100px">
-		Count: <input id="count" class="easyui-textbox" style="width:50px">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="onSearchClick()">Search</a>
+	<div id="dg1_toolbar" style="padding:2px 5px;">
+		Date From: <input id="dg1_startTime" class="easyui-datetimebox" style="width:150px">
+		To: <input id="dg1_endTime" class="easyui-datetimebox" style="width:150px">
+		Name: <input id="dg1_name" class="easyui-textbox" style="width:100px">
+		Count: <input id="dg1_countNum" class="easyui-textbox" style="width:50px">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="dg1_search()">查询</a>
+	</div>
+	
+	<h2 style="margin-top:50px;">HibernateTemplateSupport</h2>
+	<table id="dg2" class="easyui-datagrid" title="Hibernate分页查找" style="width:1000px;height:400px"
+			data-options="
+			rownumbers:true,
+			singleSelect:true,
+			iconCls:'icon-ok',
+			url:'getDatabaseDemoPageQuery2.do',
+			pagination : true,
+			method:'post',
+			fitColumns: true,
+			toolbar:'#dg2_toolbar'
+			">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:300">ID</th>
+				<th data-options="field:'name',width:100">Name</th>
+				<th data-options="field:'countNum',width:100,align:'right'">Count</th>
+				<th data-options="field:'createTime',width:200,align:'right',formatter: dateFormat2Second">CreateTime</th>
+				<th data-options="field:'updateTime',width:200,align:'right',formatter: dateFormat2Second">UpdateTime</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="dg2_toolbar" style="padding:2px 5px;">
+		Date From: <input id="dg2_startTime" class="easyui-datetimebox" style="width:150px">
+		To: <input id="dg2_endTime" class="easyui-datetimebox" style="width:150px">
+		Name: <input id="dg2_name" class="easyui-textbox" style="width:100px">
+		Count: <input id="dg2_countNum" class="easyui-textbox" style="width:50px">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="dg2_search()">查询</a>
 	</div>
 </body>
 </html>

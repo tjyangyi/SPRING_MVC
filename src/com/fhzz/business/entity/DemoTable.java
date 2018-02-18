@@ -9,13 +9,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SelectBeforeUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 /**
  * DemoTable entity. @author MyEclipse Persistence Tools
  */
 @Entity
+@DynamicInsert
+@DynamicUpdate
+@SelectBeforeUpdate
 @Table(name = "DEMO_TABLE")
 public class DemoTable implements java.io.Serializable {
 
@@ -23,14 +33,16 @@ public class DemoTable implements java.io.Serializable {
 	private static final long serialVersionUID = -419597990685300959L;
 	private String id;
 	private String name;
-	private Integer count;
+	private Integer countNum;
 	private Date createTime;
+	private Date updateTime;
 
 	// Constructors
 
 	@Override
 	public String toString() {
-		return "DemoTable [id=" + id + ", name=" + name + ", count=" + count + ", createTime=" + createTime + "]";
+		return "DemoTable [id=" + id + ", name=" + name + ", countNum=" + countNum + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + "]";
 	}
 
 	/** default constructor */
@@ -43,11 +55,12 @@ public class DemoTable implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public DemoTable(String id, String name, Integer count, Date createTime) {
+	public DemoTable(String id, String name, Integer countNum, Date createTime, Date updateTime) {
 		this.id = id;
 		this.name = name;
-		this.count = count;
+		this.countNum = countNum;
 		this.createTime = createTime;
+		this.updateTime = updateTime;
 	}
 
 	// Property accessors
@@ -72,22 +85,35 @@ public class DemoTable implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "COUNT", precision = 22, scale = 0)
-	public Integer getCount() {
-		return this.count;
+	@Column(name = "COUNT_NUM", precision = 22, scale = 0)
+	public Integer getCountNum() {
+		return countNum;
 	}
 
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setCountNum(Integer countNum) {
+		this.countNum = countNum;
 	}
 
-	@Column(name = "CREATE_TIME", length = 7)
+	@Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp
+	@Column(name = "CREATE_TIME", length = 7, updatable = false)
 	public Date getCreateTime() {
 		return this.createTime;
 	}
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@UpdateTimestamp
+	@Column(name = "UPDATE_TIME", length = 7)
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 
 }

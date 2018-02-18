@@ -32,7 +32,7 @@ public class HibernateDemoServiceImpl implements HibernateDemoService {
 		DemoTable existDemoTable = hibernateDemoDao
 				.get("b580544f-a89a-4544-9f6e-81266f0f29ae");
 		existDemoTable.setName(demoTable.getName());
-		existDemoTable.setCount(demoTable.getCount());
+		existDemoTable.setCountNum(demoTable.getCountNum());
 		existDemoTable.setCreateTime(demoTable.getCreateTime());
 		hibernateDemoDao.update(existDemoTable);
 	}
@@ -43,14 +43,15 @@ public class HibernateDemoServiceImpl implements HibernateDemoService {
 	}
 
 	@Override
-	public PageResult<DemoTable> queryDemoTable(PageParam pageParam) {
-		return hibernateDemoDao.queryDemoTable(pageParam);
+	public PageResult<DemoTable> pagedQuery(PageParam pageParam) {
+		return hibernateDemoDao.pagedQuery(pageParam);
 	}
 
 	@Override
-	public PageResult<DemoTable> queryDemoTable(
+	public PageResult<DemoTable> pagedQuery(
 			DatagridDemoParam datagridDemoParam) {
-		return hibernateDemoDao.queryDemoTable(datagridDemoParam);
+		return hibernateDemoDao.pagedQuery(datagridDemoParam);
 	}
+
 
 }

@@ -16,8 +16,8 @@ import com.fhzz.core.vo.PageParam;
  */
 public interface JdbcDemoDao extends BaseDao<DemoTable> {
 
-	PageResult<DemoTable> queryDemoTable(PageParam pageParam);
+	PageResult<DemoTable> pagedQuery(PageParam pageParam);
 	
-	PageResult<DemoTable> queryDemoTable(DatagridDemoParam datagridDemoParam);
+	PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam);
 	
 }

@@ -20,8 +20,8 @@ public interface JdbcDemoService {
 	
 	public DemoTable getDemoTable(String id);
 
-	public PageResult<DemoTable> queryDemoTable(PageParam pageParam);
+	public PageResult<DemoTable> pagedQuery(PageParam pageParam);
 	
-	public PageResult<DemoTable> queryDemoTable(DatagridDemoParam datagridDemoParam);
+	public PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam);
 	
 }

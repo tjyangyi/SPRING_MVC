@@ -37,8 +37,7 @@ public class DatagridDemoAction extends BaseAction {
 	private JdbcDemoService jdbcDemoService;
 
 	@RequestMapping("toDatagridDemo")
-	public String welcomeDatagrid(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) {
+	public String welcomeDatagrid(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "datagrid/datagridDemo";
 	}
 
@@ -52,9 +51,8 @@ public class DatagridDemoAction extends BaseAction {
 	@RequestMapping("getDatagridJson1")
 	@ResponseBody
 	@OperationLog
-	public PageResult<DemoTable> getDatagridJson(
-			@ModelAttribute PageParam pageParam) throws IOException {
-		PageResult<DemoTable> page = jdbcDemoService.queryDemoTable(pageParam);
+	public PageResult<DemoTable> getDatagridJson(@ModelAttribute PageParam pageParam) throws IOException {
+		PageResult<DemoTable> page = jdbcDemoService.pagedQuery(pageParam);
 		return page;
 	}
 
@@ -68,11 +66,9 @@ public class DatagridDemoAction extends BaseAction {
 	@RequestMapping("getDatagridJson2")
 	@ResponseBody
 	@OperationLog
-	public PageResult<DemoTable> getDatagridJson2(
-			@ModelAttribute DatagridDemoParam datadgridDemoParam)
+	public PageResult<DemoTable> getDatagridJson2(@ModelAttribute DatagridDemoParam datadgridDemoParam)
 			throws IOException {
-		PageResult<DemoTable> page = jdbcDemoService
-				.queryDemoTable(datadgridDemoParam);
+		PageResult<DemoTable> page = jdbcDemoService.pagedQuery(datadgridDemoParam);
 		return page;
 	}
 }

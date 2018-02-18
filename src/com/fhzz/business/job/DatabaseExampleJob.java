@@ -30,7 +30,7 @@ public class DatabaseExampleJob extends AbstractJob {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		DemoTable demoTable = new DemoTable(null, "name", 1, new Date());
+		DemoTable demoTable = new DemoTable(null, "name", 1, new Date(), new Date());
 		databaseOperationExampleService.saveDemoTable(demoTable);
 	}
 

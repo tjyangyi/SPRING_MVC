@@ -22,12 +22,13 @@ public class DatagridDemoParam extends PageParam {
 
 	private String name;
 
-	private Integer count;
+	private Integer countNum;
 
 	@Override
 	public String toString() {
-		return "DatagridDemoParam [startTime=" + startTime + ", endTime="
-				+ endTime + ", toString()=" + super.toString() + "]";
+		return "DatagridDemoParam [startTime=" + startTime + ", endTime=" + endTime + ", name=" + name + ", countNum="
+				+ countNum + ", getStartIndex()=" + getStartIndex() + ", getEndIndex()=" + getEndIndex()
+				+ ", getPage()=" + getPage() + ", getRows()=" + getRows() + "]";
 	}
 
 	public Date getStartTime() {
@@ -54,12 +55,12 @@ public class DatagridDemoParam extends PageParam {
 		this.name = name;
 	}
 
-	public Integer getCount() {
-		return count;
+	public Integer getCountNum() {
+		return countNum;
 	}
 
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setCountNum(Integer countNum) {
+		this.countNum = countNum;
 	}
 
 }

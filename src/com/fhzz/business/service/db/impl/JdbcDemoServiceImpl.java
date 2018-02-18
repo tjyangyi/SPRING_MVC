@@ -7,8 +7,8 @@ import com.fhzz.business.dao.db.JdbcDemoDao;
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.service.db.JdbcDemoService;
 import com.fhzz.business.vo.datagrid.DatagridDemoParam;
-import com.fhzz.core.vo.PageResult;
 import com.fhzz.core.vo.PageParam;
+import com.fhzz.core.vo.PageResult;
 
 /**
  * 
@@ -19,36 +19,32 @@ import com.fhzz.core.vo.PageParam;
 @Service
 public class JdbcDemoServiceImpl implements JdbcDemoService {
 	@Autowired
-	private JdbcDemoDao databaseOperationExampleDao;
+	private JdbcDemoDao jdbcDemoDao;
 
 	@Override
 	public void saveDemoTable(DemoTable demoTable) {
 		// 这里可以进行一些业务处理
-		databaseOperationExampleDao.save(demoTable);
+		jdbcDemoDao.save(demoTable);
 	}
 
 	@Override
 	public void updateDemoTable(DemoTable demoTable) {
-		DemoTable existDemoTable = databaseOperationExampleDao.get("b580544f-a89a-4544-9f6e-81266f0f29ae");
-		existDemoTable.setName(demoTable.getName());
-		existDemoTable.setCount(demoTable.getCount());
-		existDemoTable.setCreateTime(demoTable.getCreateTime());
-		databaseOperationExampleDao.update(existDemoTable);
-	}
-	
-	@Override
-	public DemoTable getDemoTable(String id){
-		return databaseOperationExampleDao.get(id);
+		jdbcDemoDao.update(demoTable);
 	}
 
 	@Override
-	public PageResult<DemoTable> queryDemoTable(PageParam pageParam) {
-		return databaseOperationExampleDao.queryDemoTable(pageParam);
+	public DemoTable getDemoTable(String id) {
+		return jdbcDemoDao.get(id);
 	}
 
 	@Override
-	public PageResult<DemoTable> queryDemoTable(DatagridDemoParam datagridDemoParam) {
-		return databaseOperationExampleDao.queryDemoTable(datagridDemoParam);
+	public PageResult<DemoTable> pagedQuery(PageParam pageParam) {
+		return jdbcDemoDao.pagedQuery(pageParam);
+	}
+
+	@Override
+	public PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam) {
+		return jdbcDemoDao.pagedQuery(datagridDemoParam);
 	}
 
 }

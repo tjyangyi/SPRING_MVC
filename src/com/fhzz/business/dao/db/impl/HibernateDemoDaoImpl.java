@@ -3,7 +3,11 @@
  */
 package com.fhzz.business.dao.db.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.fhzz.business.dao.db.HibernateDemoDao;
 import com.fhzz.business.entity.DemoTable;
@@ -17,21 +21,37 @@ import com.fhzz.core.vo.PageResult;
  * 
  */
 @Repository
-public class HibernateDemoDaoImpl extends BaseDaoImpl<DemoTable> implements
-		HibernateDemoDao {
+public class HibernateDemoDaoImpl extends BaseDaoImpl<DemoTable> implements HibernateDemoDao {
 
 	@Override
-	public PageResult<DemoTable> queryDemoTable(PageParam pageParam) {
+	public PageResult<DemoTable> pagedQuery(PageParam pageParam) {
 		String hql = "from DemoTable order by createTime desc";
-		return this.getHibernateTemplate().pagedQuery(hql, pageParam.getPage(),
-				pageParam.getRows(), null);
+		return this.getHibernateTemplate().pagedQuery(hql, null, pageParam);
 	}
 
 	@Override
-	public PageResult<DemoTable> queryDemoTable(
-			DatagridDemoParam datagridDemoParam) {
-		String hql = "from DemoTable";
-		return this.getHibernateTemplate().pagedQuery(hql, 1, 10, null);
+	public PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam) {
+		List<Object> hqlArgs = new ArrayList<Object>();
+		StringBuffer hqlSb = new StringBuffer();
+		hqlSb.append("FROM DemoTable WHERE 1=1 ");
+		if (datagridDemoParam.getStartTime() != null) {
+			hqlSb.append("AND createTime > ? ");
+			hqlArgs.add(datagridDemoParam.getStartTime());
+		}
+		if (datagridDemoParam.getEndTime() != null) {
+			hqlSb.append("AND createTime < ? ");
+			hqlArgs.add(datagridDemoParam.getEndTime());
+		}
+		if (!StringUtils.isEmpty(datagridDemoParam.getName())) {
+			hqlSb.append("AND name LIKE ? ");
+			hqlArgs.add("%" + datagridDemoParam.getName() + "%");
+		}
+		if (datagridDemoParam.getCountNum() != null) {
+			hqlSb.append("AND countNum = ? ");
+			hqlArgs.add(datagridDemoParam.getCountNum());
+		}
+		hqlSb.append("ORDER BY createTime DESC");
+		return this.getHibernateTemplate().pagedQuery(hqlSb.toString(), hqlArgs.toArray(), datagridDemoParam);
 	}
 
 }
