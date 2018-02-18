@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -40,24 +39,8 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 
 	private SessionFactory sessionFactory;
 
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	/**
-	 * Hibernate Session 获取
-	 */
 	public Session getSession() {
-
 		return sessionFactory.getCurrentSession();
-	}
-
-	public Session getOtherSession() {
-		return sessionFactory.openSession();
 	}
 
 	/*------------------------------------------HQL方式------------------------------------------*/
@@ -66,20 +49,25 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * 
 	 * @Title: pagedQuery
 	 * @Description: 分页查询函数，使用hql.
-	 * @param: @param hql
-	 * @param: @param pageNo 页号,从1开始.
-	 * @param: @param pageSize 每页大小
-	 * @param: @param values HQL传入参数值
+	 * @param hql
+	 * @param pageNo
+	 *            页号,从1开始.
+	 * @param pageSize
+	 *            每页大小
+	 * @param values
+	 *            HQL传入参数值
 	 * @return: Page
 	 * @throws
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public PageResult pagedQuery(String hql, int pageNo, int pageSize, Object... values) {
-		Assert.hasText(hql);
-		Assert.isTrue(pageNo >= 1, "pageNo should start from 1");
-		PageParam pageParam = new PageParam(pageNo,pageSize);
-		String countQueryString = " select count(*) " + removeSelect(removeOrders(hql));
+	public PageResult pagedQuery(String hql, int pageNo, int pageSize,
+			Object... values) {
+		PageParam pageParam = new PageParam(pageNo, pageSize);
+		String countQueryString = " select count(*) "
+				+ removeSelect(removeOrders(hql));
 		List<?> countlist = super.find(countQueryString, values);
+		super.findByValueBean(queryString, valueBean);
+		super.findByNamedQueryAndNamedParam(queryName, paramNames, values)
 		if (countlist != null && countlist.size() > 0) {
 			long totalCount = (Long) countlist.get(0);
 			if (totalCount < 1)
@@ -93,25 +81,8 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	}
 
 	/**
-	 * 分页条件查询 对于需要first,max,fetchsize,cache,cacheRegion等诸多设置的函数,可以在返回Query后自行设置.
-	 */
-	@SuppressWarnings("unchecked")
-	private <T> List<T> list(final String hql, final int pn, final int pageSize, boolean cacheAble,
-			final Object... values) {
-		Assert.hasText(hql);
-		Query query = getSession().createQuery(hql);
-		setParameters(query, values);
-		if (cacheAble)
-			query.setCacheable(true);
-		if (pageSize > 0) {
-			query.setFirstResult(pn).setMaxResults(pageSize);
-		}
-		return query.list();
-	}
-
-	/**
 	 * 
-	 * @Description:  分页条件查询 带参数
+	 * @Description: 分页条件查询 带参数
 	 * @param: @param hql
 	 * @param: @param pn 数据记录起止位置
 	 * @param: @param pageSize 每页大小
@@ -120,45 +91,26 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * @return: List<?>
 	 * @throws
 	 */
-	public <T> List<T> list(final String hql, final int pn, final int pageSize, final Object... values) {
+	public <T> List<T> list(final String hql, final int pn, final int pageSize,
+			final Object... values) {
 		return list(hql, pn, pageSize, false, values);
 	}
 
-	public <T> List<T> listNative(final String nativeSQL, final int pn, final int pageSize, final Object... values) {
-		return listNative(nativeSQL, pn, pageSize, true, values);
-	}
-
 	/**
-	 * 原生SQL分页条件查询
-	 * 对于需要first,max,fetchsize,cache,cacheRegion等诸多设置的函数,可以在返回Query后自行设置.
+	 * 分页条件查询 对于需要first,max,fetchsize,cache,cacheRegion等诸多设置的函数,可以在返回Query后自行设置.
 	 */
 	@SuppressWarnings("unchecked")
-	private <T> List<T> listNative(final String nativeSQL, final int pn, final int pageSize, boolean cacheAble,
-			final Object... values) {
-		Assert.hasText(nativeSQL);
-		SQLQuery query = getSession().createSQLQuery(nativeSQL);
-		setParametersNative(query, values);
-		if (pn >= 0 && pageSize > 0) {
-			query.setFirstResult(pn).setMaxResults(pageSize);
+	private <T> List<T> list(final String hql, final int page, final int rows,
+			boolean cacheAble, final Object... values) {
+		Assert.hasText(hql);
+		Query query = getSession().createQuery(hql);
+		setParameters(query, values);
+		if (cacheAble)
+			query.setCacheable(true);
+		if (rows > 0) {
+			query.setFirstResult(page).setMaxResults(rows);
 		}
 		return query.list();
-	}
-
-	/**
-	 * 设置原生SQL语句中的参数
-	 * 
-	 * @param query
-	 * @param paramlist
-	 */
-	private void setParametersNative(SQLQuery query, Object... values) {
-		if (null == values || values.length < 0)
-			return;
-		for (int i = 0; i < values.length; i++) {
-			if (values[i] instanceof Date)
-				query.setTimestamp(i, (Date) values[i]);
-			else
-				query.setParameter(i, values[i]);
-		}
 	}
 
 	/**
@@ -168,26 +120,7 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * @return
 	 */
 	public int execute(final String hql, final Object... values) {
-		Assert.hasText(hql);
-
 		Query query = getSession().createQuery(hql);
-
-		setParameters(query, values);
-
-		Object result = query.executeUpdate();
-
-		return result == null ? 0 : ((Integer) result).intValue();
-	}
-
-	/**
-	 * @Description : 执行原生SQL语句： insert, update, delete
-	 * @param natvieSQL
-	 * @param paramlist
-	 * @return
-	 */
-	public int executeNative(final String natvieSQL, final Object... values) {
-		Assert.hasText(natvieSQL);
-		Query query = getSession().createSQLQuery(natvieSQL);
 		setParameters(query, values);
 		Object result = query.executeUpdate();
 		return result == null ? 0 : ((Integer) result).intValue();
@@ -200,19 +133,23 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * @return 符合条件的对象列表
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> List<T> findBy(Class<T> entityClass, String propertyName, Object value) {
+	public <T> List<T> findBy(Class<T> entityClass, String propertyName,
+			Object value) {
 		Assert.hasText(propertyName);
-		return createCriteria(entityClass, Restrictions.eq(propertyName, value)).list();
+		return createCriteria(entityClass, Restrictions.eq(propertyName, value))
+				.list();
 	}
 
 	/**
 	 * 根据属性名和属性值查询对象,带排序参数.
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> List<T> findBy(Class<T> entityClass, String propertyName, Object value, String orderBy, boolean isAsc) {
+	public <T> List<T> findBy(Class<T> entityClass, String propertyName,
+			Object value, String orderBy, boolean isAsc) {
 		Assert.hasText(propertyName);
 		Assert.hasText(orderBy);
-		return createCriteria(entityClass, orderBy, isAsc, Restrictions.eq(propertyName, value)).list();
+		return createCriteria(entityClass, orderBy, isAsc,
+				Restrictions.eq(propertyName, value)).list();
 	}
 
 	/**
@@ -227,7 +164,8 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 *            属性取值
 	 * @return
 	 */
-	public List<?> findByValues(Class<?> entityClass, String propertyName, Object[] values) {
+	public List<?> findByValues(Class<?> entityClass, String propertyName,
+			Object[] values) {
 		Assert.hasText(propertyName);
 		Assert.notEmpty(values);
 		DetachedCriteria dthCriteria = DetachedCriteria.forClass(entityClass);
@@ -247,9 +185,11 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * @return 符合条件的唯一对象 or null if not found.
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T findUniqueBy(Class<T> entityClass, String propertyName, Object value) {
+	public <T> T findUniqueBy(Class<T> entityClass, String propertyName,
+			Object value) {
 		Assert.hasText(propertyName);
-		return (T) createCriteria(entityClass, Restrictions.eq(propertyName, value)).uniqueResult();
+		return (T) createCriteria(entityClass,
+				Restrictions.eq(propertyName, value)).uniqueResult();
 	}
 
 	/**
@@ -258,13 +198,16 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * @param uniquePropertyNames
 	 *            在POJO里不能重复的属性列表,以逗号分割 如"name,loginid,password"
 	 */
-	public <T> boolean isUnique(Class<T> entityClass, Object entity, String uniquePropertyNames) {
+	public <T> boolean isUnique(Class<T> entityClass, Object entity,
+			String uniquePropertyNames) {
 		Assert.hasText(uniquePropertyNames);
-		Criteria criteria = createCriteria(entityClass).setProjection(Projections.rowCount());
+		Criteria criteria = createCriteria(entityClass).setProjection(
+				Projections.rowCount());
 		String[] nameList = uniquePropertyNames.split(",");
 		try {
 			for (String name : nameList) {
-				criteria.add(Restrictions.eq(name, PropertyUtils.getProperty(entity, name)));
+				criteria.add(Restrictions.eq(name,
+						PropertyUtils.getProperty(entity, name)));
 			}
 			// 以下代码为了如果是update的情况,排除entity自身.
 			String idName = getIdName(entityClass);
@@ -286,9 +229,11 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	public List<?> getAll(Class<?> entityClass, String orderBy, boolean isAsc) {
 		Assert.hasText(orderBy);
 		if (isAsc)
-			return super.findByCriteria(DetachedCriteria.forClass(entityClass).addOrder(Order.asc(orderBy)));
+			return super.findByCriteria(DetachedCriteria.forClass(entityClass)
+					.addOrder(Order.asc(orderBy)));
 		else
-			return super.findByCriteria(DetachedCriteria.forClass(entityClass).addOrder(Order.desc(orderBy)));
+			return super.findByCriteria(DetachedCriteria.forClass(entityClass)
+					.addOrder(Order.desc(orderBy)));
 	}
 
 	/*------------------------------------------内部辅助方法------------------------------------------*/
@@ -299,7 +244,8 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * @param criterions
 	 *            可变的Restrictions条件列表,见{@link #createQuery(String,Object...)}
 	 */
-	public Criteria createCriteria(Class<?> entityClass, Criterion... criterions) {
+	public Criteria createCriteria(Class<?> entityClass,
+			Criterion... criterions) {
 		Criteria criteria = getSession().createCriteria(entityClass);
 		for (Criterion c : criterions) {
 			criteria.add(c);
@@ -312,7 +258,8 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 * 
 	 * @see #createCriteria(Class,Criterion[])
 	 */
-	private Criteria createCriteria(Class<?> entityClass, String orderBy, boolean isAsc, Criterion... criterions) {
+	private Criteria createCriteria(Class<?> entityClass, String orderBy,
+			boolean isAsc, Criterion... criterions) {
 		Assert.hasText(orderBy);
 		Criteria criteria = createCriteria(entityClass, criterions);
 		if (isAsc)
@@ -347,7 +294,8 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	private static String removeSelect(String hql) {
 		Assert.hasText(hql);
 		int beginPos = hql.toLowerCase().indexOf("from");
-		Assert.isTrue(beginPos != -1, " hql : " + hql + " must has a keyword 'from'");
+		Assert.isTrue(beginPos != -1, " hql : " + hql
+				+ " must has a keyword 'from'");
 		return hql.substring(beginPos);
 	}
 
@@ -358,7 +306,8 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	 */
 	private static String removeOrders(String hql) {
 		Assert.hasText(hql);
-		Pattern p = Pattern.compile("order\\s*by[\\w|\\W|\\s|\\S]*", Pattern.CASE_INSENSITIVE);
+		Pattern p = Pattern.compile("order\\s*by[\\w|\\W|\\s|\\S]*",
+				Pattern.CASE_INSENSITIVE);
 		Matcher m = p.matcher(hql);
 		StringBuffer sb = new StringBuffer();
 		while (m.find()) {
@@ -374,19 +323,31 @@ public class HibernateTemplateSupport extends HibernateTemplate {
 	private String getIdName(Class<?> clazz) {
 		Assert.notNull(clazz);
 		ClassMetadata meta = getSessionFactory().getClassMetadata(clazz);
-		Assert.notNull(meta, "Class " + clazz + " not define in hibernate session factory.");
+		Assert.notNull(meta, "Class " + clazz
+				+ " not define in hibernate session factory.");
 		String idName = meta.getIdentifierPropertyName();
-		Assert.hasText(idName, clazz.getSimpleName() + " has no identifier property define.");
+		Assert.hasText(idName, clazz.getSimpleName()
+				+ " has no identifier property define.");
 		return idName;
 	}
 
 	/**
 	 * 取得对象的主键值,辅助函数.
 	 */
-	private Serializable getId(Class<?> entityClass, Object entity) throws NoSuchMethodException,
-			IllegalAccessException, InvocationTargetException {
+	private Serializable getId(Class<?> entityClass, Object entity)
+			throws NoSuchMethodException, IllegalAccessException,
+			InvocationTargetException {
 		Assert.notNull(entity);
 		Assert.notNull(entityClass);
-		return (Serializable) PropertyUtils.getProperty(entity, getIdName(entityClass));
+		return (Serializable) PropertyUtils.getProperty(entity,
+				getIdName(entityClass));
+	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }

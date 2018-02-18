@@ -4,6 +4,8 @@
 package com.fhzz.core.dao;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,6 +20,7 @@ import com.fhzz.core.vo.PageResult;
  * @Copyright: FHZZ
  */
 public class JdbcTemplageSupport extends JdbcTemplate {
+
 	/**
 	 * 
 	 * @param sql
@@ -146,11 +149,33 @@ public class JdbcTemplageSupport extends JdbcTemplate {
 				sqlArgs);
 	}
 
+	/**
+	 * 去除SELECT *语句，便于SELECT count(*)
+	 */
+	private String removeSelect(String sql) {
+		int beginPosition = sql.toLowerCase().indexOf("from");
+		return sql.substring(beginPosition);
+	}
+
+	/**
+	 * 去除order by 提高select count(*)的速度
+	 */
+	private String removeOrders(String sql) {
+		Pattern p = Pattern.compile("order\\s*by[\\w|\\W|\\s|\\S]*",
+				Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(sql);
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			m.appendReplacement(sb, "");
+		}
+		m.appendTail(sb);
+		return sb.toString();
+	}
+
 	private String buildCountSql(String sql) {
 		StringBuffer countSql = new StringBuffer();
-		countSql.append("SELECT COUNT(*) FROM (");
-		countSql.append(sql);
-		countSql.append(")");
+		countSql.append("SELECT COUNT(*) ");
+		countSql.append(this.removeOrders(this.removeSelect(sql)));
 		return countSql.toString();
 	}
 

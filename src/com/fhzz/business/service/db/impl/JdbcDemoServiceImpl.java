@@ -1,11 +1,11 @@
-package com.fhzz.business.service.demo.impl;
+package com.fhzz.business.service.db.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fhzz.business.dao.demo.DatabaseOperationExampleDao;
+import com.fhzz.business.dao.db.JdbcDemoDao;
 import com.fhzz.business.entity.DemoTable;
-import com.fhzz.business.service.demo.DatabaseOperationExampleService;
+import com.fhzz.business.service.db.JdbcDemoService;
 import com.fhzz.business.vo.datagrid.DatagridDemoParam;
 import com.fhzz.core.vo.PageResult;
 import com.fhzz.core.vo.PageParam;
@@ -17,9 +17,9 @@ import com.fhzz.core.vo.PageParam;
  * @Copyright: FHZZ
  */
 @Service
-public class DatabaseOperationExampleServiceImpl implements DatabaseOperationExampleService {
+public class JdbcDemoServiceImpl implements JdbcDemoService {
 	@Autowired
-	private DatabaseOperationExampleDao databaseOperationExampleDao;
+	private JdbcDemoDao databaseOperationExampleDao;
 
 	@Override
 	public void saveDemoTable(DemoTable demoTable) {

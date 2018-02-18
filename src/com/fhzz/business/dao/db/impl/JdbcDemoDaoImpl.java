@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.fhzz.business.dao.demo.impl;
+package com.fhzz.business.dao.db.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.fhzz.business.dao.demo.DatabaseOperationExampleDao;
+import com.fhzz.business.dao.db.JdbcDemoDao;
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.vo.datagrid.DatagridDemoParam;
 import com.fhzz.core.dao.BaseDaoImpl;
@@ -22,8 +22,8 @@ import com.fhzz.core.vo.PageResult;
  * @Copyright: FHZZ
  */
 @Repository
-public class DatabaseOperationExampleDaoImpl extends BaseDaoImpl<DemoTable>
-		implements DatabaseOperationExampleDao {
+public class JdbcDemoDaoImpl extends BaseDaoImpl<DemoTable>
+		implements JdbcDemoDao {
 
 	@Override
 	public PageResult<DemoTable> queryDemoTable(PageParam pageParam) {

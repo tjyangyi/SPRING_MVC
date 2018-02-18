@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.fhzz.business.controller.datagrid;
+package com.fhzz.business.controller.db;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fhzz.business.entity.DemoTable;
-import com.fhzz.business.service.db.JdbcDemoService;
+import com.fhzz.business.service.db.HibernateDemoService;
 import com.fhzz.business.vo.datagrid.DatagridDemoParam;
 import com.fhzz.core.controller.BaseAction;
 import com.fhzz.core.log.anotation.OperationLog;
@@ -30,16 +30,16 @@ import com.fhzz.core.vo.PageResult;
  * 
  */
 @Controller
-public class DatagridDemoAction extends BaseAction {
-	Log logger = LogFactory.getLog(DatagridDemoAction.class);
+public class DatabaseDemoAction extends BaseAction {
+	Log logger = LogFactory.getLog(DatabaseDemoAction.class);
 
 	@Autowired
-	private JdbcDemoService jdbcDemoService;
+	private HibernateDemoService hibernateDemoService;
 
-	@RequestMapping("toDatagridDemo")
+	@RequestMapping("toDatabaseDemo")
 	public String welcomeDatagrid(HttpServletRequest request,
 			HttpServletResponse response, ModelMap model) {
-		return "datagrid/datagridDemo";
+		return "db/databaseDemo";
 	}
 
 	/**
@@ -49,12 +49,12 @@ public class DatagridDemoAction extends BaseAction {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("getDatagridJson1")
+	@RequestMapping("getDatabaseDemoResult1")
 	@ResponseBody
 	@OperationLog
-	public PageResult<DemoTable> getDatagridJson(
+	public PageResult<DemoTable> getDatabaseDemoResult1(
 			@ModelAttribute PageParam pageParam) throws IOException {
-		PageResult<DemoTable> page = jdbcDemoService.queryDemoTable(pageParam);
+		PageResult<DemoTable> page = hibernateDemoService.queryDemoTable(pageParam);
 		return page;
 	}
 
@@ -65,13 +65,13 @@ public class DatagridDemoAction extends BaseAction {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("getDatagridJson2")
+	@RequestMapping("getDatabaseDemoResult2")
 	@ResponseBody
 	@OperationLog
-	public PageResult<DemoTable> getDatagridJson2(
+	public PageResult<DemoTable> getDatabaseDemoResult2(
 			@ModelAttribute DatagridDemoParam datadgridDemoParam)
 			throws IOException {
-		PageResult<DemoTable> page = jdbcDemoService
+		PageResult<DemoTable> page = hibernateDemoService
 				.queryDemoTable(datadgridDemoParam);
 		return page;
 	}

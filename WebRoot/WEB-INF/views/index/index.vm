@@ -44,10 +44,10 @@
 		</div>
     </div>
 	<div style="padding-top:10px">
-		<h3>WELCOME</h3>
+		<h3>数据库</h3>
         <div >
-    		<form action="welcome.do" method="post">  
-    	      <input name="submit" type="submit" value="welcome" />  
+    		<form action="toDatabaseDemo.do" method="post">  
+    	      <input name="submit" type="submit" value="数据库访问DEMO" />  
     	    </form>  
         </div>
     </div>
@@ -66,6 +66,14 @@
     	      <input name="submit" type="submit" value="任务列表" />  
     	    </form>  
 		</div>
+    </div>
+	<div style="padding-top:10px">
+		<h3>WELCOME</h3>
+        <div >
+    		<form action="welcome.do" method="post">  
+    	      <input name="submit" type="submit" value="welcome" />  
+    	    </form>  
+        </div>
     </div>
 </body> 
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+	<title>DatabaseDemo</title>
+	#parse("comm/comm.vm")
+	#parse("comm/easyui.vm")
+    <script type="text/javascript" src="resource/js/db/databaseDemo.js"></script>
+</head>
+<body>
+	<h2>Database示例</h2>
+	<div style="margin:20px 0;"></div>
+	<table id="dg" class="easyui-datagrid" title="这里是表格的标题" style="width:800px;height:400px"
+			data-options="
+			rownumbers:true,
+			singleSelect:true,
+			iconCls:'icon-ok',
+			url:'getDatabaseDemoResult1.do',
+			pagination : true,
+			method:'post',
+			fitColumns: true,
+			toolbar:'#tb'
+			">
+		<thead>
+			<tr>
+				<th data-options="field:'id',width:300">ID</th>
+				<th data-options="field:'name',width:100">Name</th>
+				<th data-options="field:'count',width:100,align:'right'">Count</th>
+				<th data-options="field:'createTime',width:200,align:'right',formatter: dateFormat2Second">CreateTime</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="tb" style="padding:2px 5px;">
+		Date From: <input id="startTime" class="easyui-datetimebox" style="width:150px">
+		To: <input id="endTime" class="easyui-datetimebox" style="width:150px">
+		Name: <input id="name" class="easyui-textbox" style="width:100px">
+		Count: <input id="count" class="easyui-textbox" style="width:50px">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="onSearchClick()">Search</a>
+	</div>
+</body>
+</html>

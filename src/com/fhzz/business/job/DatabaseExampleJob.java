@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fhzz.business.entity.DemoTable;
-import com.fhzz.business.service.demo.DatabaseOperationExampleService;
+import com.fhzz.business.service.db.JdbcDemoService;
 import com.fhzz.core.quartz.job.AbstractJob;
 
 /**
@@ -26,7 +26,7 @@ public class DatabaseExampleJob extends AbstractJob {
 	Log logger = LogFactory.getLog(DatabaseExampleJob.class);
 
 	@Autowired
-	private DatabaseOperationExampleService databaseOperationExampleService;
+	private JdbcDemoService databaseOperationExampleService;
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
