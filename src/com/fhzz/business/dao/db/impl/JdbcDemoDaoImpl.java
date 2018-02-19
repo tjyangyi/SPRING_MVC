@@ -37,11 +37,11 @@ public class JdbcDemoDaoImpl extends BaseDaoImpl<DemoTable> implements JdbcDemoD
 		StringBuffer sqlSb = new StringBuffer();
 		sqlSb.append("SELECT * FROM DEMO_TABLE WHERE 1=1 ");
 		if (datagridDemoParam.getStartTime() != null) {
-			sqlSb.append("AND CREATE_TIME > ? ");
+			sqlSb.append("AND CUSTOM_TIME > ? ");
 			sqlArgs.add(datagridDemoParam.getStartTime());
 		}
 		if (datagridDemoParam.getEndTime() != null) {
-			sqlSb.append("AND CREATE_TIME < ? ");
+			sqlSb.append("AND CUSTOM_TIME < ? ");
 			sqlArgs.add(datagridDemoParam.getEndTime());
 		}
 		if (!StringUtils.isEmpty(datagridDemoParam.getName())) {
@@ -52,7 +52,7 @@ public class JdbcDemoDaoImpl extends BaseDaoImpl<DemoTable> implements JdbcDemoD
 			sqlSb.append("AND COUNT_NUM = ? ");
 			sqlArgs.add(datagridDemoParam.getCountNum());
 		}
-		sqlSb.append("ORDER BY CREATE_TIME DESC");
+		sqlSb.append("ORDER BY UPDATE_TIME DESC");
 		PageResult<DemoTable> page = this.getJdbcTemplate().pagedQuery(sqlSb.toString(), sqlArgs.toArray(),
 				DemoTable.class, datagridDemoParam);
 		return page;

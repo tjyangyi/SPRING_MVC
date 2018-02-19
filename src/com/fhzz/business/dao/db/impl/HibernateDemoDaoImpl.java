@@ -35,11 +35,11 @@ public class HibernateDemoDaoImpl extends BaseDaoImpl<DemoTable> implements Hibe
 		StringBuffer hqlSb = new StringBuffer();
 		hqlSb.append("FROM DemoTable WHERE 1=1 ");
 		if (datagridDemoParam.getStartTime() != null) {
-			hqlSb.append("AND createTime > ? ");
+			hqlSb.append("AND customTime > ? ");
 			hqlArgs.add(datagridDemoParam.getStartTime());
 		}
 		if (datagridDemoParam.getEndTime() != null) {
-			hqlSb.append("AND createTime < ? ");
+			hqlSb.append("AND customTime < ? ");
 			hqlArgs.add(datagridDemoParam.getEndTime());
 		}
 		if (!StringUtils.isEmpty(datagridDemoParam.getName())) {
@@ -50,8 +50,21 @@ public class HibernateDemoDaoImpl extends BaseDaoImpl<DemoTable> implements Hibe
 			hqlSb.append("AND countNum = ? ");
 			hqlArgs.add(datagridDemoParam.getCountNum());
 		}
-		hqlSb.append("ORDER BY createTime DESC");
+		hqlSb.append("ORDER BY updateTime DESC");
 		return this.getHibernateTemplate().pagedQuery(hqlSb.toString(), hqlArgs.toArray(), datagridDemoParam);
 	}
+	
+	public List<DemoTable> findBy(String propertyName, Object value){
+		return this.getHibernateTemplate().findBy(DemoTable.class, propertyName, value);
+	}
 
+	public List<DemoTable> findBy(String propertyName, Object value,String orderBy,boolean isAsc){
+		return this.getHibernateTemplate().findBy(DemoTable.class, propertyName, value, orderBy, isAsc);
+	}
+	
+	public List<DemoTable> findByValues(String propertyName, Object[] values){
+		return this.getHibernateTemplate().findByValues(DemoTable.class, propertyName, values);
+	}
+	
+	
 }

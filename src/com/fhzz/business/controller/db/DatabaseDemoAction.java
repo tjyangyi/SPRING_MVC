@@ -4,6 +4,7 @@
 package com.fhzz.business.controller.db;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +65,9 @@ public class DatabaseDemoAction extends BaseAction {
 	@ResponseBody
 	@OperationLog
 	public Map<String, Object> baseDaoSaveOrUpdate(@ModelAttribute DemoTable demoTable) throws IOException {
+		if("".equals(demoTable.getId().trim())){
+			demoTable.setId(null);
+		}
 		jdbcDemoService.saveOrUpdateDemoTable(demoTable);
 		return successResult();
 	}
@@ -95,5 +99,39 @@ public class DatabaseDemoAction extends BaseAction {
 		PageResult<DemoTable> page = hibernateDemoService.pagedQuery(datagridDemoParam);
 		return page;
 	}
-
+	
+	@RequestMapping("findBy")
+	@ResponseBody
+	@OperationLog
+	public PageResult<DemoTable> findBy(@ModelAttribute DatagridDemoParam datagridDemoParam)
+			throws IOException {
+		List<DemoTable> list = hibernateDemoService.findBy("name",datagridDemoParam.getName());
+		PageResult<DemoTable> pageResult = new PageResult<DemoTable>(list.size(),list);
+		return pageResult;
+	} 
+	
+	@RequestMapping("findByAndOrderBy")
+	@ResponseBody
+	@OperationLog
+	public PageResult<DemoTable> findByAndOrderBy(@ModelAttribute DatagridDemoParam datagridDemoParam)
+			throws IOException {
+		List<DemoTable> list = hibernateDemoService.findBy("name",datagridDemoParam.getName(),"customTime",true);
+		PageResult<DemoTable> pageResult = new PageResult<DemoTable>(list.size(),list);
+		return pageResult;
+	} 
+	
+	@RequestMapping("findByValues")
+	@ResponseBody
+	@OperationLog
+	public PageResult<DemoTable> findByValues(@ModelAttribute DatagridDemoParam datagridDemoParam)
+			throws IOException {
+		Object[] values = new Object[0];
+		if(datagridDemoParam.getName() != null){
+			values = datagridDemoParam.getName().split(",");
+		}
+		List<DemoTable> list = hibernateDemoService.findByValues("name",values);
+		PageResult<DemoTable> pageResult = new PageResult<DemoTable>(list.size(),list);
+		return pageResult;
+	} 
+	
 }

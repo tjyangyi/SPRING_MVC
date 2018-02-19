@@ -18,6 +18,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SelectBeforeUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * DemoTable entity. @author MyEclipse Persistence Tools
@@ -36,13 +37,17 @@ public class DemoTable implements java.io.Serializable {
 	private Integer countNum;
 	private Date createTime;
 	private Date updateTime;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date customTime;
 
 	// Constructors
 
 	@Override
 	public String toString() {
-		return "DemoTable [id=" + id + ", name=" + name + ", countNum=" + countNum + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + "]";
+		return "DemoTable [id=" + id + ", name=" + name + ", countNum="
+				+ countNum + ", createTime=" + createTime + ", updateTime="
+				+ updateTime + ", customTime=" + customTime + "]";
 	}
 
 	/** default constructor */
@@ -55,7 +60,8 @@ public class DemoTable implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public DemoTable(String id, String name, Integer countNum, Date createTime, Date updateTime) {
+	public DemoTable(String id, String name, Integer countNum, Date createTime,
+			Date updateTime) {
 		this.id = id;
 		this.name = name;
 		this.countNum = countNum;
@@ -115,5 +121,16 @@ public class DemoTable implements java.io.Serializable {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
+
+	@Column(name = "CUSTOM_TIME", length = 7)
+	public Date getCustomTime() {
+		return customTime;
+	}
+
+	public void setCustomTime(Date customTime) {
+		this.customTime = customTime;
+	}
+	
+	
 
 }

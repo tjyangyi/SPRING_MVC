@@ -1,7 +1,8 @@
 function baseDao_save() {
 	$.post("baseDaoSave", {
-		name : "姓名",
-		countNum : 24
+		name : $('#get_name').val(),
+		countNum : $('#get_countNum').val(),
+		customTime : $('#get_customTime').val()
 	}, function(data, status) {
 		console.log(data);
 		console.log(status);
@@ -12,15 +13,11 @@ function baseDao_save() {
 }
 
 function baseDao_update() {
-	var rows = $("#dg1").datagrid("getRows"); // 这段代码是获取当前页的所有行。
-	if (rows == null || rows.length == 0) {
-		showMsg("没有数据，请添加一条");
-	}
-	var row = rows[0];
 	$.post("baseDaoUpdate", {
-		id : row.id,
-		name : "姓名7",
-		countNum : row.countNum
+		id : $('#get_id').val(),
+		name : $('#get_name').val(),
+		countNum : $('#get_countNum').val(),
+		customTime : $('#get_customTime').val()
 	}, function(data, status) {
 		console.log(data);
 		console.log(status);
@@ -31,11 +28,12 @@ function baseDao_update() {
 }
 
 function baseDao_saveOrUpdate() {
-	$.post("baseDaoUpdate", {
+	
+	$.post("baseDaoSaveOrUpdate", {
 		id : $('#get_id').val(),
 		name : $('#get_name').val(),
 		countNum : $('#get_countNum').val(),
-		updateTime : $('#get_updateTime').val(),
+		customTime : $('#get_customTime').val()
 	}, function(data, status) {
 		console.log(data);
 		console.log(status);
@@ -62,6 +60,8 @@ function baseDao_get() {
 		$('#get_id').textbox('setValue', demoTable.id);
 		$('#get_name').textbox('setValue', demoTable.name);
 		$('#get_countNum').textbox('setValue', demoTable.countNum);
+		$('#get_customTime').textbox('setValue',
+				dateFormat2Second(demoTable.customTime));
 		$('#get_createTime').textbox('setValue',
 				dateFormat2Second(demoTable.createTime));
 		$('#get_updateTime').textbox('setValue',
@@ -85,5 +85,23 @@ function dg2_search() {
 		endTime : $('#dg2_endTime').val(),
 		name : $('#dg2_name').val().trim(),
 		countNum : $('#dg2_countNum').val()
+	});
+}
+
+function dg3_search() {
+	$('#dg3').datagrid('load', {
+		name : $('#dg3_name').val().trim(),
+	});
+}
+
+function dg4_search() {
+	$('#dg4').datagrid('load', {
+		name : $('#dg4_name').val().trim(),
+	});
+}
+
+function dg5_search() {
+	$('#dg5').datagrid('load', {
+		name : $('#dg5_name').val().trim(),
 	});
 }

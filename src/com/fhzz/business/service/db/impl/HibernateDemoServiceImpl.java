@@ -1,5 +1,7 @@
 package com.fhzz.business.service.db.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +31,7 @@ public class HibernateDemoServiceImpl implements HibernateDemoService {
 
 	@Override
 	public void updateDemoTable(DemoTable demoTable) {
-		DemoTable existDemoTable = hibernateDemoDao
-				.get("b580544f-a89a-4544-9f6e-81266f0f29ae");
-		existDemoTable.setName(demoTable.getName());
-		existDemoTable.setCountNum(demoTable.getCountNum());
-		existDemoTable.setCreateTime(demoTable.getCreateTime());
-		hibernateDemoDao.update(existDemoTable);
+		hibernateDemoDao.update(demoTable);
 	}
 
 	@Override
@@ -52,6 +49,23 @@ public class HibernateDemoServiceImpl implements HibernateDemoService {
 			DatagridDemoParam datagridDemoParam) {
 		return hibernateDemoDao.pagedQuery(datagridDemoParam);
 	}
+
+	@Override
+	public List<DemoTable> findBy(String propertyName, Object value) {
+		return hibernateDemoDao.findBy(propertyName, value);
+	}
+	
+	@Override
+	public List<DemoTable> findBy(String propertyName, Object value,String orderBy,boolean isAsc){
+		return hibernateDemoDao.findBy( propertyName, value, orderBy, isAsc);
+	}
+
+	@Override
+	public List<DemoTable> findByValues(String propertyName, Object[] values) {
+		return hibernateDemoDao.findByValues(propertyName, values);
+	}
+	
+	
 
 
 }
