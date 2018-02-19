@@ -19,6 +19,14 @@ Date.prototype.format = function(format) {
 	return format;
 }
 
+function dateFormat(value, toDay) {
+	if (toDay) {
+		dateFormat2Day(value);
+	} else {
+		dateFormat2Second(value);
+	}
+}
+
 function dateFormat2Day(value) {
 	if (value == null || value == '') {
 		return '';

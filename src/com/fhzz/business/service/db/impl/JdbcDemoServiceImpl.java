@@ -31,6 +31,11 @@ public class JdbcDemoServiceImpl implements JdbcDemoService {
 	public void updateDemoTable(DemoTable demoTable) {
 		jdbcDemoDao.update(demoTable);
 	}
+	
+	@Override
+	public void saveOrUpdateDemoTable(DemoTable demoTable) {
+		jdbcDemoDao.saveOrUpdate(demoTable);
+	}
 
 	@Override
 	public DemoTable getDemoTable(String id) {
@@ -46,5 +51,6 @@ public class JdbcDemoServiceImpl implements JdbcDemoService {
 	public PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam) {
 		return jdbcDemoDao.pagedQuery(datagridDemoParam);
 	}
+
 
 }

@@ -43,25 +43,40 @@ public class DatabaseDemoAction extends BaseAction {
 	public String welcomeDatagrid(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "db/databaseDemo";
 	}
-	
+
 	@RequestMapping("baseDaoSave")
 	@ResponseBody
 	@OperationLog
-	public Map<String,Object> baseDaoSave(@ModelAttribute DemoTable demoTable)
-			throws IOException {
+	public Map<String, Object> baseDaoSave(@ModelAttribute DemoTable demoTable) throws IOException {
 		jdbcDemoService.saveDemoTable(demoTable);
 		return successResult();
 	}
-	
+
 	@RequestMapping("baseDaoUpdate")
 	@ResponseBody
 	@OperationLog
-	public Map<String,Object> baseDaoUpdate(@ModelAttribute DemoTable demoTable)
-			throws IOException {
+	public Map<String, Object> baseDaoUpdate(@ModelAttribute DemoTable demoTable) throws IOException {
 		jdbcDemoService.updateDemoTable(demoTable);
 		return successResult();
 	}
-	
+
+	@RequestMapping("baseDaoSaveOrUpdate")
+	@ResponseBody
+	@OperationLog
+	public Map<String, Object> baseDaoSaveOrUpdate(@ModelAttribute DemoTable demoTable) throws IOException {
+		jdbcDemoService.saveOrUpdateDemoTable(demoTable);
+		return successResult();
+	}
+
+	@RequestMapping("baseDaoGet")
+	@ResponseBody
+	@OperationLog
+	public Map<String, Object> baseDaoGet(@ModelAttribute DemoTable demoTable) throws IOException {
+		demoTable = jdbcDemoService.getDemoTable(demoTable.getId());
+		Map<String, Object> map = successResult();
+		map.put("demoTable", demoTable);
+		return map;
+	}
 
 	@RequestMapping("getDatabaseDemoPageQuery1")
 	@ResponseBody

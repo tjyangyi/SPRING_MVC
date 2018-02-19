@@ -24,18 +24,50 @@ function baseDao_update() {
 	}, function(data, status) {
 		console.log(data);
 		console.log(status);
-		showMsg("update");
+		showMsg("update成功");
 		dg1_search();
 		dg2_search();
 	});
 }
 
 function baseDao_saveOrUpdate() {
-
+	$.post("baseDaoUpdate", {
+		id : $('#get_id').val(),
+		name : $('#get_name').val(),
+		countNum : $('#get_countNum').val(),
+		updateTime : $('#get_updateTime').val(),
+	}, function(data, status) {
+		console.log(data);
+		console.log(status);
+		showMsg("saveOrUpdate成功");
+		dg1_search();
+		dg2_search();
+	});
 }
 
-function baseDao_saveOrUpdate() {
 
+function baseDao_get() {
+	var rows = $("#dg1").datagrid("getRows"); // 这段代码是获取当前页的所有行。
+	if (rows == null || rows.length == 0) {
+		showMsg("没有数据，请添加一条");
+	}
+	var row = rows[0];
+	$('#get_id').textbox('setValue', row.id);
+	$.post("baseDaoGet", {
+		id : $('#get_id').val()
+	}, function(data, status) {
+		var demoTable = data.demoTable;
+		console.log(demoTable);
+		showMsg("get成功");
+		$('#get_id').textbox('setValue', demoTable.id);
+		$('#get_name').textbox('setValue', demoTable.name);
+		$('#get_countNum').textbox('setValue', demoTable.countNum);
+		$('#get_createTime').textbox('setValue',
+				dateFormat2Second(demoTable.createTime));
+		$('#get_updateTime').textbox('setValue',
+				dateFormat2Second(demoTable.updateTime));
+
+	});
 }
 
 function dg1_search() {

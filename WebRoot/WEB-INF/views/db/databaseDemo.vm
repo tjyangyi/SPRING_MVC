@@ -18,8 +18,21 @@
 		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="baseDao_saveOrUpdate();">BaseDao saveOrUpdate方法</a>
 	</div>
 	<div>
-		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="baseDao_saveOrUpdate();">BaseDao get方法根据主键获取记录</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="baseDao_get();">BaseDao get方法根据主键获取记录</a>
 	</div>
+	<div>
+		id:
+		<input class="easyui-textbox" id="get_id" style="width:300px;height:24px">
+		name:
+		<input class="easyui-textbox" id="get_name" style="width:100px;height:24px" readonly="readonly">
+		countNum:
+		<input class="easyui-textbox" id="get_countNum" style="width:100px;height:24px" readonly="readonly">
+		createTime:
+		<input class="easyui-textbox" id="get_createTime" style="width:200px;height:24px" readonly="readonly">
+		updateTime:
+		<input class="easyui-textbox" id="get_updateTime" style="width:200px;height:24px" readonly="readonly">
+	</div>	
+	
 	
     <h2 style="margin-top:50px;">JdbcTemplageSupport</h2>
 	<table id="dg1" class="easyui-datagrid" title="JDBC分页查找" style="width:1000px;height:400px"
