@@ -16,7 +16,7 @@
 		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="openDialog();">打开dialog</a>
 	</div>
 	<div style="margin:20px 0;">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="callDialogFunction();">调用子窗口中的函数</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="callDialogFunction();">调用dialog窗口中的函数,F12查看结果</a>
 	</div>
 </body>
 </html>

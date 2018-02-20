@@ -9,10 +9,10 @@
 <body style="overflow-y:hidden">
 	<h2 style="text-align: center;">Jquery.dialog.js DEMO</h2>
 	<div style="margin:20px 0;">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="save();">保存</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="callParentFunction();">Dialog调用父窗口,F12查看结果</a>
 	</div>
 		<div style="margin:20px 0;">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="cancel();">取消</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="cancel();">关闭</a>
 	</div>
 </body>
 </html>

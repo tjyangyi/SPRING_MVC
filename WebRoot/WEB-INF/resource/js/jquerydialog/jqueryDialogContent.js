@@ -1,10 +1,9 @@
-function save() {
-	parent.backgroudWindowFunction("对话框调用父窗口的方法", "参数2");
-	parent.dialog1.close();
+function callParentFunction() {
+	parent.parentWindowFunction("对话框调用父窗口的方法参数1", "参数2");
 }
 
 function cancel() {
-	parent.dialog1.close();
+	parent.closeDialog();
 }
 
 function functionInDialog(param1, param2) {
