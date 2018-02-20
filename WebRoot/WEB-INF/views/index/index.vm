@@ -75,5 +75,13 @@
     	    </form>  
         </div>
     </div>
+	<div style="padding-top:10px">
+		<h3>jquery.dialog.js DEMO</h3>
+        <div >
+    		<form action="toJqueryDialogDemo" method="post">  
+    	      <input name="submit" type="submit" value="jquery.dialog.js DEMO" />  
+    	    </form>  
+        </div>
+    </div>
 </body> 
 </html>

@@ -1,4 +1,4 @@
-function showMsg(msg, title, timeout, showType) {
+function showMsg(msg, title, timeout, height, width, showType) {
 	if (!msg) {
 		msg = "操作成功";
 	}
@@ -8,10 +8,18 @@ function showMsg(msg, title, timeout, showType) {
 	if (!showType) {
 		showType = 'fade';
 	}
+	if (!height) {
+		height = 150;
+	}
+	if (!width) {
+		width = 250;
+	}
 	$.messager.show({
 		msg : msg,
 		title : title,
 		timeout : timeout,
-		showType : showType
+		showType : showType,
+		height : height,
+		width : width
 	});
 }

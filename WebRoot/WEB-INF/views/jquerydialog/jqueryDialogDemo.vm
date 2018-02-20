@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+	<title>dialog</title>
+	#parse("comm/comm.vm")
+	<link type="text/css" rel="stylesheet"  href="resource/comm/css/jquery.dialog.css">
+	<link type="text/css" rel="stylesheet"  href="resource/comm/css/jquery.ui.custom.css">
+	<link type="text/css" rel="stylesheet"  href="resource/comm/css/icon.css">
+	<link type="text/css" rel="stylesheet"  href="resource/comm/css/jquery.panel.css">
+	<link type="text/css" rel="stylesheet"  href="resource/comm/css/jquery.linkbutton.css">
+		
+	<script type="text/javascript" src="resource/comm/js/jquery.dialog.min.js"></script>
+	
+	<script type="text/javascript" src="resource/js/jquerydialog/jqueryDialogDemo.js"></script>
+</head>
+<body style="overflow-y:hidden">
+	<h2 style="text-align: center;">Jquery.dialog.js DEMO</h2>
+	<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-back" plain="true" onclick="back();">返回首页</a>
+	</div>
+	<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="openDialog();">打开dialog</a>
+	</div>
+</body>
+</html>

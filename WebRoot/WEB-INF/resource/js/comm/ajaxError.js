@@ -46,9 +46,9 @@ $(function() {
 					  return;
 				}
 				if(!textStatus){
-					alert("操作失败,错误信息:" + data.errorMsg);
+					showMsg(data.errorMsg, "操作失败,错误信息", 0, 200, 400);
 				}else if(typeof(data.success) != 'undefined' && !data.success){
-					alert("操作失败,错误信息:" + data.errorMsg);
+					showMsg(data.errorMsg, "操作失败,错误信息", 0, 200, 400);
 				}else {
 					fn.success(data, textStatus);// 成功回调方法增强处理
 				}
