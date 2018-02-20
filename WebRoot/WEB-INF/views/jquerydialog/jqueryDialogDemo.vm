@@ -3,14 +3,8 @@
 <head>
 	<title>dialog</title>
 	#parse("comm/comm.vm")
-	<link type="text/css" rel="stylesheet"  href="resource/comm/css/jquery.dialog.css">
-	<link type="text/css" rel="stylesheet"  href="resource/comm/css/jquery.ui.custom.css">
-	<link type="text/css" rel="stylesheet"  href="resource/comm/css/icon.css">
-	<link type="text/css" rel="stylesheet"  href="resource/comm/css/jquery.panel.css">
-	<link type="text/css" rel="stylesheet"  href="resource/comm/css/jquery.linkbutton.css">
-		
-	<script type="text/javascript" src="resource/comm/js/jquery.dialog.min.js"></script>
-	
+	#parse("comm/easyui.vm")
+	<script type="text/javascript" src="resource/comm/jquery.dialog/js/jquery.dialog.min.js"></script>
 	<script type="text/javascript" src="resource/js/jquerydialog/jqueryDialogDemo.js"></script>
 </head>
 <body style="overflow-y:hidden">
@@ -20,6 +14,9 @@
 	</div>
 	<div style="margin:20px 0;">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="openDialog();">打开dialog</a>
+	</div>
+	<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="callDialogFunction();">调用子窗口中的函数</a>
 	</div>
 </body>
 </html>

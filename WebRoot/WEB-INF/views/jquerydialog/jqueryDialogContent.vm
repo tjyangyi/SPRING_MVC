@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+	<title>dialogContent</title>
+	#parse("comm/comm.vm")
+	#parse("comm/easyui.vm")
+	<script type="text/javascript" src="resource/js/jquerydialog/jqueryDialogContent.js"></script>
+</head>
+<body style="overflow-y:hidden">
+	<h2 style="text-align: center;">Jquery.dialog.js DEMO</h2>
+	<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="save();">保存</a>
+	</div>
+		<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="cancel();">取消</a>
+	</div>
+</body>
+</html>

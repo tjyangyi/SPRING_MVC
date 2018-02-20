@@ -24,6 +24,10 @@ public class JqueryDialogDemoAction extends BaseAction {
 		return "jquerydialog/jqueryDialogDemo";
 	}
 	
+	@RequestMapping("toJqueryDialogContent")
+	public String toJqueryDialogContent() {
+		return "jquerydialog/jqueryDialogContent";
+	}
 	
 	
 	
