@@ -1,10 +1,14 @@
-package com.fhzz.core.dao;
+package com.fhzz.core.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import javax.annotation.Resource;
+
+import com.fhzz.core.dao.BaseDao;
+import com.fhzz.core.dao.impl.support.HibernateTemplateSupport;
+import com.fhzz.core.dao.impl.support.JdbcTemplageSupport;
 
 /**
  * 

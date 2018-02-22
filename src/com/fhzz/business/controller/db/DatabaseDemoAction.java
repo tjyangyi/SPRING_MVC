@@ -49,7 +49,7 @@ public class DatabaseDemoAction extends BaseAction {
 	@ResponseBody
 	@OperationLog
 	public Map<String, Object> baseDaoSave(@ModelAttribute DemoTable demoTable) throws IOException {
-		jdbcDemoService.saveDemoTable(demoTable);
+		hibernateDemoService.saveDemoTable(demoTable);
 		return successResult();
 	}
 
@@ -57,7 +57,7 @@ public class DatabaseDemoAction extends BaseAction {
 	@ResponseBody
 	@OperationLog
 	public Map<String, Object> baseDaoUpdate(@ModelAttribute DemoTable demoTable) throws IOException {
-		jdbcDemoService.updateDemoTable(demoTable);
+		hibernateDemoService.updateDemoTable(demoTable);
 		return successResult();
 	}
 
@@ -68,7 +68,7 @@ public class DatabaseDemoAction extends BaseAction {
 		if("".equals(demoTable.getId().trim())){
 			demoTable.setId(null);
 		}
-		jdbcDemoService.saveOrUpdateDemoTable(demoTable);
+		hibernateDemoService.saveOrUpdateDemoTable(demoTable);
 		return successResult();
 	}
 
@@ -76,25 +76,25 @@ public class DatabaseDemoAction extends BaseAction {
 	@ResponseBody
 	@OperationLog
 	public Map<String, Object> baseDaoGet(@ModelAttribute DemoTable demoTable) throws IOException {
-		demoTable = jdbcDemoService.getDemoTable(demoTable.getId());
+		demoTable = hibernateDemoService.getDemoTable(demoTable.getId());
 		Map<String, Object> map = successResult();
 		map.put("demoTable", demoTable);
 		return map;
 	}
 
-	@RequestMapping("getDatabaseDemoPageQuery1")
+	@RequestMapping("jdbcPageQueryDemo")
 	@ResponseBody
 	@OperationLog
-	public PageResult<DemoTable> getDatabaseDemoPageQuery1(@ModelAttribute DatagridDemoParam datagridDemoParam)
+	public PageResult<DemoTable> jdbcPageQueryDemo(@ModelAttribute DatagridDemoParam datagridDemoParam)
 			throws IOException {
 		PageResult<DemoTable> page = jdbcDemoService.pagedQuery(datagridDemoParam);
 		return page;
 	}
 
-	@RequestMapping("getDatabaseDemoPageQuery2")
+	@RequestMapping("hibernatePageQueryDemo")
 	@ResponseBody
 	@OperationLog
-	public PageResult<DemoTable> getDatabaseDemoPageQuery2(@ModelAttribute DatagridDemoParam datagridDemoParam)
+	public PageResult<DemoTable> hibernatePageQueryDemo(@ModelAttribute DatagridDemoParam datagridDemoParam)
 			throws IOException {
 		PageResult<DemoTable> page = hibernateDemoService.pagedQuery(datagridDemoParam);
 		return page;

@@ -33,6 +33,11 @@ public class HibernateDemoServiceImpl implements HibernateDemoService {
 	public void updateDemoTable(DemoTable demoTable) {
 		hibernateDemoDao.update(demoTable);
 	}
+	
+	@Override
+	public void saveOrUpdateDemoTable(DemoTable demoTable) {
+		hibernateDemoDao.saveOrUpdate(demoTable);
+	}
 
 	@Override
 	public DemoTable getDemoTable(String id) {
@@ -64,8 +69,7 @@ public class HibernateDemoServiceImpl implements HibernateDemoService {
 	public List<DemoTable> findByValues(String propertyName, Object[] values) {
 		return hibernateDemoDao.findByValues(propertyName, values);
 	}
-	
-	
+
 
 
 }

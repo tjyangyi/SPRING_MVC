@@ -61,12 +61,13 @@ public class DemoTable implements java.io.Serializable {
 
 	/** full constructor */
 	public DemoTable(String id, String name, Integer countNum, Date createTime,
-			Date updateTime) {
+			Date updateTime,Date customTime) {
 		this.id = id;
 		this.name = name;
 		this.countNum = countNum;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
+		this.customTime = customTime;
 	}
 
 	// Property accessors

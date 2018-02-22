@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fhzz.business.entity.DemoTable;
-import com.fhzz.business.service.db.JdbcDemoService;
+import com.fhzz.business.service.db.HibernateDemoService;
 import com.fhzz.core.quartz.job.AbstractJob;
 
 /**
@@ -26,12 +26,12 @@ public class DatabaseExampleJob extends AbstractJob {
 	Log logger = LogFactory.getLog(DatabaseExampleJob.class);
 
 	@Autowired
-	private JdbcDemoService databaseOperationExampleService;
+	private HibernateDemoService hibernateDemoService;
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		DemoTable demoTable = new DemoTable(null, "name", 1, new Date(), new Date());
-		databaseOperationExampleService.saveDemoTable(demoTable);
+		DemoTable demoTable = new DemoTable(null, "name", 1, new Date(), new Date(), new Date());
+		hibernateDemoService.saveDemoTable(demoTable);
 	}
 
 }

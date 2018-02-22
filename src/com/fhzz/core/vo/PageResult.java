@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class PageResult<T> implements Serializable {
 	private static final long serialVersionUID = -1750386840274995765L;
+	
 	private long total; // 总记录数
 	private List<T> rows; // 查询出的结果数
 

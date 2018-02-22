@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+	<title>dialogContent</title>
+	#parse("comm/comm.vm")
+	#parse("comm/easyui.vm")
+	<script type="text/javascript" src="resource/js/jquerydialog/jqueryDialogContentInnerDialog.js"></script>
+</head>
+<body style="overflow-y:hidden">
+	<h2 style="text-align: center;">Jquery.dialog.js DEMO</h2>
+	<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="callParentDialogFunction();">调用父Dialog的方法,F12查看结果</a>
+	</div>
+	<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="callBackgroundWindowFunction();">调用最底层窗口的方法,F12查看结果</a>
+	</div>
+	<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="cancel();">关闭</a>
+	</div>
+</body>
+</html>

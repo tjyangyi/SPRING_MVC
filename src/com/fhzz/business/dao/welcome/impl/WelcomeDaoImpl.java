@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fhzz.business.dao.welcome.WelcomeDao;
 import com.fhzz.business.entity.Welcome;
-import com.fhzz.core.dao.BaseDaoImpl;
+import com.fhzz.core.dao.impl.BaseDaoImpl;
 
 /**
  * @author: YangYi

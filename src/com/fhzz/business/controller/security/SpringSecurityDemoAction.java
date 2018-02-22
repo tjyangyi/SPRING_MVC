@@ -18,7 +18,7 @@ import com.fhzz.core.controller.BaseAction;
 
 /**
  * @author YangYi
- * @desc 本类用于展示SPRING_MVC前后台交互的几种方式
+ * @desc 本类为SpringSecurity权限DEMO
  */
 @Controller
 public class SpringSecurityDemoAction extends BaseAction {

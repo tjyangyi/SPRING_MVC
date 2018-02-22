@@ -22,12 +22,12 @@
         			<th data-options="field:'triggerGroupName',width:120">触发器组名称</th>
         			<th data-options="field:'triggerName',width:120">触发器名称</th>
         			<th data-options="field:'cronExpression',width:120">时间表达式</th>
-        			<th data-options="field:'prevFireTimeStr',width:140">上次运行时间</th>
-        			<th data-options="field:'nextFireTimeStr',width:140">下次运行时间</th>
+        			<th data-options="field:'prevFireTime',width:140,formatter: dateFormat2Second",>上次运行时间</th>
+        			<th data-options="field:'nextFireTime',width:140,formatter: dateFormat2Second">下次运行时间</th>
         			<th data-options="field:'triggerState',width:80">任务状态</th>
         			<th data-options="field:'priority',width:80">优先级</th>
-        			<th data-options="field:'startTimeStr',width:140">开始时间</th>
-        			<th data-options="field:'endTimeStr',width:140">结束时间</th>
+        			<th data-options="field:'startTime',width:140,formatter: dateFormat2Second">开始时间</th>
+        			<th data-options="field:'endTime',width:140,formatter: dateFormat2Second">结束时间</th>
         			<th data-options="field:'jobClass',width:250">任务类名</th>
         			<th data-options="field:'jobDataMapJson',width:80">jobDataMap</th>
     			</tr>

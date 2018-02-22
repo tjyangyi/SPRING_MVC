@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.fhzz.core.dao;
+package com.fhzz.core.dao.impl.support;
 
 import java.util.List;
 import java.util.regex.Matcher;

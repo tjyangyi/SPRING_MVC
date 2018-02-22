@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 import com.fhzz.business.dao.db.HibernateDemoDao;
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.vo.datagrid.DatagridDemoParam;
-import com.fhzz.core.dao.BaseDaoImpl;
+import com.fhzz.core.dao.impl.BaseDaoImpl;
 import com.fhzz.core.vo.PageParam;
 import com.fhzz.core.vo.PageResult;
 

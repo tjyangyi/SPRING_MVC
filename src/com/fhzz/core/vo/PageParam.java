@@ -3,42 +3,43 @@
  */
 package com.fhzz.core.vo;
 
+
 /**
  * @author: YangYi
  * @CreateTime: 2018年2月13日 上午11:13:49
  * @Copyright: FHZZ
  */
-public class PageParam {
+public class PageParam{
 	private int page = 1; // 当前页码
 	private int rows = 10; // 每页的记录数
 	private int startIndex;// SQL查询起始INDEX
 	private int endIndex;// SQL查询结束INDEX
 
-	private void initIndex() {
+	private void calculateIndex() {
 		this.startIndex = (page - 1) * rows;
 		this.endIndex = startIndex + rows;
 	}
 
 	public PageParam() {
 		super();
-		this.initIndex();
+		this.calculateIndex();
 	}
 
 	public PageParam(int page, int rows) {
 		super();
 		this.page = page;
 		this.rows = rows;
-		this.initIndex();
+		this.calculateIndex();
 	}
 
 	public void setPage(int page) {
 		this.page = page;
-		this.initIndex();
+		this.calculateIndex();
 	}
 
 	public void setRows(int rows) {
 		this.rows = rows;
-		this.initIndex();
+		this.calculateIndex();
 	}
 
 	@Override

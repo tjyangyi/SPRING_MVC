@@ -4,6 +4,7 @@
 	<title>dialogContent</title>
 	#parse("comm/comm.vm")
 	#parse("comm/easyui.vm")
+	<script type="text/javascript" src="resource/comm/jquery.dialog/js/jquery.dialog.min.js"></script>
 	<script type="text/javascript" src="resource/js/jquerydialog/jqueryDialogContent.js"></script>
 </head>
 <body style="overflow-y:hidden">
@@ -11,8 +12,11 @@
 	<div style="margin:20px 0;">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="callParentFunction();">Dialog调用父窗口,F12查看结果</a>
 	</div>
-		<div style="margin:20px 0;">
+	<div style="margin:20px 0;">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="cancel();">关闭</a>
+	</div>
+	<div style="margin:20px 0;">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="openInnerDialog();">在Dialog中再打开一个dialog</a>
 	</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.fhzz.core.dao;
+package com.fhzz.core.dao.impl.support;
 
 import java.util.Date;
 import java.util.List;

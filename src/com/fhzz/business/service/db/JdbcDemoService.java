@@ -14,14 +14,6 @@ import com.fhzz.core.vo.PageParam;
  * @Copyright: FHZZ
  */
 public interface JdbcDemoService {
-	public void saveDemoTable(DemoTable demoTable);
-
-	public void updateDemoTable(DemoTable demoTable);
-
-	public void saveOrUpdateDemoTable(DemoTable demoTable);
-
-	public DemoTable getDemoTable(String id);
-
 	public PageResult<DemoTable> pagedQuery(PageParam pageParam);
 
 	public PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam);

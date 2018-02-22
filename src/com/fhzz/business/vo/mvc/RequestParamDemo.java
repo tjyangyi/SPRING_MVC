@@ -1,4 +1,4 @@
-package com.fhzz.business.vo.demo;
+package com.fhzz.business.vo.mvc;
 
 
 public class RequestParamDemo {

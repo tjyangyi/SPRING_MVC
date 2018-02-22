@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fhzz.business.vo.demo.RequestParamDemo;
+import com.fhzz.business.vo.mvc.RequestParamDemo;
 import com.fhzz.core.controller.BaseAction;
 
 /**
@@ -114,11 +114,17 @@ public class SpringMVCDemoAction extends BaseAction {
 		return result;
 	}
 
+	/**
+	 * 模拟界面跳转时有Exception抛出
+	 */
 	@RequestMapping("/exceptionForPageJump")
 	public ModelAndView exceptionForPageJump(HttpServletRequest request) throws Exception {
 		throw new Exception("exceptionForPageJump");
 	}
 
+	/**
+	 * 模拟AJAX请求时有Exception抛出
+	 */
 	@RequestMapping(value = "/exceptionForAJAX", method = RequestMethod.POST)
 	@ResponseBody
 	public String exceptionForAJAX(HttpServletRequest request) throws Exception {

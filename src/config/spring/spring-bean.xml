@@ -72,11 +72,11 @@
 		</property>
 	</bean>
 
-	<bean id="jdbcTemplate" class="com.fhzz.core.dao.JdbcTemplageSupport">
+	<bean id="jdbcTemplate" class="com.fhzz.core.dao.impl.support.JdbcTemplageSupport">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean id="hibernateTemplate" class="com.fhzz.core.dao.HibernateTemplateSupport">
+	<bean id="hibernateTemplate" class="com.fhzz.core.dao.impl.support.HibernateTemplateSupport">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 

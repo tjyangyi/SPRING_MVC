@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fhzz.core.dao.BaseDaoImpl;
+import com.fhzz.core.dao.impl.BaseDaoImpl;
 import com.fhzz.core.quartz.entity.QrtzJobDetails;
 
 /**

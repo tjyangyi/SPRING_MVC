@@ -19,6 +19,8 @@ public interface HibernateDemoService {
 	void saveDemoTable(DemoTable demoTable);
 
 	void updateDemoTable(DemoTable demoTable);
+	
+	void saveOrUpdateDemoTable(DemoTable demoTable);
 
 	DemoTable getDemoTable(String id);
 

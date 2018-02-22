@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Repository;
 
-import com.fhzz.core.dao.BaseDaoImpl;
+import com.fhzz.core.dao.impl.BaseDaoImpl;
 import com.fhzz.core.sercurity.entity.SysAuthorities;
 import com.fhzz.core.sercurity.entity.SysUsers;
 
@@ -58,7 +58,6 @@ public class SysUsersDao extends BaseDaoImpl<SysUsers>   {
 
 	public void saveOrUpdateSysUser(SysUsers sysUser) {
 		getHibernateTemplate().saveOrUpdate(sysUser);
-
 	}
 
 }

@@ -18,7 +18,6 @@ import com.fhzz.core.controller.BaseAction;
 public class JqueryDialogDemoAction extends BaseAction {
 	Log logger = LogFactory.getLog(JqueryDialogDemoAction.class);
 	
-	
 	@RequestMapping("toJqueryDialogDemo")
 	public String toJqueryDialogDemo() {
 		return "jquerydialog/jqueryDialogDemo";
@@ -29,6 +28,9 @@ public class JqueryDialogDemoAction extends BaseAction {
 		return "jquerydialog/jqueryDialogContent";
 	}
 	
-	
+	@RequestMapping("toJqueryDialogContentInnerDialog")
+	public String toJqueryDialogContentInnerDialog() {
+		return "jquerydialog/jqueryDialogContentInnerDialog";
+	}
 	
 }

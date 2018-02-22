@@ -22,27 +22,6 @@ public class JdbcDemoServiceImpl implements JdbcDemoService {
 	private JdbcDemoDao jdbcDemoDao;
 
 	@Override
-	public void saveDemoTable(DemoTable demoTable) {
-		// 这里可以进行一些业务处理
-		jdbcDemoDao.save(demoTable);
-	}
-
-	@Override
-	public void updateDemoTable(DemoTable demoTable) {
-		jdbcDemoDao.update(demoTable);
-	}
-	
-	@Override
-	public void saveOrUpdateDemoTable(DemoTable demoTable) {
-		jdbcDemoDao.saveOrUpdate(demoTable);
-	}
-
-	@Override
-	public DemoTable getDemoTable(String id) {
-		return jdbcDemoDao.get(id);
-	}
-
-	@Override
 	public PageResult<DemoTable> pagedQuery(PageParam pageParam) {
 		return jdbcDemoDao.pagedQuery(pageParam);
 	}
@@ -51,6 +30,5 @@ public class JdbcDemoServiceImpl implements JdbcDemoService {
 	public PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam) {
 		return jdbcDemoDao.pagedQuery(datagridDemoParam);
 	}
-
 
 }
