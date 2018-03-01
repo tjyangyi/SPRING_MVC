@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.fhzz.core.sercurity.service;
 
 import java.util.Collection;

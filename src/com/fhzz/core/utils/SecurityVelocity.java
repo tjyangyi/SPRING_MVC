@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.fhzz.core.utils;
 
 import java.util.Collection;

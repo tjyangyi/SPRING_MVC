@@ -74,7 +74,6 @@
 				<ref bean="authenticatedVoter" />
 			</list>
 		</constructor-arg>
-		<property name="messageSource" ref="messageSource"></property>
 	</bean>
 
 	<!-- 修改rolePrefix,否则Spring要求权限必须以ROLE_开头 -->

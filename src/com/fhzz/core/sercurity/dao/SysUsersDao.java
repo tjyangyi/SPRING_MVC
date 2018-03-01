@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.fhzz.core.sercurity.dao;
 
 import java.util.ArrayList;
@@ -22,7 +19,6 @@ import com.fhzz.core.sercurity.entity.SysUsers;
  */
 @Repository
 public class SysUsersDao extends BaseDaoImpl<SysUsers>   {
-
 	public SysUsers getByUsername(String username) {
 		return getHibernateTemplate().findUniqueBy(SysUsers.class, "username",
 				username);
@@ -55,7 +51,7 @@ public class SysUsersDao extends BaseDaoImpl<SysUsers>   {
 				username);
 		return list;
 	}
-
+	
 	public void saveOrUpdateSysUser(SysUsers sysUser) {
 		getHibernateTemplate().saveOrUpdate(sysUser);
 	}

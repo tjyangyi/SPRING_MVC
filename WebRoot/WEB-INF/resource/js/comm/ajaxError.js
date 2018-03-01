@@ -35,21 +35,23 @@ $(function() {
 					alert("内部服务器错误");
 					break;
 				}
-				//打印responseText,方便排查问题
+				// 打印responseText,方便排查问题
 				console.log(XMLHttpRequest.responseText);
 				// 错误方法增强处理
 				fn.error(XMLHttpRequest, textStatus, errorThrown);
 			},
 			success : function(data, textStatus) {
-				if(data.sessionInvalid){
-					  top.location.href='toLogin.do?message='+data.message; //跳转到登录页面，这里要加上top.为了防止在iframe界面中弹出了登录界面
-					  return;
+				if (data.sessionInvalid) {
+					// 跳转到登录页面，这里要加上top.为了防止在iframe界面中弹出了登录界面
+					top.location.href = 'toLogin.do?message=' + data.message;
+					return;
 				}
-				if(!textStatus){
+				if (!textStatus) {
 					showMsg(data.errorMsg, "操作失败,错误信息", 0, 200, 400);
-				}else if(typeof(data.success) != 'undefined' && !data.success){
+				} else if (typeof (data.success) != 'undefined'
+						&& !data.success) {
 					showMsg(data.errorMsg, "操作失败,错误信息", 0, 200, 400);
-				}else {
+				} else {
 					fn.success(data, textStatus);// 成功回调方法增强处理
 				}
 			},

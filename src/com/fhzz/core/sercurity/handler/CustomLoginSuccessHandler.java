@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.fhzz.core.sercurity.handler;
 
 import java.io.IOException;
@@ -44,7 +41,8 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			Authentication authentication) throws IOException, ServletException {
 		this.saveLoginInfo(request, authentication);
 		logger.info("登录成功,即将forward:" + this.defaultTargetUrl);
-		request.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());// 登录成功之后将SECURITY放入上下文中
+		// 登录成功之后将SECURITY放入上下文中
+		request.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 		request.getRequestDispatcher(this.defaultTargetUrl).forward(request, response);
 	}
 
