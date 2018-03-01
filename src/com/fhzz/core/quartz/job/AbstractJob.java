@@ -6,6 +6,7 @@ package com.fhzz.core.quartz.job;
 import javax.annotation.PostConstruct;
 
 import org.quartz.Job;
+import org.quartz.StatefulJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,7 @@ import com.fhzz.core.quartz.service.QuartzJobRegister;
  * @Copyright: FHZZ
  */
 @Component
-public abstract class AbstractJob implements Job {
+public abstract class AbstractJob implements StatefulJob {
 	@Autowired
 	private QuartzJobRegister quartzJobRegister;
 	

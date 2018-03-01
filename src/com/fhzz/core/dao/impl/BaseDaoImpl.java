@@ -3,8 +3,13 @@ package com.fhzz.core.dao.impl;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
 import javax.annotation.Resource;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate4.HibernateCallback;
 
 import com.fhzz.core.dao.BaseDao;
 import com.fhzz.core.dao.impl.support.HibernateTemplateSupport;
@@ -31,6 +36,24 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		ParameterizedType pt = (ParameterizedType) t;
 		Type actualType = pt.getActualTypeArguments()[0];
 		entityClass = (Class<?>) actualType;
+	}
+
+	@Override
+	public void batchSave(final List<T> entityList) {
+		getHibernateTemplate().execute(new HibernateCallback<T>() {
+			@Override
+			public T doInHibernate(Session session) throws HibernateException {
+				for (int i = 0; i < entityList.size(); i++) {
+					T t = entityList.get(i);
+					session.save(t);
+					if (i % 100 == 0) {// 将数据刷入数据库并清空session
+						session.flush();
+						session.clear();
+					}
+				}
+				return null;
+			}
+		});
 	}
 
 	@Override

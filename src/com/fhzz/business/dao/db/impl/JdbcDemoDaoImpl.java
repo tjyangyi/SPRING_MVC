@@ -3,9 +3,12 @@
  */
 package com.fhzz.business.dao.db.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.jdbc.core.ParameterizedPreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -13,6 +16,7 @@ import com.fhzz.business.dao.db.JdbcDemoDao;
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.vo.datagrid.DatagridDemoParam;
 import com.fhzz.core.dao.impl.BaseDaoImpl;
+import com.fhzz.core.utils.IDUtils;
 import com.fhzz.core.vo.PageParam;
 import com.fhzz.core.vo.PageResult;
 
@@ -24,6 +28,19 @@ import com.fhzz.core.vo.PageResult;
 @Repository
 public class JdbcDemoDaoImpl extends BaseDaoImpl<DemoTable> implements JdbcDemoDao {
 
+	public void batchSaveDemoTable(final List<DemoTable> eneityList){
+		String sql = "INSERT INTO DEMO_TABLE VALUES(?,?,?,sysdate,sysdate,sysdate)";
+		getJdbcTemplate().batchUpdate(sql, eneityList, 100, new ParameterizedPreparedStatementSetter<DemoTable>(){
+			@Override
+			public void setValues(PreparedStatement preparedStatement, DemoTable demoTable)
+					throws SQLException {
+				preparedStatement.setString(1, IDUtils.getUUID());
+				preparedStatement.setString(2, demoTable.getName());
+				preparedStatement.setString(3, demoTable.getCountNum().toString());
+			}
+		});
+	}
+	
 	@Override
 	public PageResult<DemoTable> pagedQuery(PageParam pageParam) {
 		String sql = "SELECT * FROM DEMO_TABLE WHERE NAME = ?";

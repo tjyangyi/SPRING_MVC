@@ -21,6 +21,8 @@ public interface HibernateDemoService {
 	void updateDemoTable(DemoTable demoTable);
 	
 	void saveOrUpdateDemoTable(DemoTable demoTable);
+	
+	void batchSaveDemoTable(List<DemoTable> demoTableList);
 
 	DemoTable getDemoTable(String id);
 
@@ -33,4 +35,6 @@ public interface HibernateDemoService {
 	List<DemoTable> findBy(String propertyName, Object value,String orderBy,boolean isAsc);
 
 	List<DemoTable> findByValues(String propertyName, Object[] values);
+	
+	
 }

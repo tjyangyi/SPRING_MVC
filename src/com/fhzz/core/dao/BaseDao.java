@@ -4,6 +4,7 @@
 package com.fhzz.core.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author: YangYi
@@ -18,4 +19,6 @@ public interface BaseDao<T> {
 	public void saveOrUpdate(T entity);
 
 	public T get(Serializable id);
+
+	public void batchSave(List<T> entityList);
 }

@@ -38,6 +38,11 @@ public class HibernateDemoServiceImpl implements HibernateDemoService {
 	public void saveOrUpdateDemoTable(DemoTable demoTable) {
 		hibernateDemoDao.saveOrUpdate(demoTable);
 	}
+	
+	@Override
+	public void batchSaveDemoTable(List<DemoTable> demoTableList) {
+		hibernateDemoDao.batchSave(demoTableList);
+	}
 
 	@Override
 	public DemoTable getDemoTable(String id) {

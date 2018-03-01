@@ -1,5 +1,7 @@
 package com.fhzz.business.service.db.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,11 @@ public class JdbcDemoServiceImpl implements JdbcDemoService {
 	private JdbcDemoDao jdbcDemoDao;
 
 	@Override
+	public void batchSaveDemoTable(List<DemoTable> eneityList) {
+		jdbcDemoDao.batchSaveDemoTable(eneityList);
+	}
+	
+	@Override
 	public PageResult<DemoTable> pagedQuery(PageParam pageParam) {
 		return jdbcDemoDao.pagedQuery(pageParam);
 	}
@@ -30,5 +37,7 @@ public class JdbcDemoServiceImpl implements JdbcDemoService {
 	public PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam) {
 		return jdbcDemoDao.pagedQuery(datagridDemoParam);
 	}
+
+
 
 }

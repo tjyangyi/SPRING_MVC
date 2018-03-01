@@ -3,6 +3,8 @@
  */
 package com.fhzz.business.service.db;
 
+import java.util.List;
+
 import com.fhzz.business.entity.DemoTable;
 import com.fhzz.business.vo.datagrid.DatagridDemoParam;
 import com.fhzz.core.vo.PageResult;
@@ -14,8 +16,10 @@ import com.fhzz.core.vo.PageParam;
  * @Copyright: FHZZ
  */
 public interface JdbcDemoService {
-	public PageResult<DemoTable> pagedQuery(PageParam pageParam);
+	void batchSaveDemoTable(final List<DemoTable> eneityList);
 
-	public PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam);
+	PageResult<DemoTable> pagedQuery(PageParam pageParam);
+
+	PageResult<DemoTable> pagedQuery(DatagridDemoParam datagridDemoParam);
 
 }
