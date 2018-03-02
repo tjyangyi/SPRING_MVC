@@ -75,6 +75,4 @@ public class HibernateDemoServiceImpl implements HibernateDemoService {
 		return hibernateDemoDao.findByValues(propertyName, values);
 	}
 
-
-
 }

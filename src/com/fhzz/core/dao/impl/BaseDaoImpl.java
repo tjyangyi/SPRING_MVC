@@ -39,24 +39,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	}
 
 	@Override
-	public void batchSave(final List<T> entityList) {
-		getHibernateTemplate().execute(new HibernateCallback<T>() {
-			@Override
-			public T doInHibernate(Session session) throws HibernateException {
-				for (int i = 0; i < entityList.size(); i++) {
-					T t = entityList.get(i);
-					session.save(t);
-					if (i % 100 == 0) {// 将数据刷入数据库并清空session
-						session.flush();
-						session.clear();
-					}
-				}
-				return null;
-			}
-		});
-	}
-
-	@Override
 	public void save(T entity) {
 		hibernateTemplate.save(entity);
 	}
@@ -76,6 +58,25 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	public T get(Serializable id) {
 		return (T) hibernateTemplate.get(entityClass, id);
 	}
+	
+	@Override
+	public void batchSave(final List<T> entityList) {
+		getHibernateTemplate().execute(new HibernateCallback<T>() {
+			@Override
+			public T doInHibernate(Session session) throws HibernateException {
+				for (int i = 0; i < entityList.size(); i++) {
+					T t = entityList.get(i);
+					session.save(t);
+					if (i % 100 == 0) {// 将数据刷入数据库并清空session
+						session.flush();
+						session.clear();
+					}
+				}
+				return null;
+			}
+		});
+	}
+	
 
 	public JdbcTemplageSupport getJdbcTemplate() {
 		return jdbcTemplate;

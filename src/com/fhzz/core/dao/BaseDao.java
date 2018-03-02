@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.fhzz.core.dao;
 
 import java.io.Serializable;
@@ -18,7 +15,13 @@ public interface BaseDao<T> {
 
 	public void saveOrUpdate(T entity);
 
+	/**
+	 * 根据ID获取entity
+	 */
 	public T get(Serializable id);
 
+	/**
+	 *批量保存 
+	 */
 	public void batchSave(List<T> entityList);
 }

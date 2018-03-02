@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.fhzz.core.dao.impl.support;
 
 import java.util.List;
