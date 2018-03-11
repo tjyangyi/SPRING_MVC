@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+	<title>SRPING_MVC_DEMO</title>
+	#parse("comm/comm.vm")
+	<script type="text/javascript" src="resource/js/hbase/hbaseDemo.js"></script>
+</head>
+<body style="background: beige;">
+	使用本DEMO前，请确保HBASE部署启动成功，并且可连接
+	AJAX请求请按F12从控制台看结果
+	<div>
+		<button onclick="scanWithStartAndStop();">使用SCAN方法，指定startRow,stopRow</button>
+    </div>
+</body>
+</html>
