@@ -12,9 +12,9 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate4.HibernateCallback;
 
 import com.fhzz.core.dao.BaseDao;
-import com.fhzz.core.dao.impl.support.HbaseTemplateSupport;
 import com.fhzz.core.dao.impl.support.HibernateTemplateSupport;
 import com.fhzz.core.dao.impl.support.JdbcTemplageSupport;
+import com.fhzz.core.hbase.dao.HBaseTemplateSupport;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	private HibernateTemplateSupport hibernateTemplate;// 注入hibernate模板
 	
 	@Resource(name = "hbaseTemplate")
-	private HbaseTemplateSupport hbaseTemplate;//注入HBASE模板
+	private HBaseTemplateSupport hbaseTemplate;//注入HBASE模板
 
 	public BaseDaoImpl() {
 		Type t = this.getClass().getGenericSuperclass();
@@ -89,4 +89,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	public HibernateTemplateSupport getHibernateTemplate() {
 		return hibernateTemplate;
 	}
+
+	public HBaseTemplateSupport getHbaseTemplate() {
+		return hbaseTemplate;
+	}
+
 }
