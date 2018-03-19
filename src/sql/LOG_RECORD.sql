@@ -1,25 +1,25 @@
 /*
 Navicat Oracle Data Transfer
-Oracle Client Version : 11.2.0.1.0
+Oracle Client Version : 10.2.0.5.0
 
-Source Server         : 主卧台式机PSOPUSER
-Source Server Version : 110200
-Source Host           : 127.0.0.1:1521
-Source Schema         : PSOPUSER
+Source Server         : 10.1.111.135SPRINGMVC
+Source Server Version : 110100
+Source Host           : 10.1.111.135:1521
+Source Schema         : SPRINGMVC
 
 Target Server Type    : ORACLE
-Target Server Version : 110200
+Target Server Version : 110100
 File Encoding         : 65001
 
-Date: 2018-02-07 18:44:44
+Date: 2018-03-19 10:52:57
 */
 
 
 -- ----------------------------
 -- Table structure for LOG_RECORD
 -- ----------------------------
-DROP TABLE "PSOPUSER"."LOG_RECORD";
-CREATE TABLE "PSOPUSER"."LOG_RECORD" (
+DROP TABLE "SPRINGMVC"."LOG_RECORD";
+CREATE TABLE "SPRINGMVC"."LOG_RECORD" (
 "LOG_ID" VARCHAR2(100 BYTE) NOT NULL ,
 "OPERATION_START_TIME" DATE NULL ,
 "OPERATION_END_TIME" DATE NULL ,
@@ -48,11 +48,12 @@ NOCACHE
 -- ----------------------------
 -- Checks structure for table LOG_RECORD
 -- ----------------------------
-ALTER TABLE "PSOPUSER"."LOG_RECORD" ADD CHECK ("LOG_ID" IS NOT NULL);
-ALTER TABLE "PSOPUSER"."LOG_RECORD" ADD CHECK ("LOG_ID" IS NOT NULL);
-ALTER TABLE "PSOPUSER"."LOG_RECORD" ADD CHECK ("LOG_ID" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."LOG_RECORD" ADD CHECK ("LOG_ID" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."LOG_RECORD" ADD CHECK ("LOG_ID" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."LOG_RECORD" ADD CHECK ("LOG_ID" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."LOG_RECORD" ADD CHECK ("LOG_ID" IS NOT NULL);
 
 -- ----------------------------
 -- Primary Key structure for table LOG_RECORD
 -- ----------------------------
-ALTER TABLE "PSOPUSER"."LOG_RECORD" ADD PRIMARY KEY ("LOG_ID");
+ALTER TABLE "SPRINGMVC"."LOG_RECORD" ADD PRIMARY KEY ("LOG_ID");

@@ -9,7 +9,7 @@
 	<hdp:configuration resources="classpath:/config/hbase/hbase-site.xml" />
 	<hdp:hbase-configuration configuration-ref="hadoopConfiguration" />
 	<!-- 配置HbaseTemplate -->
-	<bean id="hbaseTemplate" class="org.springframework.data.hadoop.hbase.HbaseTemplate">
+	<bean id="hbaseTemplate" class="com.fhzz.core.dao.impl.support.HbaseTemplateSupport">
 		<property name="configuration" ref="hbaseConfiguration"></property>
 		<property name="encoding" value="UTF-8"></property>
 	</bean>

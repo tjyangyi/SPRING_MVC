@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,13 +41,12 @@ import com.fhzz.core.controller.BaseAction;
 public class HBaseDemoAction extends BaseAction {
 	Log logger = LogFactory.getLog(DatabaseDemoAction.class);
 
-	@Autowired
+	@Resource(name = "hbaseTemplate")
 	private HbaseTemplate hbaseTemplate;
 
 	@RequestMapping("toHbaseDemo")
 	public String hbaseTest(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		System.setProperty("hadoop.home.dir", "D:\\hadoop-2.8.3"); // 必备条件之一
-//		find("DEMO_TABLE3","49217_20161013000000","49217_20181013000000");
+		// find("DEMO_TABLE3","49217_20161013000000","49217_20181013000000");
 		return "hbase/hbaseDemo";
 	}
 
@@ -56,12 +56,12 @@ public class HBaseDemoAction extends BaseAction {
 			@RequestParam("stopRow") String stopRow) throws IOException, SchedulerException {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("success", true);
-		List<Map<String, Object>> list = scan( "DEMO_TABLE3", startRow, stopRow) ;
+		List<Map<String, Object>> list = scan("T_WB_SWRYXX", startRow, stopRow);
 		result.put("total", list.size());
 		result.put("rows", list);
 		return result;
 	}
-	
+
 	/**
 	 * 通过表名，开始行键和结束行键获取数据
 	 * 
@@ -70,8 +70,7 @@ public class HBaseDemoAction extends BaseAction {
 	 * @param stopRow
 	 * @return
 	 */
-	public List<Map<String, Object>> scan(String tableName, String startRow,
-			String stopRow) {
+	public List<Map<String, Object>> scan(String tableName, String startRow, String stopRow) {
 		Scan scan = new Scan();
 		if (startRow == null) {
 			startRow = "";
@@ -86,38 +85,28 @@ public class HBaseDemoAction extends BaseAction {
 		/*
 		 * PageFilter filter = new PageFilter(5); scan.setFilter(filter);
 		 */
-		return hbaseTemplate.find(tableName, scan,
-				new RowMapper<Map<String, Object>>() {
-					public Map<String, Object> mapRow(Result result, int rowNum)
-							throws Exception {
+		return hbaseTemplate.find(tableName, scan, new RowMapper<Map<String, Object>>() {
+			public Map<String, Object> mapRow(Result result, int rowNum) throws Exception {
 
-						List<Cell> ceList = result.listCells();
-						Map<String, Object> map = new HashMap<String, Object>();
-						String row = "";
-						if (ceList != null && ceList.size() > 0) {
-							for (Cell cell : ceList) {
-								row = Bytes.toString(cell.getRowArray(),
-										cell.getRowOffset(),
-										cell.getRowLength());
-								String value = Bytes.toString(
-										cell.getValueArray(),
-										cell.getValueOffset(),
-										cell.getValueLength());
-								String family = Bytes.toString(
-										cell.getFamilyArray(),
-										cell.getFamilyOffset(),
-										cell.getFamilyLength());
-								String quali = Bytes.toString(
-										cell.getQualifierArray(),
-										cell.getQualifierOffset(),
-										cell.getQualifierLength());
-								map.put(family + "_" + quali, value);
-							}
-							map.put("row", row);
-						}
-						System.out.println(map);
-						return map;
+				List<Cell> ceList = result.listCells();
+				Map<String, Object> map = new HashMap<String, Object>();
+				String row = "";
+				if (ceList != null && ceList.size() > 0) {
+					for (Cell cell : ceList) {
+						row = Bytes.toString(cell.getRowArray(), cell.getRowOffset(), cell.getRowLength());
+						String value = Bytes.toString(cell.getValueArray(), cell.getValueOffset(),
+								cell.getValueLength());
+						String family = Bytes.toString(cell.getFamilyArray(), cell.getFamilyOffset(),
+								cell.getFamilyLength());
+						String quali = Bytes.toString(cell.getQualifierArray(), cell.getQualifierOffset(),
+								cell.getQualifierLength());
+						map.put(family + "_" + quali, value);
 					}
-				});
+					map.put("row", row);
+				}
+				System.out.println(map);
+				return map;
+			}
+		});
 	}
 }

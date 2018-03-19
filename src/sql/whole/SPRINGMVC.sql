@@ -11,9 +11,28 @@ Target Server Type    : ORACLE
 Target Server Version : 110100
 File Encoding         : 65001
 
-Date: 2018-02-09 12:04:53
+Date: 2018-03-19 10:53:36
 */
 
+
+-- ----------------------------
+-- Table structure for DEMO_TABLE
+-- ----------------------------
+DROP TABLE "SPRINGMVC"."DEMO_TABLE";
+CREATE TABLE "SPRINGMVC"."DEMO_TABLE" (
+"ID" VARCHAR2(100 BYTE) NOT NULL ,
+"NAME" VARCHAR2(255 BYTE) NOT NULL ,
+"COUNT_NUM" NUMBER NOT NULL ,
+"CREATE_TIME" DATE NOT NULL ,
+"UPDATE_TIME" DATE NOT NULL ,
+"CUSTOM_TIME" DATE NOT NULL ,
+"CUSTOM_TIME_STR" VARCHAR2(14 BYTE) NULL 
+)
+LOGGING
+NOCOMPRESS
+NOCACHE
+
+;
 
 -- ----------------------------
 -- Table structure for LOG_RECORD
@@ -42,11 +61,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of LOG_RECORD
--- ----------------------------
-INSERT INTO "SPRINGMVC"."LOG_RECORD" VALUES ('f4ae876f-4ed2-4286-800f-8c882f84cf81', TO_DATE('2018-02-09 12:03:07', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2018-02-09 12:03:07', 'YYYY-MM-DD HH24:MI:SS'), '9', null, null, 'yangyi', '1e7ddd97-d9db-4b4f-9f79-9b8b38d0f9e4', 'com.fhzz.business.controller.index.IndexAction', 'toIndex', 'index/index', null, null, 'aroundActionPointcut');
-
--- ----------------------------
 -- Table structure for PERSISTENT_LOGINS
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."PERSISTENT_LOGINS";
@@ -62,10 +76,6 @@ NOCACHE
 
 ;
 COMMENT ON TABLE "SPRINGMVC"."PERSISTENT_LOGINS" IS 'Spring Remember me 持久化';
-
--- ----------------------------
--- Records of PERSISTENT_LOGINS
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for QRTZ_BLOB_TRIGGERS
@@ -84,10 +94,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of QRTZ_BLOB_TRIGGERS
--- ----------------------------
-
--- ----------------------------
 -- Table structure for QRTZ_CALENDARS
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."QRTZ_CALENDARS";
@@ -101,10 +107,6 @@ NOCOMPRESS
 NOCACHE
 
 ;
-
--- ----------------------------
--- Records of QRTZ_CALENDARS
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for QRTZ_CRON_TRIGGERS
@@ -122,11 +124,6 @@ NOCOMPRESS
 NOCACHE
 
 ;
-
--- ----------------------------
--- Records of QRTZ_CRON_TRIGGERS
--- ----------------------------
-INSERT INTO "SPRINGMVC"."QRTZ_CRON_TRIGGERS" VALUES ('quartzScheduler', 'T1', 'TG1', '0/5 * * * * ?', 'Asia/Shanghai');
 
 -- ----------------------------
 -- Table structure for QRTZ_FIRED_TRIGGERS
@@ -153,11 +150,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of QRTZ_FIRED_TRIGGERS
--- ----------------------------
-INSERT INTO "SPRINGMVC"."QRTZ_FIRED_TRIGGERS" VALUES ('quartzScheduler', 'NON_CLUSTERED1518148935073', 'T1', 'TG1', 'NON_CLUSTERED', '1518149110000', '5', 'ACQUIRED', null, null, '0', '0');
-
--- ----------------------------
 -- Table structure for QRTZ_JOB_DETAILS
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."QRTZ_JOB_DETAILS";
@@ -180,11 +172,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of QRTZ_JOB_DETAILS
--- ----------------------------
-INSERT INTO "SPRINGMVC"."QRTZ_JOB_DETAILS" VALUES ('quartzScheduler', 'J1', 'JG1', null, 'com.fhzz.core.quartz.job.HelloWorldJob', '0', '0', '0', '0', HexToRaw('230D0A23467269204665622030392031323A30333A34372043535420323031380D0A'));
-
--- ----------------------------
 -- Table structure for QRTZ_LOCKS
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."QRTZ_LOCKS";
@@ -199,11 +186,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of QRTZ_LOCKS
--- ----------------------------
-INSERT INTO "SPRINGMVC"."QRTZ_LOCKS" VALUES ('quartzScheduler', 'TRIGGER_ACCESS');
-
--- ----------------------------
 -- Table structure for QRTZ_PAUSED_TRIGGER_GRPS
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."QRTZ_PAUSED_TRIGGER_GRPS";
@@ -216,10 +198,6 @@ NOCOMPRESS
 NOCACHE
 
 ;
-
--- ----------------------------
--- Records of QRTZ_PAUSED_TRIGGER_GRPS
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for QRTZ_SCHEDULER_STATE
@@ -238,10 +216,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of QRTZ_SCHEDULER_STATE
--- ----------------------------
-
--- ----------------------------
 -- Table structure for QRTZ_SIMPLE_TRIGGERS
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."QRTZ_SIMPLE_TRIGGERS";
@@ -258,10 +232,6 @@ NOCOMPRESS
 NOCACHE
 
 ;
-
--- ----------------------------
--- Records of QRTZ_SIMPLE_TRIGGERS
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for QRTZ_SIMPROP_TRIGGERS
@@ -288,10 +258,6 @@ NOCOMPRESS
 NOCACHE
 
 ;
-
--- ----------------------------
--- Records of QRTZ_SIMPROP_TRIGGERS
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for QRTZ_TRIGGERS
@@ -322,11 +288,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of QRTZ_TRIGGERS
--- ----------------------------
-INSERT INTO "SPRINGMVC"."QRTZ_TRIGGERS" VALUES ('quartzScheduler', 'T1', 'TG1', 'J1', 'JG1', null, '1518149115000', '1518149110000', '5', 'ACQUIRED', 'CRON', '1518149027000', '0', null, '0', null);
-
--- ----------------------------
 -- Table structure for SYS_AUTHORITIES
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."SYS_AUTHORITIES";
@@ -347,11 +308,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of SYS_AUTHORITIES
--- ----------------------------
-INSERT INTO "SPRINGMVC"."SYS_AUTHORITIES" VALUES ('579a1c5c-ece6-4a2d-8675-0d53b091112b', 'AUTH_TO_INDEX', 'AUTH_TO_INDEX', '进入首页', 'sda', '1', '0', '1');
-
--- ----------------------------
 -- Table structure for SYS_AUTHORITIES_RESOURCES
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."SYS_AUTHORITIES_RESOURCES";
@@ -365,10 +321,6 @@ NOCOMPRESS
 NOCACHE
 
 ;
-
--- ----------------------------
--- Records of SYS_AUTHORITIES_RESOURCES
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for SYS_MODULES
@@ -396,10 +348,6 @@ NOCACHE
 COMMENT ON COLUMN "SPRINGMVC"."SYS_MODULES"."I_LEVEL" IS '1';
 
 -- ----------------------------
--- Records of SYS_MODULES
--- ----------------------------
-
--- ----------------------------
 -- Table structure for SYS_RESOURCES
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."SYS_RESOURCES";
@@ -422,10 +370,6 @@ NOCACHE
 COMMENT ON COLUMN "SPRINGMVC"."SYS_RESOURCES"."RESOURCE_TYPE" IS 'URL,METHOD';
 
 -- ----------------------------
--- Records of SYS_RESOURCES
--- ----------------------------
-
--- ----------------------------
 -- Table structure for SYS_ROLES
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."SYS_ROLES";
@@ -444,11 +388,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of SYS_ROLES
--- ----------------------------
-INSERT INTO "SPRINGMVC"."SYS_ROLES" VALUES ('32dedf57-5051-4667-806a-e87dbbd3cea2', 'ADMIN', '管理员', '1', '1', null);
-
--- ----------------------------
 -- Table structure for SYS_ROLES_AUTHORITIES
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."SYS_ROLES_AUTHORITIES";
@@ -462,11 +401,6 @@ NOCOMPRESS
 NOCACHE
 
 ;
-
--- ----------------------------
--- Records of SYS_ROLES_AUTHORITIES
--- ----------------------------
-INSERT INTO "SPRINGMVC"."SYS_ROLES_AUTHORITIES" VALUES ('af84fabb-1b67-4b4b-95b9-380b8ed15b29', '579a1c5c-ece6-4a2d-8675-0d53b091112b', '32dedf57-5051-4667-806a-e87dbbd3cea2');
 
 -- ----------------------------
 -- Table structure for SYS_ROLES_MODULES
@@ -483,10 +417,6 @@ NOCACHE
 
 ;
 COMMENT ON TABLE "SPRINGMVC"."SYS_ROLES_MODULES" IS '控制角色对模块的访问权，主要用于生成菜单';
-
--- ----------------------------
--- Records of SYS_ROLES_MODULES
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for SYS_USERS
@@ -517,11 +447,6 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of SYS_USERS
--- ----------------------------
-INSERT INTO "SPRINGMVC"."SYS_USERS" VALUES ('1e7ddd97-d9db-4b4f-9f79-9b8b38d0f9e4', 'yangyi', '杨毅', '123456', TO_DATE('2018-02-04 18:53:50', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2018-02-09 12:03:07', 'YYYY-MM-DD HH24:MI:SS'), null, '10.2.108.109', null, null, null, null, '1', '1', '1', '1');
-
--- ----------------------------
 -- Table structure for SYS_USERS_ROLES
 -- ----------------------------
 DROP TABLE "SPRINGMVC"."SYS_USERS_ROLES";
@@ -535,11 +460,6 @@ NOCOMPRESS
 NOCACHE
 
 ;
-
--- ----------------------------
--- Records of SYS_USERS_ROLES
--- ----------------------------
-INSERT INTO "SPRINGMVC"."SYS_USERS_ROLES" VALUES ('6072b1c0-1616-4c22-9ba0-d169ec58fd9c', '32dedf57-5051-4667-806a-e87dbbd3cea2', '1e7ddd97-d9db-4b4f-9f79-9b8b38d0f9e4');
 
 -- ----------------------------
 -- Table structure for WELCOME
@@ -557,10 +477,41 @@ NOCACHE
 ;
 
 -- ----------------------------
--- Records of WELCOME
+-- Indexes structure for table DEMO_TABLE
 -- ----------------------------
-INSERT INTO "SPRINGMVC"."WELCOME" VALUES ('1', '001', 'yy');
-INSERT INTO "SPRINGMVC"."WELCOME" VALUES ('2', '002', 'yy');
+
+-- ----------------------------
+-- Checks structure for table DEMO_TABLE
+-- ----------------------------
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("NAME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("COUNT_NUM" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("CREATE_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("UPDATE_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("CUSTOM_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("NAME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("COUNT_NUM" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("CREATE_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("UPDATE_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("CUSTOM_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("NAME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("COUNT_NUM" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("CREATE_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("UPDATE_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("ID" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("NAME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("COUNT_NUM" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("CREATE_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("UPDATE_TIME" IS NOT NULL);
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD CHECK ("CUSTOM_TIME" IS NOT NULL);
+
+-- ----------------------------
+-- Primary Key structure for table DEMO_TABLE
+-- ----------------------------
+ALTER TABLE "SPRINGMVC"."DEMO_TABLE" ADD PRIMARY KEY ("ID");
 
 -- ----------------------------
 -- Indexes structure for table LOG_RECORD
