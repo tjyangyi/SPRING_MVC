@@ -3,6 +3,7 @@
  */
 package com.fhzz.business.job;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,33 +35,36 @@ public class DatabaseExampleJob extends AbstractJob {
 	@Autowired
 	private JdbcDemoService jdbcDemoService;
 
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		logger.info("开始执行DatabaseExampleJob");
 		// 使用jdbc方式批量插入，效率很快
 		// 不需要配置<tx:method name="batch*" propagation="NOT_SUPPORTED"/>
 		List<DemoTable> list1 = new ArrayList<DemoTable>();
-		for (int i = 0; i < 100000; i++) {
-			Random random = new Random(10);
-			int count = random.nextInt(20000000);
-			String name = "name" + count;
-			DemoTable demoTable = new DemoTable(null, name, count, new Date(),
-					new Date(), new Date());
+		for (int i = 0; i < 10; i++) {
+			Random random = new Random();
+			int count = random.nextInt(90000) + 10000;
+			String name = String.valueOf(count);
+			Date date = new Date();
+			DemoTable demoTable = new DemoTable(null, name, count, date, date,
+					date, sdf.format(date));
 			list1.add(demoTable);
 		}
 		jdbcDemoService.batchSaveDemoTable(list1);
 		// 使用hibernate方式批量插入，效率较慢
 		// 需要配置<tx:method name="batch*" propagation="NOT_SUPPORTED"/>
-//		 List<DemoTable> list2 = new ArrayList<DemoTable>();
-//		 for (int i = 0; i < 30000; i++) {
-//		 Random random = new Random(10);
-//		 int count = random.nextInt(20000000);
-//		 String name = "name" + count;
-//		 DemoTable demoTable = new DemoTable(null, name, count, new Date(),
-//		 new Date(), new Date());
-//		 list2.add(demoTable);
-//		 }
-//		 hibernateDemoService.batchSaveDemoTable(list2);
+		// List<DemoTable> list2 = new ArrayList<DemoTable>();
+		// for (int i = 0; i < 30000; i++) {
+		// Random random = new Random(10);
+		// int count = random.nextInt(20000000);
+		// String name = "name" + count;
+		// DemoTable demoTable = new DemoTable(null, name, count, new Date(),
+		// new Date(), new Date());
+		// list2.add(demoTable);
+		// }
+		// hibernateDemoService.batchSaveDemoTable(list2);
 		logger.info("结束执行DatabaseExampleJob");
 	}
 

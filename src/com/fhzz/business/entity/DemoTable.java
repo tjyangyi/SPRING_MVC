@@ -40,6 +40,8 @@ public class DemoTable implements java.io.Serializable {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date customTime;
+	
+	private String customTimeStr;
 
 	// Constructors
 
@@ -61,13 +63,14 @@ public class DemoTable implements java.io.Serializable {
 
 	/** full constructor */
 	public DemoTable(String id, String name, Integer countNum, Date createTime,
-			Date updateTime,Date customTime) {
+			Date updateTime,Date customTime,String customTimeStr) {
 		this.id = id;
 		this.name = name;
 		this.countNum = countNum;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 		this.customTime = customTime;
+		this.customTimeStr = customTimeStr;
 	}
 
 	// Property accessors
@@ -131,7 +134,14 @@ public class DemoTable implements java.io.Serializable {
 	public void setCustomTime(Date customTime) {
 		this.customTime = customTime;
 	}
-	
-	
+
+	@Column(name = "CUSTOM_TIME_STR", length = 7)
+	public String getCustomTimeStr() {
+		return customTimeStr;
+	}
+
+	public void setCustomTimeStr(String customTimeStr) {
+		this.customTimeStr = customTimeStr;
+	}
 
 }

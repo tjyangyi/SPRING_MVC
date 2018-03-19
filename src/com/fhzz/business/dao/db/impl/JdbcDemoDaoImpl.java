@@ -29,7 +29,7 @@ import com.fhzz.core.vo.PageResult;
 public class JdbcDemoDaoImpl extends BaseDaoImpl<DemoTable> implements JdbcDemoDao {
 
 	public void batchSaveDemoTable(final List<DemoTable> eneityList){
-		String sql = "INSERT INTO DEMO_TABLE VALUES(?,?,?,sysdate,sysdate,sysdate)";
+		String sql = "INSERT INTO DEMO_TABLE VALUES(?,?,?,sysdate,sysdate,sysdate,?)";
 		getJdbcTemplate().batchUpdate(sql, eneityList, 100, new ParameterizedPreparedStatementSetter<DemoTable>(){
 			@Override
 			public void setValues(PreparedStatement preparedStatement, DemoTable demoTable)
@@ -37,6 +37,7 @@ public class JdbcDemoDaoImpl extends BaseDaoImpl<DemoTable> implements JdbcDemoD
 				preparedStatement.setString(1, IDUtils.getUUID());
 				preparedStatement.setString(2, demoTable.getName());
 				preparedStatement.setString(3, demoTable.getCountNum().toString());
+				preparedStatement.setString(4, demoTable.getCustomTimeStr());
 			}
 		});
 	}

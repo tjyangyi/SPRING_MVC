@@ -21,6 +21,7 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.hadoop.hbase.HbaseTemplate;
 import org.springframework.data.hadoop.hbase.RowMapper;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fhzz.business.controller.db.DatabaseDemoAction;
+import com.fhzz.business.entity.DemoTable;
 import com.fhzz.core.controller.BaseAction;
 
 /**
@@ -79,6 +81,8 @@ public class HBaseDemoAction extends BaseAction {
 		}
 		scan.setStartRow(Bytes.toBytes(startRow));
 		scan.setStopRow(Bytes.toBytes(stopRow));
+
+		BeanPropertyRowMapper<DemoTable> rowMapper = BeanPropertyRowMapper.newInstance(DemoTable.class);
 		/*
 		 * PageFilter filter = new PageFilter(5); scan.setFilter(filter);
 		 */
