@@ -5,7 +5,6 @@ package com.fhzz.core.quartz.job;
 
 import javax.annotation.PostConstruct;
 
-import org.quartz.Job;
 import org.quartz.StatefulJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
