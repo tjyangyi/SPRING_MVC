@@ -17,4 +17,5 @@
 	<import resource="spring-security.xml" />
 	<import resource="spring-quartz.xml" />
 	<import resource="spring-hbase.xml" />
+	<import resource="spring-hession.xml" />
 </beans>

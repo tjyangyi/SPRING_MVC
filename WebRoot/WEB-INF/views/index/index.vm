@@ -91,5 +91,20 @@
         </div>
     </div>
 	
+	<div>
+    	<button id="testHession" onclick="testHession()">测试Hession
+        </button>
+    </div>
+	
+	<div>
+    	<button id="testNoHession" onclick="testNoHession()">测试testNoHession
+        </button>
+    </div>
+	
+	<div>
+    	<button id="testHessionDatabase" onclick="testHessionDatabase()">测试testHessionDatabase
+        </button>
+    </div>
+	
 </body> 
 </html>
