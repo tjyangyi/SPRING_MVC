@@ -24,4 +24,9 @@ public interface BaseDao<T> {
 	 *批量保存 
 	 */
 	public void batchSave(List<T> entityList);
+	
+	/**
+	 * 保存到mysql数据库
+	 */
+	public void saveToMysql(T entity);
 }

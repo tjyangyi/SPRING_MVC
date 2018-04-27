@@ -105,6 +105,14 @@
     	<button id="testHessionDatabase" onclick="testHessionDatabase()">测试testHessionDatabase
         </button>
     </div>
+	<div style="padding-top:10px">
+		<h3>分布式事务管理Atomikos</h3>
+        <div >
+    		<form action="toAtomikos" method="post">  
+    	      <input name="submit" type="submit" value="分布式事务管理Atomikos" />  
+    	    </form>  
+        </div>
+    </div>
 	
 </body> 
 </html>

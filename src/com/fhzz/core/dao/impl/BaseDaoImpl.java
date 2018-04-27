@@ -32,6 +32,12 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@Resource(name = "hibernateTemplate")
 	private HibernateTemplateSupport hibernateTemplate;// 注入hibernate模板
 	
+	@Resource(name = "jdbcTemplate2")
+	private JdbcTemplageSupport jdbcTemplate2;// 注入MYSQL的JDBC模板
+
+	@Resource(name = "hibernateTemplate2")
+	private HibernateTemplateSupport hibernateTemplate2;// 注入MYSQL的hibernate模板
+	
 	@Resource(name = "hbaseTemplate")
 	private HBaseTemplateSupport hbaseTemplate;//注入HBASE模板
 
@@ -45,6 +51,11 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@Override
 	public void save(T entity) {
 		hibernateTemplate.save(entity);
+	}
+	
+	@Override
+	public void saveToMysql(T entity) {
+		hibernateTemplate2.save(entity);
 	}
 
 	@Override
@@ -93,5 +104,5 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	public HBaseTemplateSupport getHbaseTemplate() {
 		return hbaseTemplate;
 	}
-
+	
 }

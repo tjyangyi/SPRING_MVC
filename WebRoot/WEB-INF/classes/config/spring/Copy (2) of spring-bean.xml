@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<!-- 扫描注解bean -->
+	<context:component-scan base-package="com.fhzz" />
+
+	<!-- 数据源配置, 使用 Druid 数据库连接池 -->
+    <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+   		<property name="driverClassName" value="${connection.driver_class}" />
+        <property name="url" value="${connection.url}" />
+        <property name="username" value="${connection.username}" />
+        <property name="password" value="${connection.password}" />
+        <!-- 配置初始化大小、最小、最大 --> 
+        <property name="initialSize" value="0" />
+        <property name="minIdle" value="0" />
+        <property name="maxActive" value="20" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000" />
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用。获取链接的时候，不校验是否可用，开启会有损性能--> 
+        <property name="testOnBorrow" value="true" />
+        <!-- 归还链接到连接池的时候校验链接是否可用 -->
+        <property name="testOnReturn" value="false" />
+        <!-- 此项配置为true即可，不影响性能，并且保证安全性。意义为：申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效 -->
+        <property name="testWhileIdle" value="true" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <!-- 链接使用超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="true" />
+        <!-- 超过时间限制时间（单位秒），目前为5分钟，如果有业务处理时间超过5分钟，可以适当调整。 -->
+        <property name="removeAbandonedTimeout" value="300" />
+        <!-- #链接回收的时候控制台打印信息，测试环境可以加上true，线上环境false。会影响性能。 -->
+        <property name="logAbandoned" value="true" />
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 --> 
+        <property name="validationQuery" value="select 1 from dual" />
+        <!-- 配置监控统计拦截的filters，用于在界面中统计sql和开启druid防火墙。注意： -->
+        <!-- 监控中有jdbcSqlStat，原因是：com.alibaba.druid.statJdbcDataSourceStat中的createSqlStat方法中，
+            	用了一个map来存放所有的sql语句，这样会导致线上触发FullGC，可将此处注释掉 -->
+        <property name="filters" value="wall,stat" />
+        <!-- 映射慢sql -->
+         <property name="proxyFilters">
+            <list>
+                <ref bean="statfilter"/>
+                <ref bean="logFilter"/>
+            </list>
+        </property>
+    </bean> 
+    
+    <!-- 慢SQL记录  -->
+    <bean id="statfilter" class="com.alibaba.druid.filter.stat.StatFilter">
+        <!-- 开启合并sql -->
+        <property name="mergeSql" value="true" />
+        <!-- 开启慢查询语句,200毫秒 -->
+        <property name="slowSqlMillis" value="200" />
+        <property name="logSlowSql" value="true" />
+    </bean>
+    
+    <bean id="logFilter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+        <property name="resultSetLogEnabled" value="false" />
+        <property name="statementExecutableSqlLogEnable" value="true" />
+    </bean>
+    
+
+	<!-- Hibernate sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.fhzz.**.entity</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.query.substitutions">true 1, false 0</prop>
+				<prop key="hibernate.default_batch_fetch_size">16</prop>
+				<prop key="hibernate.max_fetch_depth">2</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+				<prop key="current_session_context_class">thread</prop>
+				<prop key="hibernate.connection.autoReconnect">true</prop>
+				<prop key="hibernate.connection.autoReconnectForPools">true</prop>
+				<prop key="hibernate.connection.is-connection-validation-required">true</prop>
+				<!-- 缓存Cache配置 -->
+				<!-- 打开二级缓存 -->
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<!-- 查询缓存 -->
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<!-- 由于spring也使用了Ehcache, 保证双方都使用同一个缓存管理器 -->
+				<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.SingletonEhCacheRegionFactory
+				</prop>
+				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.SingletonEhCacheProvider
+				</prop>
+				<prop key="net.sf.ehcache.configurationResourceName">config/spring/ehcache-hibernate.xml</prop>
+				<prop key="hibernate.cache.use_structured_entries">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="jdbcTemplate" class="com.fhzz.core.dao.impl.support.JdbcTemplageSupport">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="hibernateTemplate" class="com.fhzz.core.dao.impl.support.HibernateTemplateSupport">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+</beans>
