@@ -19,7 +19,7 @@
 		<button onclick="saveBothWithOracleException();">先保存MYSQL，再保存ORACLE，保存ORACLE的时候异常</button>
     </div>
 	<div>
-		<button onclick="saveBothWithMysqlException();">先保存ORACLE，再保存MYSQL，保存ORACLE的时候异常</button>
+		<button onclick="saveBothWithMysqlException();">先保存ORACLE，再保存MYSQL，保存MYSQL的时候异常</button>
     </div>
 </body>
 </html>
