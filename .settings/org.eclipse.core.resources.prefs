@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/com/fhzz/core/vo/PageResult.java=UTF-8
 encoding//src/config/config.properties=UTF-8
 encoding//src/config/jdbc.properties=UTF-8
+encoding//src/config/kafka.properties=UTF-8
 encoding//src/config/log4j.properties=UTF-8
 encoding//src/config/quartz.properties=UTF-8
 encoding//src/config/spring-security-message.properties=UTF-8

@@ -16,7 +16,6 @@ function ajaxWithoutAuth() {
 	});
 }
 
-
 function testHession() {
 	jQuery.ajax({
 		type : "POST",
@@ -62,4 +61,17 @@ function testHessionDatabase() {
 	});
 }
 
-
+function testKafkaProducerServer() {
+	jQuery.ajax({
+		type : "POST",
+		cache : false,
+		async : false,
+		url : "testKafkaProducerServer.do",
+		success : function(msg) {
+			console.log(msg);
+		},
+		error : function(msg) {
+			console.log(msg);
+		},
+	});
+}
